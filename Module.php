@@ -17,7 +17,12 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
         BootstrapListenerInterface, ConsoleUsageProviderInterface, 
         ConsoleBannerProviderInterface
 {
-
+    /**
+     * The configuration service
+     * @var array
+     */
+    protected $config;
+    
     /**
      * (non-PHPdoc)
      *
@@ -71,6 +76,7 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
      */
     public function onBootstrap (EventInterface $event)
     {
+        $this->config = $this->config = $event->getApplication()->getServiceManager()->get('config');
         $eventManager = $event->getApplication()->getEventManager();
         $eventManager->attach(MvcEvent::EVENT_ROUTE, 
                 array(
@@ -199,7 +205,7 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
      */
     public function getConsoleUsage (Console $console)
     {
-        $config = $this->getConfig();
+        $config = $this->config;
         $command = @$_SERVER['argv'][1];
         $routes = $config['console']['router']['routes'];
         if (isset($routes[$command])) {
