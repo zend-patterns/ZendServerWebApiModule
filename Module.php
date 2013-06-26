@@ -44,7 +44,7 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
             if (isset($config['console']['router']['routes'])) {
                 foreach ($config['console']['router']['routes'] as &$router) {
                     if (! isset($router['options']['no-target'])) {
-                        $router['options']['route'] .= ' [--target=] [--zsurl=] [--zskey=] [--zssecret=]';
+                        $router['options']['route'] .= ' [--target=] [--zsurl=] [--zskey=] [--zssecret=] [--zsversion=]';
                     }
                 }
             }
@@ -170,12 +170,18 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
             foreach (array(
                     'zsurl',
                     'zskey',
-                    'zssecret'
+                    'zssecret',
+                    'zsversion'
             ) as $key) {
                 if ( ! $match->getParam($key)) continue;
                 $targetConfig[$key] = $match->getParam($key);
             }
         }
+        
+        if(!isset($targetConfig['zsversion'])) {
+            $targetConfig['zsversion'] = $appConfig['zsapi']['default_target']['zsversion'];
+        }
+        
         $zendServerClient = new Model\Http\Client(null, 
                 $appConfig['zsapi']['client']);
         $serviceManager->setService('zendServerClient', $zendServerClient);

@@ -51,8 +51,8 @@ class ZendServer
     public function __construct ($config)
     {
         $this->setUri(new \Zend\Uri\Http($config['zsurl']));
-        $this->setVersion($config['zs-version']);
-        preg_match('@(^[0-9]*\.[0-9]*)@', $config['zs-version'], $shortVersion);
+        $this->setVersion($config['zsversion']);
+        preg_match('@(^[0-9]*\.[0-9]*)@', $config['zsversion'], $shortVersion);
         $shortVersion = $shortVersion[0];
         $this->setApiVersion($this->apiVersionAvailability[$shortVersion]);
     }
