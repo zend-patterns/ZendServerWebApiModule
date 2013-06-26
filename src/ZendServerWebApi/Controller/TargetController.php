@@ -27,7 +27,7 @@ class TargetController extends AbstractActionController
         } catch(\Zend\Config\Exception $ex) {}
 
         $data[$target] = array();
-        foreach (array('zsurl','zskey','zssecret') as $key) {
+        foreach (array('zsurl','zskey','zssecret', 'zsversion') as $key) {
             $value = $this->getRequest()->getParam($key);
             if($value) {
                $data[$target][$key] = $value;

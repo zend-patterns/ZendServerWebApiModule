@@ -12,12 +12,13 @@ return array (
                         'routes' => array (
                                 'addTarget' => array (
                                         'options' => array (
-                                                'route' => 'addTarget --target= [--zsurl=] --zskey= --zssecret=',
+                                                'route' => 'addTarget --target= [--zsurl=] --zskey= --zssecret= [--zsversion=]',
                                                 'defaults' => array (
                                                         'controller' => 'webapi-target-controller',
                                                         'action' => 'add',
                                                         'no-target' => true,
                                                         'zsurl'     => "http://localhost:10081",
+                                                        'zsversion' => '6.0.1',
                                                 ),
                                                 'info' => array (
                                                     'This command has to be executed first if you do not want to pass always the zskey zssecret and zsurl.',
@@ -77,7 +78,7 @@ return array (
                 'zsurl' => 'http://localhost:10081',
                 'zskey' => 'zf',
                 'zssecret' => 'a1c5b69aa706450c6715fd817b5c7cd643144bb2c70d1e4d34c8a0f3098e2c65',
-                'zs-version' => '6.0.1',
+                'zsversion' => '6.0.1',
             ),
             // HTTP Client
             'client' => array(
