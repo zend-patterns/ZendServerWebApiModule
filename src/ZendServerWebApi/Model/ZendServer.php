@@ -39,7 +39,8 @@ class ZendServer
             '5.1' => '1.0',
             '5.5' => '1.1',
             '5.6' => '1.2',
-            '6.0' => '1.3'
+            '6.0' => '1.3',
+            '6.1' => '1.4',
     )
     ;
 
@@ -49,9 +50,9 @@ class ZendServer
      */
     public function __construct ($config)
     {
-        $this->setUri(new \Zend\Uri\Http($config['url']));
-        $this->setVersion($config['version']);
-        preg_match('@(^[0-9]*\.[0-9]*)@', $config['version'], $shortVersion);
+        $this->setUri(new \Zend\Uri\Http($config['zsurl']));
+        $this->setVersion($config['zs-version']);
+        preg_match('@(^[0-9]*\.[0-9]*)@', $config['zs-version'], $shortVersion);
         $shortVersion = $shortVersion[0];
         $this->setApiVersion($this->apiVersionAvailability[$shortVersion]);
     }

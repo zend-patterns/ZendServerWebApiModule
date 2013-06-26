@@ -11,6 +11,9 @@ use Zend\Config\Reader\Ini as ConfigReader;
  */
 class TargetController extends AbstractActionController
 {
+    /**
+     * Adding a API Key 
+     */
     public function addAction()
     {
         $appConfig  = $this->serviceLocator->get('config');

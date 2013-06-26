@@ -67,13 +67,18 @@ return array (
 
         //  Zend Server API specific Settings
         'zsapi' => array (
+            //Target definition file
             'file' => $_SERVER['HOME'].'/.zsapi.ini',
-            // Default Zend Server URL
-            'url' => 'http://localhost:10081',
-            'version' => '6.0.1',
+            // Default Zend Server Target
+            'default_target' => array(
+                'zsurl' => 'http://localhost:10081',
+                'zskey' => 'zf',
+                'zssecret' => 'a1c5b69aa706450c6715fd817b5c7cd643144bb2c70d1e4d34c8a0f3098e2c65',
+                'zs-version' => '6.0.1',
+            ),
             // HTTP Client
             'client' => array(
-                'adapter' => 'Zend\Http\Client\Adapter\Socket',
-            )
+                'adapter' => '\ZendServerWebApi\Model\Http\Adapter\Socket',
+            ),
         ),
 );

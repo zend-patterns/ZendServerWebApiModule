@@ -51,13 +51,11 @@ class ApiController extends AbstractController
             if (in_array($name, array('action','controller'))) continue;
             $requestParameters[$name] = $value;
         }
-
         if(method_exists($this, $action.'Action')) {
             $response = $this->{$action.'Action'}($requestParameters);
         } else {
             $response = $this->sendApiRequest($requestParameters);
         }
-
         return $response->getHttpResponse();
     }
 
@@ -73,10 +71,8 @@ class ApiController extends AbstractController
             $serviceLocator = $this->getServiceLocator();
             $this->apiManager = $serviceLocator->get('zend_server_api');
         }
-
         $action = $this->params('action');
         $response = $this->apiManager->$action($params);
-
         return $response;
     }
 }

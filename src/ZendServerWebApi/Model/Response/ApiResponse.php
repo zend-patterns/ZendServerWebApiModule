@@ -95,6 +95,7 @@ class ApiResponse
     public static function factory (Response $httpResponse)
     {
         $responseBody = $httpResponse->getBody();
+        //@Todo : manage forbidden acess
         preg_match('@<method>([a-zA-Z]*)</method>@', $responseBody, 
                 $methodMatch);
         $method = $methodMatch[1];
