@@ -58,8 +58,7 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
         return array(
                 'Zend\Loader\StandardAutoloader' => array(
                         'namespaces' => array(
-                                __NAMESPACE__ => __DIR__ . '/src/' .
-                                         __NAMESPACE__
+                                'ZendServerWebApi' => __DIR__ . '/src/ZendServerWebApi'
                         )
                 )
         );
