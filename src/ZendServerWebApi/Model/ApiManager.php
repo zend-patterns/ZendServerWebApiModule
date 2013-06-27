@@ -45,11 +45,11 @@ class ApiManager
     /**
      * API Manager constructor
      *
-     * @param unknown $targetServer            
-     * @param unknown $apiKey            
-     * @param unknown $zendServerClient            
+     * @param unknown $targetServer
+     * @param unknown $apiKey
+     * @param unknown $zendServerClient
      */
-    public function __construct ($targetServer, $apiKey, $zendServerClient, 
+    public function __construct ($targetServer, $apiKey, $zendServerClient,
             $apiConfig)
     {
         $this->setTargetServer($targetServer);
@@ -61,27 +61,53 @@ class ApiManager
     /**
      * Magical function to use API method has API Manager method.
      *
-     * @param string $action            
-     * @param array $args            
+     * @param  string       $action
+     * @param  array        $args
      * @return ApiResponse;
      */
     public function __call ($action, $args)
     {
         $methodConf = 'get';
-        if (isset($this->apiConfig[$action]['options']['defaults']['apiMethod'])) {
-            $methodConf = $this->apiConfig[$action]['options']['defaults']['apiMethod'];
+        $actionOptions = $this->apiConfig[$action]['options'];
+        if (isset($actionOptions['defaults']['apiMethod'])) {
+            $methodConf = $actionOptions['defaults']['apiMethod'];
         }
         $apiRequest = new Request($this->targetServer, $action, $this->apiKey);
-        if (isset($args[0]))
+        if (isset($args[0])) {
+            if ($methodConf == 'post') {
+                $files = array();
+                if(isset($actionOptions['files'])) {
+                    foreach($actionOptions['files'] as $fileParam) {
+                        $filePath = $args[0][$fileParam];
+                        $files[$filePath] = array(
+                            'formname' => $fileParam,
+                            'filename' => basename($filePath),
+                            'data'     => null,
+                            'ctype'    => null,
+                        );
+                        unset($args[0][$fileParam]);
+                    }
+                    unset($args[0]['files']);
+                }
+
+                if(count($files)) {
+                    $apiRequest->setFiles(new \Zend\Stdlib\Parameters($files));
+                }
+            }
+
             $apiRequest->setParameters($args[0]);
-        if ($methodConf == 'post')
+        }
+
+        if ($methodConf == 'post') {
             $apiRequest->setMethod(Request::METHOD_POST);
+        }
         $apiRequest->prepareRequest();
         $httpResponse = $this->zendServerClient->send($apiRequest);
         $response = ApiResponse::factory($httpResponse);
         if ($response->isError()) {
             throw new ApiException($response);
         }
+
         return $response;
     }
 
@@ -114,7 +140,7 @@ class ApiManager
 
     /**
      *
-     * @param \ZendServerWebApi\Model\ZendServerWebApi\Model\ApiKey $apiKey            
+     * @param \ZendServerWebApi\Model\ZendServerWebApi\Model\ApiKey $apiKey
      */
     public function setApiKey ($apiKey)
     {
@@ -123,7 +149,7 @@ class ApiManager
 
     /**
      *
-     * @param \ZendServerWebApi\Model\ZendServerwebApi\Model\ZendServer $targetServer            
+     * @param \ZendServerWebApi\Model\ZendServerwebApi\Model\ZendServer $targetServer
      */
     public function setTargetServer ($targetServer)
     {
@@ -132,7 +158,7 @@ class ApiManager
 
     /**
      *
-     * @param \ZendServerWebApi\Model\Zend\Http\Client $zendServerClient            
+     * @param \ZendServerWebApi\Model\Zend\Http\Client $zendServerClient
      */
     public function setZendServerClient ($zendServerClient)
     {
@@ -150,7 +176,7 @@ class ApiManager
 
     /**
      *
-     * @param \ZendServerWebApi\Model\unknown $apiConfig            
+     * @param \ZendServerWebApi\Model\unknown $apiConfig
      */
     public function setApiConfig ($apiConfig)
     {
