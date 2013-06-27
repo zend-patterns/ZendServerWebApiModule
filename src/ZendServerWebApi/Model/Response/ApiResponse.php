@@ -57,7 +57,8 @@ class ApiResponse
     {
         $this->setHttpResponse($httpResponse);
         // Looking for HTTP error
-        if (! $this->httpResponse->isOk()) {
+        $statusCode = $this->httpResponse->getStatusCode();
+        if (!($statusCode> 199 && $statusCode<300)) {
             $this->isError = true;
             $this->setErrorMessage($this->httpResponse->getReasonPhrase());
         }
