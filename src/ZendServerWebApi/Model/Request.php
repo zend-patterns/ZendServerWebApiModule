@@ -113,7 +113,11 @@ class Request extends Http\Request
         $headers->addHeaderLine('X-Zend-Signature', 
                 $this->apiKey->getName() . ';' . $signature);
         if ($this->isPost()) {
-            $headers->addHeaderLine('Content-Type', 'multipart/form-data');
+            if(count($this->getFiles())) {
+                $headers->addHeaderLine('Content-Type', 'multipart/form-data');
+            } else {
+                $headers->addHeaderLine('Content-Type', 'application/x-www-form-urlencoded');
+            }
             $this->setPostParameter();
         } else
             $this->setGetParameter();
