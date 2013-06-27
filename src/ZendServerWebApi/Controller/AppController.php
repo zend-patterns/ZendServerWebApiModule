@@ -19,11 +19,15 @@ class AppController extends AbstractActionController
         $appId      = 0;
 
         $apiManager = $this->serviceLocator->get('zend_server_api');
+        $zpkService = $this->serviceLocator->get('zpk');
+        
+        // validate the package
+        //$zpkService->validateMeta($zpk);
 
         if(!$appName) {
             // get the name of the application from the package
             try {
-                $xml = $this->serviceLocator->get('zpk')->getMeta($zpk);
+                $xml = $zpkService->getMeta($zpk);
             } catch (\ErrorException $ex) {
                 throw new \Zend\Mvc\Exception\RuntimeException($ex->getMessage(), $ex->getCode(), $ex);
             }
