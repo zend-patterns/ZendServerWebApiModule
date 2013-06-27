@@ -3,6 +3,7 @@ namespace ZendServerWebApi\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Config\Writer\Ini as ConfigWriter;
 use Zend\Config\Reader\Ini as ConfigReader;
+use Zend\Config\Exception as ConfigException;
 
 /**
  * Main Console Controller
@@ -24,7 +25,7 @@ class TargetController extends AbstractActionController
         try {
             $reader = new ConfigReader();
             $data = $reader->fromFile($appConfig['zsapi']['file']);
-        } catch(\Zend\Config\Exception $ex) {}
+        } catch(ConfigException\RuntimeException $ex) {}
 
         $data[$target] = array();
         foreach (array('zsurl','zskey','zssecret', 'zsversion') as $key) {
