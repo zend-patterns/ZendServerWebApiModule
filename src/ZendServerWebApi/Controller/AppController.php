@@ -22,7 +22,7 @@ class AppController extends AbstractActionController
         $zpkService = $this->serviceLocator->get('zpk');
         
         // validate the package
-        //$zpkService->validateMeta($zpk);
+        $zpkService->validateMeta($zpk);
 
         if(!$appName) {
             // get the name of the application from the package
