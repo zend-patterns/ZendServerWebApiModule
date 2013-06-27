@@ -71,8 +71,8 @@ return array (
             //Target definition file
             'file' => (isset($_SERVER['HOME'])? $_SERVER['HOME']: 
                              $_SERVER['HOMEDRIVE'].$_SERVER['HOMEPATH'] // Available on Windows
-                      ).
-                      '/.zsapi.ini',
+                      ).DIRECTORY_SEPARATOR.
+                      '.zsapi.ini',
             // Default Zend Server Target
             'default_target' => array(
                 'zsurl' => 'http://localhost:10081',
