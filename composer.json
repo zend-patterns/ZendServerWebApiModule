@@ -1,5 +1,5 @@
 {
-    "name": "zendserverwebapi/zendserverwebapi",
+    "name": "zenddevops/webapi",
     "description": "Provides easy access to Zend Server API",
     "keywords": [
         "zf2", "zend server"
