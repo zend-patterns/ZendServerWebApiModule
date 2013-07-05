@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-		xmlns="http://www.zend.com/server/deployment-descriptor/1.0"
-		targetNamespace="http://www.zend.com/server/deployment-descriptor/1.0"
-		elementFormDefault="qualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+           xmlns="http://www.zend.com/server/deployment-descriptor/1.0"
+           targetNamespace="http://www.zend.com/server/deployment-descriptor/1.0"
+           elementFormDefault="qualified">
 	<xs:element name="package">
 		<xs:annotation>
 			<xs:documentation></xs:documentation>
@@ -26,15 +26,18 @@
 				<xs:element ref="dependencies" minOccurs="0" maxOccurs="1" />
 				<xs:element ref="parameters" minOccurs="0" maxOccurs="1" />
 				<xs:element ref="variables" minOccurs="0" maxOccurs="1" />
-				<xs:element ref="persistentresources" minOccurs="0" maxOccurs="1" />
+				<xs:element ref="persistentresources" minOccurs="0" maxOccurs="1" />				
 			</xs:sequence>
+
 			<xs:attribute name="version" type="xs:string" use="required">
 				<xs:annotation>
 					<xs:documentation>Package descriptor format version</xs:documentation>
 				</xs:annotation>
 			</xs:attribute>
+
 		</xs:complexType>
 	</xs:element>
+
 	<xs:element name="version">
 		<xs:annotation>
 			<xs:documentation>Application version</xs:documentation>
@@ -46,6 +49,7 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
+
 	<xs:element name="dependencies">
 		<xs:annotation>
 			<xs:documentation>Application dependencies block</xs:documentation>
@@ -65,12 +69,14 @@
 							<xs:element ref="zendservercomponent" minOccurs="0" maxOccurs="unbounded" />
 							<xs:element ref="zendframework" minOccurs="0" maxOccurs="unbounded" />
 							<xs:element ref="zendframework2" minOccurs="0" maxOccurs="unbounded" />
+							<xs:element ref="library" minOccurs="0" maxOccurs="unbounded" />
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
+
 	<xs:element name="php">
 		<xs:annotation>
 			<xs:documentation>PHP version dependencies block</xs:documentation>
@@ -84,6 +90,7 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
+
 	<xs:element name="extension">
 		<xs:annotation>
 			<xs:documentation>PHP extensions dependencies block</xs:documentation>
@@ -99,6 +106,7 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
+
 	<xs:element name="directive">
 		<xs:annotation>
 			<xs:documentation>PHP directives dependencies block</xs:documentation>
@@ -112,6 +120,7 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
+
 	<xs:element name="zendserver">
 		<xs:annotation>
 			<xs:documentation>Zend Server dependencies block</xs:documentation>
@@ -125,6 +134,7 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
+
 	<xs:element name="zendservercomponent">
 		<xs:annotation>
 			<xs:documentation>Zend Server components dependencies block</xs:documentation>
@@ -140,6 +150,7 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
+
 	<xs:element name="zendframework">
 		<xs:annotation>
 			<xs:documentation>Zend Framework dependencies block</xs:documentation>
@@ -153,6 +164,7 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
+
 	<xs:element name="zendframework2">
 		<xs:annotation>
 			<xs:documentation>Zend Framework 2 dependencies block</xs:documentation>
@@ -166,6 +178,22 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
+	
+	<xs:element name="library">
+			<xs:annotation>
+					<xs:documentation>Deployment Libraries dependencies block</xs:documentation>
+			</xs:annotation>
+			<xs:complexType>
+				<xs:sequence>
+					<xs:element name="name" minOccurs="1" maxOccurs="1" />
+					<xs:element name="equals" minOccurs="0" maxOccurs="1" />
+					<xs:element name="min" minOccurs="0" maxOccurs="1" />
+					<xs:element name="max" minOccurs="0" maxOccurs="1" />
+					<xs:element name="exclude" minOccurs="0" maxOccurs="unbounded" />
+				</xs:sequence>
+			</xs:complexType>
+	</xs:element>
+
 	<xs:element name="parameters">
 		<xs:annotation>
 			<xs:documentation>Package parameters</xs:documentation>
@@ -176,6 +204,7 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
+
 	<xs:element name="parameter">
 		<xs:annotation>
 			<xs:documentation></xs:documentation>
@@ -198,6 +227,7 @@
 				<xs:element name="defaultvalue" minOccurs="0" maxOccurs="1" />
 				<xs:element name="description" minOccurs="0" maxOccurs="1" />
 			</xs:sequence>
+
 			<xs:attribute name="id" type="xs:string" use="required" />
 			<xs:attribute name="display" type="xs:string" use="required" />
 			<xs:attribute name="required" type="xs:boolean" use="required" />
@@ -222,6 +252,7 @@
 			<xs:attribute name="readonly" type="xs:boolean" use="optional" />
 		</xs:complexType>
 	</xs:element>
+
 	<xs:element name="variables">
 		<xs:annotation>
 			<xs:documentation>Environment variables for the deployment scripts</xs:documentation>
@@ -231,7 +262,7 @@
 				<xs:element minOccurs="0" maxOccurs="unbounded" name="variable">
 					<xs:annotation>
 						<xs:documentation>Single environment variable with a name and a
-						string value.</xs:documentation>
+							string value.</xs:documentation>
 					</xs:annotation>
 					<xs:complexType>
 						<xs:attribute name="name" use="required">
@@ -260,6 +291,7 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
+
 	<xs:element name="persistentresources">
 		<xs:annotation>
 			<xs:documentation>Persistent resources to be kept during upgrade</xs:documentation>
@@ -270,4 +302,5 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
+
 </xs:schema>
