@@ -16,7 +16,6 @@ return array (
                                                 'defaults' => array (
                                                         'controller' => 'webapi-target-controller',
                                                         'action' => 'add',
-                                                        'no-target' => true,
                                                         'zsurl'     => "http://localhost:10081",
                                                         'zsversion' => '6.0.1',
                                                 ),
@@ -26,7 +25,8 @@ return array (
                                                     array('--zsurl','The Zend Server URL. If not specified then it will be http://localhost:10081'),
                                                     array('--zskey', 'The name of the API key'),
                                                     array('--zssecret', 'The hash of the API key'),
-                                                )
+                                                ),
+                                                'no-target' => true,
                                         )
                                 ),
                                 'installApp' => array (

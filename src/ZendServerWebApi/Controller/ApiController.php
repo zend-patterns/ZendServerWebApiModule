@@ -31,6 +31,27 @@ class ApiController extends AbstractController
         }
         return $this->sendApiRequest($args);
     }
+    
+    public function bootstrapSingleServerAction($args)
+    {
+        $keyService = $this->getServiceLocator()->get('defaultApiKey');
+        $keyService->setName('');
+        $keyService->setKey('');
+                
+        $response = $this->sendApiRequest($args);
+        if(isset($args['simple-output'])) {
+            $data = $response->responseData->bootstrap;
+            $content = '';
+            if(sprintf('%s', $data->success) == "true") {
+                $content = sprintf("%s\n", $data->apiKey->name);
+                $content.= sprintf("%s\n", $data->apiKey->hash);
+            }
+           
+            $response->getHttpResponse()->setContent($content);
+        }
+        
+        return $response;
+    }
 
     /**
      * (non-PHPdoc)
