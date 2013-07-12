@@ -83,14 +83,16 @@ return array (
                                                 )
                                         )
                                 ),
-                                'bootstrapSingleserver' => array (
+                                'bootstrapSingleServer' => array (
                                         'options' => array (
-                                                'route' => 'bootstrapSingleserver [--production=] --adminPassword= [--applicationUrl=] [--adminEmail=] [--developerPassword=] [--orderNumber=] [--licenseKey=] --acceptEula=',
+                                                'route' => 'bootstrapSingleServer [--zsurl=] [--production=] --adminPassword= [--applicationUrl=] [--adminEmail=] [--developerPassword=] [--orderNumber=] [--licenseKey=] --acceptEula= [--simple-output]',
                                                 'defaults' => array (
+                                                        'zsurl'     => 'http://localhost:10081',
                                                         'controller' => 'webapi-api-controller',
-                                                        'action' => 'bootstrapSingleserver',
+                                                        'action' => 'bootstrapSingleServer',
                                                         'apiMethod' => 'post'
-                                                )
+                                                ),
+                                                'no-target' => true,
                                         )
                                 ),
                                 'serverStoreLicense' => array (

@@ -111,7 +111,7 @@ class Request extends Http\Request
         $headers->addHeaderLine('Accept', 
                 'application/vnd.zend.serverapi+xml;version=' . $this->apiVersion);
         $headers->addHeaderLine('X-Zend-Signature', 
-                $this->apiKey->getName() . ';' . $signature);
+                $this->apiKey->getName() . '; ' . $signature);
         if ($this->isPost()) {
             if(count($this->getFiles())) {
                 $headers->addHeaderLine('Content-Type', 'multipart/form-data');

@@ -137,15 +137,20 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
     public function preDispatch (MvcEvent $event)
     {
         $match = $event->getRouteMatch();
-        if (! $match)
+        if (! $match) {
             return;
+        }
         $serviceManager = $event->getApplication()->getServiceManager();
         $appConfig = $serviceManager->get('config');
-        //$targetConfig = array();
-        if ($match->getParam('no-target')) return;
+        $targetConfig = array();
+        $routeName = $match->getMatchedRouteName();
+        if (!isset($appConfig['console']['router']['routes'][$routeName]['options']['no-target'])) {
+            return;
+        }
         // Set a default target
-        if (isset($appConfig['zsapi']['default_target']))
+        if (isset($appConfig['zsapi']['default_target'])) {
             $targetConfig = $appConfig['zsapi']['default_target'];
+        }
         // Manage named target (config file defined target)
         $target = $match->getParam('target');
         if ($target) {
