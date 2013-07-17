@@ -76,7 +76,7 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
      */
     public function onBootstrap (EventInterface $event)
     {
-        $this->config = $this->config = $event->getApplication()->getServiceManager()->get('config');
+    	$this->config = $this->config = $event->getApplication()->getServiceManager()->get('config');
         $eventManager = $event->getApplication()->getEventManager();
         $eventManager->attach(MvcEvent::EVENT_ROUTE, 
                 array(
@@ -136,7 +136,7 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
      */
     public function preDispatch (MvcEvent $event)
     {
-        $match = $event->getRouteMatch();
+    	$match = $event->getRouteMatch();
         if (! $match) {
             return;
         }
@@ -144,7 +144,7 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
         $appConfig = $serviceManager->get('config');
         $targetConfig = array();
         $routeName = $match->getMatchedRouteName();
-        if (!isset($appConfig['console']['router']['routes'][$routeName]['options']['no-target'])) {
+        if (isset($appConfig['console']['router']['routes'][$routeName]['options']['no-target'])) {
             return;
         }
         // Set a default target
