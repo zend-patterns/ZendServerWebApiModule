@@ -1,9 +1,10 @@
 {
-    "name": "zendserverwebapi/zendserverwebapi",
+    "name": "zenddevops/webapi",
     "description": "Provides easy access to Zend Server API",
     "keywords": [
         "zf2", "zend server"
     ],
+    "license": "BSD-3-Clause",
     "require": {
         "php": ">=5.3.3",
         "zendframework/zend-serializer" : ">=2.0.0",
