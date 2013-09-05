@@ -3,7 +3,6 @@ return array (
 		'console' => array (
 				'router' => array (
 						'routes' => array (
-								// Zend Server Daemons
 								'libraryGetStatus' => array (
 										'options' => array (
 												'route' => 'libraryGetStatus [--libraries=] [--direction=]',
@@ -19,7 +18,6 @@ return array (
 												'Get the list of libraries currently deployed on the server or the cluster, and information about each library’s available versions.' 
 										) 
 								),
-								// Zend Server Daemons
 								'libraryVersionCheckDependents' => array (
 										'options' => array (
 												'route' => 'libraryVersionCheckDependents --libraryVersionId=',

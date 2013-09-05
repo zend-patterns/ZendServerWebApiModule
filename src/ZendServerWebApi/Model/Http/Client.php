@@ -230,10 +230,9 @@ class Client extends ZendClient
         }
 
         $body = '';
-        $totalFiles = 0;
+        $totalFiles = count($this->getRequest()->getFiles()->toArray());
 
         if (!$this->getRequest()->getHeaders()->has('Content-Type')) {
-            $totalFiles = count($this->getRequest()->getFiles()->toArray());
             // If we have files to upload, force encType to multipart/form-data
             if ($totalFiles > 0) {
                 $this->setEncType(self::ENC_FORMDATA);
@@ -241,7 +240,7 @@ class Client extends ZendClient
         } else {
             $this->setEncType($this->getHeader('Content-Type'));
         }
-
+        
         // If we have POST parameters encode and add them to the body
         // Do not add the files at that moment
         if (count($this->getRequest()->getPost()->toArray()) > 0 || $totalFiles > 0) {
