@@ -147,17 +147,18 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
         if (isset($appConfig['console']['router']['routes'][$routeName]['options']['no-target'])) {
             return;
         }
-        // Set a default target
+        // Set a default target configuration
         if (isset($appConfig['zsapi']['default_target'])) {
             $targetConfig = $appConfig['zsapi']['default_target'];
         }
-        // Manage named target (config file defined target)
+        
+        // Read information from named target configuration
         $target = $match->getParam('target');
         if ($target) {
             try {
                 $reader = new ConfigReader();
                 $data = $reader->fromFile($appConfig['zsapi']['file']);
-                $targetConfig = $data[$target];
+                $targetConfig = array_merge($targetConfig, $data[$target]);
             } catch (\Zend\Config\Exception $ex) {
                 throw new \Zend\Console\Exception\RuntimeException(
                         'Make sure that you have set your target first. \n
@@ -165,26 +166,26 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
                                  __FILE__ .
                                  ' add-target --target=<UniqueName> --zsurl=http://localhost:10081/ZendServer --zskey= --zssecret=');
             }
-        }         // Command line overrided target
-        else {
-            if (! $targetConfig && ! ($match->getParam('zskey') || $match->getParam('zssecret') ||
-                     $match->getParam('zsurl'))) {
+        }
+
+        if (empty($targetConfig) && 
+        	! ($match->getParam('zskey') || $match->getParam('zssecret') || $match->getParam('zsurl'))
+        ) {
                 throw new \Zend\Console\Exception\RuntimeException(
                         'Specify either a --target= parameter or --zsurl=http://localhost:10081/ZendServer --zskey= --zssecret=');
-            }
-            foreach (array(
+        }
+        
+        // optional: override the target parameters from the command line 
+        foreach (array(
                     'zsurl',
                     'zskey',
                     'zssecret',
                     'zsversion'
-            ) as $key) {
-                if ( ! $match->getParam($key)) continue;
+        ) as $key) {
+                if ( ! $match->getParam($key)) {
+                	continue;
+                }
                 $targetConfig[$key] = $match->getParam($key);
-            }
-        }
-        
-        if(!isset($targetConfig['zsversion'])) {
-            $targetConfig['zsversion'] = $appConfig['zsapi']['default_target']['zsversion'];
         }
         
         $zendServerClient = new Model\Http\Client(null, 
