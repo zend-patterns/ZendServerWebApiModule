@@ -31,7 +31,7 @@ class ZendServer
     protected $uri;
 
     /**
-     * Array of available api version dapending on Zend Server version
+     * Mapping table between Zend Server version and WebAPI version
      * 
      * @var array
      */
@@ -53,6 +53,9 @@ class ZendServer
         $this->setVersion($config['zsversion']);
         preg_match('@(^[0-9]*\.[0-9]*)@', $config['zsversion'], $shortVersion);
         $shortVersion = $shortVersion[0];
+        if(!isset($this->apiVersionAvailability[$shortVersion])) {
+        	throw new \RuntimeException("Invalid or unsupported Zend Server version");
+        }
         $this->setApiVersion($this->apiVersionAvailability[$shortVersion]);
     }
 
