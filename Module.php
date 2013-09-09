@@ -10,8 +10,7 @@ use ZendServerWebApi\Model\ZendServer;
 use Zend\ModuleManager\Feature\ConsoleUsageProviderInterface;
 use Zend\Console\Adapter\AdapterInterface as Console;
 use Zend\ModuleManager\Feature\ConsoleBannerProviderInterface;
-use Zend\Config\Reader\Ini as ConfigReader;
-use Zend\Http\Response as HttpResponse;
+
 
 class Module implements ConfigProviderInterface, AutoloaderProviderInterface, 
         BootstrapListenerInterface, ConsoleUsageProviderInterface, 
@@ -77,55 +76,12 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
     public function onBootstrap (EventInterface $event)
     {
     	$this->config = $this->config = $event->getApplication()->getServiceManager()->get('config');
-        $eventManager = $event->getApplication()->getEventManager();
-        $eventManager->attach(MvcEvent::EVENT_ROUTE, 
-                array(
-                        $this,
-                        'postRoute'
-                ), - 2);
-        
+        $eventManager = $event->getApplication()->getEventManager(); 
         $eventManager->attach(MvcEvent::EVENT_DISPATCH, 
                 array(
                         $this,
                         'preDispatch'
                 ), 100);
-        
-        $eventManager->attach(MvcEvent::EVENT_FINISH, 
-                array(
-                        $this,
-                        'preFinish'
-                ), 100);
-    }
-
-    /**
-     * Manage Array-like parameters
-     *
-     * @param MvcEvent $event            
-     */
-    public function postRoute (MvcEvent $event)
-    {
-        $match = $event->getRouteMatch();
-        if (! $match) {
-            return;
-        }
-        // normalization of the arguments
-        $config = $event->getApplication()
-            ->getServiceManager()
-            ->get('config');
-        $routeName = $match->getMatchedRouteName();
-        if (isset(
-                $config['console']['router']['routes'][$routeName]['options']['arrays'])) {
-            foreach ($config['console']['router']['routes'][$routeName]['options']['arrays'] as $arrayParam) {
-                if ($value = $match->getParam($arrayParam)) {
-                    $data = array();
-                    // @todo: add exception if the value is not a valid query
-                    // string
-                    parse_str($value, $data); // the values is provided like
-                                              // a query string
-                    $match->setParam($arrayParam, $data);
-                }
-            }
-        }
     }
 
     /**
@@ -141,73 +97,16 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
             return;
         }
         $serviceManager = $event->getApplication()->getServiceManager();
-        $appConfig = $serviceManager->get('config');
-        $targetConfig = array();
-        $routeName = $match->getMatchedRouteName();
-        if (isset($appConfig['console']['router']['routes'][$routeName]['options']['no-target'])) {
-            return;
-        }
-        // Set a default target configuration
-        if (isset($appConfig['zsapi']['default_target'])) {
-            $targetConfig = $appConfig['zsapi']['default_target'];
-        }
-        
-        // Read information from named target configuration
-        $target = $match->getParam('target');
-        if ($target) {
-            try {
-                $reader = new ConfigReader();
-                $data = $reader->fromFile($appConfig['zsapi']['file']);
-                $targetConfig = array_merge($targetConfig, $data[$target]);
-            } catch (\Zend\Config\Exception $ex) {
-                throw new \Zend\Console\Exception\RuntimeException(
-                        'Make sure that you have set your target first. \n
-                                                                This can be done with ' .
-                                 __FILE__ .
-                                 ' add-target --target=<UniqueName> --zsurl=http://localhost:10081/ZendServer --zskey= --zssecret=');
-            }
-        }
-
-        if (empty($targetConfig) && 
-        	! ($match->getParam('zskey') || $match->getParam('zssecret') || $match->getParam('zsurl'))
-        ) {
-                throw new \Zend\Console\Exception\RuntimeException(
-                        'Specify either a --target= parameter or --zsurl=http://localhost:10081/ZendServer --zskey= --zssecret=');
-        }
-        
-        // optional: override the target parameters from the command line 
-        foreach (array(
-                    'zsurl',
-                    'zskey',
-                    'zssecret',
-                    'zsversion'
-        ) as $key) {
-                if ( ! $match->getParam($key)) {
-                	continue;
-                }
-                $targetConfig[$key] = $match->getParam($key);
-        }
-        
+        $config = $serviceManager->get('config');
+        $targetConfig = $config['zsapi']['target'];
         $zendServerClient = new Model\Http\Client(null, 
-                $appConfig['zsapi']['client']);
+                $config['zsapi']['client']);
         $serviceManager->setService('zendServerClient', $zendServerClient);
         $defaultApiKey = new ApiKey($targetConfig['zskey'], 
                 $targetConfig['zssecret']);
         $serviceManager->setService('defaultApiKey', $defaultApiKey);
         $targetServer = new ZendServer($targetConfig);
         $serviceManager->setService('targetZendServer', $targetServer);
-    }
-
-    /**
-     *
-     * @param MvcEvent $event            
-     */
-    public function preFinish (MvcEvent $event)
-    {
-        $response = $event->getResponse();
-        if ($response instanceof HttpResponse) {
-            $response->setContent($response->getBody());
-        }
     }
 
     /**
