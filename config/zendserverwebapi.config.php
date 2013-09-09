@@ -1,4 +1,5 @@
 <?php
+use Zend\Stdlib\ArrayObject;
 return array (
         'controllers' => array (
                 'invokables' => array (
@@ -41,18 +42,13 @@ return array (
 
         //  Zend Server API specific Settings
         'zsapi' => array (
-            //Target definition file
-            'file' => (isset($_SERVER['HOME'])? $_SERVER['HOME']: 
-                             $_SERVER['HOMEDRIVE'].$_SERVER['HOMEPATH'] // Available on Windows
-                      ).DIRECTORY_SEPARATOR.
-                      '.zsapi.ini',
             // Default Zend Server Target
-            'default_target' => array(
+            'target' => new ArrayObject(array(
                 'zsurl' => 'http://localhost:10081',
                 'zskey' => 'zf',
                 'zssecret' => 'a1c5b69aa706450c6715fd817b5c7cd643144bb2c70d1e4d34c8a0f3098e2c65',
                 'zsversion' => '6.1',
-            ),
+            )),
             // HTTP Client
             'client' => array(
                 'adapter' => '\ZendServerWebApi\Model\Http\Adapter\Socket',

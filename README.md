@@ -27,31 +27,23 @@ API Request parameters POST or GET can be passed to the ApiManger by using an ar
             'direction' => 'DESC'
         ));
 
-CLI mode
---------
-Zend Server Web API can be called in CLI mode by using :
-    php index.php zsapi <method name> --parameterName paramValue
-    
-/!\ Array parameters like "filter" are not supported in CLI mode.
-
 Setting
 -------
-You can set a default configuration of your environment in the zendserverwebapi.conf.php file :
+You can set a default configuration of your environment in the zendserverwebapi.conf.php file 
+under the 'zsapi' key:
 
-       //Configuratin of the HTTP client that will connect to the Zend Server
-		'zend_server_client' => array (
-				'adapter' => 'Zend\Http\Client\Adapter\Curl'.
+ 'zsapi' => array (
+		//Configuratin of the HTTP client that will connect to the Zend Server
+		'client' => array (
+				'adapter' => 'Zend\Http\Client\Adapter\Curl',
 		),
-		// Zend Server API : The Zend Server you want to reach through API
-		'target_zend_server' => array (
-				'version' => '6.0.1',
-				'url' => 'http://localhost:10081' 
-		),
-		//The API key used within the request.
-		'default_api_key' => array (
-				'name' => 'zf',
-				'key' => 'a1c5b69aa706450c6715fd817b5c7cd643144b...' 
-		),
+		// Target - the Zend Server you want to reach through API
+		'target' => new ArrayObject(array (
+			'zsurl' => 'http://localhost:10081', //
+            'zskey' => '<SECRET-NAME>',
+            'zssecret' => '<SECRET-HASH>',
+            'zsversion' => '6.1',
+		)),
 
 
 
