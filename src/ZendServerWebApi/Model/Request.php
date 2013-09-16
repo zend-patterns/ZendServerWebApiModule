@@ -84,7 +84,7 @@ class Request extends Http\Request
      * 
      * @see \Zend\Http\Request::setUri()
      */
-    public function setUri ()
+    public function setUri ($uri = null)
     {
         parent::setUri($this->targetServer->getUri());
         $this->uri->setPath(self::API_URI . $this->action);
