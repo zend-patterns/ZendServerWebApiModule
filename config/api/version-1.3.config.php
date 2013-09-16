@@ -153,6 +153,10 @@ return array (
                                                         'controller' => 'webapi-api-controller',
                                                         'action' => 'emailSend',
                                                         'apiMethod' => 'post'
+                                                ),
+                                                'arrays' => array(
+                                                        'templateParams',
+                                                        'headers'
                                                 )
                                         )
                                 ),
@@ -163,6 +167,9 @@ return array (
                                                         'controller' => 'webapi-api-controller',
                                                         'action' => 'configurationExtensionsOn',
                                                         'apiMethod' => 'post'
+                                                ),
+                                                'arrays' => array(
+                                                        'extensions'
                                                 )
                                         )
                                 ),
@@ -173,6 +180,9 @@ return array (
                                                         'controller' => 'webapi-api-controller',
                                                         'action' => 'configurationExtensionsOff',
                                                         'apiMethod' => 'post'
+                                                ),
+                                                'arrays' => array(
+                                                        'extensions'
                                                 )
                                         )
                                 ),
@@ -182,6 +192,9 @@ return array (
                                                 'defaults' => array (
                                                         'controller' => 'webapi-api-controller',
                                                         'action' => 'configurationValidateDirectives'
+                                                ),
+                                                'arrays' => array(
+                                                        'directives'
                                                 )
                                         )
                                 ),
@@ -192,6 +205,9 @@ return array (
                                                         'controller' => 'webapi-api-controller',
                                                         'action' => 'configurationStoreDirectives',
                                                         'apiMethod' => 'post'
+                                                ),
+                                                'arrays' => array(
+                                                        'directives'
                                                 )
                                         )
                                 ),
@@ -259,6 +275,9 @@ return array (
                                                         'controller' => 'webapi-api-controller',
                                                         'action' => 'configurationReset',
                                                         'apiMethod' => 'post'
+                                                ),
+                                                'files' => array(
+                                                        'configFile'
                                                 )
                                         )
                                 ),

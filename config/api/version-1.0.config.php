@@ -9,6 +9,9 @@ return array (
                                                 'defaults' => array (
                                                         'controller' => 'webapi-api-controller',
                                                         'action' => 'configurationExport'
+                                                ),
+                                                'arrays' => array(
+                                                        'directivesBlacklist'
                                                 )
                                         )
                                 ),
@@ -19,6 +22,9 @@ return array (
                                                         'controller' => 'webapi-api-controller',
                                                         'action' => 'configurationImport',
                                                         'apiMethod' => 'post'
+                                                ),
+                                                'files'=>array(
+                                                        'configFile'
                                                 )
                                         )
                                 ),
