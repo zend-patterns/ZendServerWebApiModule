@@ -10,6 +10,7 @@ use ZendServerWebApi\Model\ZendServer;
 use Zend\ModuleManager\Feature\ConsoleUsageProviderInterface;
 use Zend\Console\Adapter\AdapterInterface as Console;
 use Zend\ModuleManager\Feature\ConsoleBannerProviderInterface;
+use Zend\Stdlib\ArrayObject;
 
 
 class Module implements ConfigProviderInterface, AutoloaderProviderInterface, 
@@ -75,13 +76,16 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
      */
     public function onBootstrap (EventInterface $event)
     {
-    	$this->config = $this->config = $event->getApplication()->getServiceManager()->get('config');
+    	$serviceManager = $event->getApplication()->getServiceManager();
+    	$this->config = $serviceManager->get('config');
         $eventManager = $event->getApplication()->getEventManager(); 
         $eventManager->attach(MvcEvent::EVENT_DISPATCH, 
                 array(
                         $this,
                         'preDispatch'
                 ), 100);
+        
+        $serviceManager->setService('targetconfig', new ArrayObject($this->config['zsapi']['target']));
     }
 
     /**
@@ -98,12 +102,10 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
         }
         $serviceManager = $event->getApplication()->getServiceManager();
         $config = $serviceManager->get('config');
-        $targetConfig = $config['zsapi']['target'];
-        $zendServerClient = new Model\Http\Client(null, 
-                $config['zsapi']['client']);
+        $targetConfig = $serviceManager->get('targetConfig');
+        $zendServerClient = new Model\Http\Client(null, $config['zsapi']['client']);
         $serviceManager->setService('zendServerClient', $zendServerClient);
-        $defaultApiKey = new ApiKey($targetConfig['zskey'], 
-                $targetConfig['zssecret']);
+        $defaultApiKey = new ApiKey($targetConfig['zskey'], $targetConfig['zssecret']);
         $serviceManager->setService('defaultApiKey', $defaultApiKey);
         $targetServer = new ZendServer($targetConfig);
         $serviceManager->setService('targetZendServer', $targetServer);
