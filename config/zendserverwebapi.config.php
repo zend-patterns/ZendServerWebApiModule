@@ -74,7 +74,7 @@ return array (
                 'zsurl' => 'http://localhost:10081',
                 'zskey' => 'zf',
                 'zssecret' => 'a1c5b69aa706450c6715fd817b5c7cd643144bb2c70d1e4d34c8a0f3098e2c65',
-                'zs-version' => '6.0.1',
+                'zsversion' => '6.0.1',
             ),
             // HTTP Client
             'client' => array(

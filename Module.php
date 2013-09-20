@@ -26,6 +26,7 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
     public function getConfig ()
     {
         $mainConfig = include __DIR__ . '/config/zendserverwebapi.config.php';
+        $mainConfig['min-zsversion'] = array();
         $apiConf = array();
         foreach (scandir(__DIR__ . '/config/api') as $confFile) {
             if ($confFile == '.' || $confFile == '..')
@@ -33,6 +34,8 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
             $tmp = preg_split('@-@', $confFile);
             $apiVersion = preg_replace('@\.config\.php@', '', $tmp[1]);
             $apiConf[$apiVersion] = include __DIR__ . '/config/api/' . $confFile;
+            $mainConfig['min-zsversion'][$apiVersion] = $apiConf[$apiVersion]['min-zsversion'];
+            unset($apiConf[$apiVersion]['min-zsversion']);
         }
         ksort($apiConf);
         foreach ($apiConf as $version => $config) {
@@ -176,7 +179,7 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
         $defaultApiKey = new ApiKey($targetConfig['zskey'], 
                 $targetConfig['zssecret']);
         $serviceManager->setService('defaultApiKey', $defaultApiKey);
-        $targetServer = new ZendServer($targetConfig);
+        $targetServer = new ZendServer($targetConfig, $appConfig['min-zsversion']);
         $serviceManager->setService('targetZendServer', $targetServer);
     }
 

@@ -8,14 +8,6 @@ namespace ZendServerWebApi\Model;
  */
 class ZendServer
 {
-
-    /**
-     * API Version
-     * 
-     * @var string
-     */
-    protected $apiVersion = '1.0';
-
     /**
      * Zend Server Version
      * 
@@ -29,47 +21,23 @@ class ZendServer
      * @var Zend\Uri\http
      */
     protected $uri;
-
+    
     /**
-     * Array of available api version dapending on Zend Server version
-     * 
+     * Api Version / zs version converter
      * @var array
      */
-    protected $apiVersionAvailability = array(
-            '5.1' => '1.0',
-            '5.5' => '1.1',
-            '5.6' => '1.2',
-            '6.0' => '1.3',
-            '6.1' => '1.4',
-    )
-    ;
+    protected $apiVersionConfig = array();
 
     /**
      *
      * @param string $config            
      */
-    public function __construct ($config)
+    public function __construct ($config,$apiVersionConfig)
     {
         $this->setUri(new \Zend\Uri\Http($config['zsurl']));
-        if (isset($config['zsversion'])){
-            $this->setVersion($config['zsversion']);
-            preg_match('@(^[0-9]*\.[0-9]*)@', $config['zsversion'], $shortVersion);
-            if (count($shortVersion) == 0) return;
-            if (count($shortVersion) > 0)
-            $shortVersion = $shortVersion[0];
-            $this->setApiVersion($this->apiVersionAvailability[$shortVersion]);
-        }
+        $this->setVersion($config['zsversion']);
     }
-
-    /**
-     *
-     * @return the $apiVersion
-     */
-    public function getApiVersion ()
-    {
-        return $this->apiVersion;
-    }
-
+    
     /**
      *
      * @return the $version
@@ -77,15 +45,6 @@ class ZendServer
     public function getVersion ()
     {
         return $this->version;
-    }
-
-    /**
-     *
-     * @param string $apiVersion            
-     */
-    public function setApiVersion ($apiVersion)
-    {
-        $this->apiVersion = $apiVersion;
     }
 
     /**
@@ -113,5 +72,13 @@ class ZendServer
     public function setUri ($uri)
     {
         $this->uri = $uri;
+    }
+    
+    /**
+     * Return the available web API versions
+     */
+    public function getApiVersion()
+    {
+        return current(array_keys($this->apiVersionConfig,$this->version));
     }
 }

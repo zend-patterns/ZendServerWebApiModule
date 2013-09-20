@@ -1,20 +1,20 @@
 <?php
 return array(
-        'min-zsversion' => '6.0.1',
+        'min-zsversion' => '6.1',
         'console' => array(
                 'router' => array(
                         'routes' => array(
-                                // Zend Server Daemons
-                                'daemonProbe' => array(
+                                // Library
+                                'libraryGetStatus' => array(
                                         'options' => array(
-                                                'route' => 'daemonProbe',
+                                                'route' => 'libraryGetStatus',
                                                 'defaults' => array(
                                                         'controller' => 'webapi-api-controller',
-                                                        'action' => 'userAuthentificationSettings'
+                                                        'action' => 'libraryGetStatus'
                                                 )
                                         ),
                                         'info' => array(
-                                                'Retrieve a list of daemon restart states according to ZSD messages.'
+                                                'Get the list of libraries currently deployed on the server or the cluster, and information about each library’s available versions.'
                                         )
                                 )
                         )
