@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<package xmlns="http://www.zend.com/server/deployment-descriptor/1.0" version="1.0">
+  <type>library</type>
+    <name>ZendDevops-webapi</name>
+    <summary>Zend Server Web API Zf2 connector</summary>
+    <description>ZF2 module to be used as a connector to reach Zend Server Web API through your PHP application</description>
+    <version>
+        <release>1.0.0</release>
+    </version>
+    <eula>LICENSE.txt</eula>
+    <dependencies>
+    <required>
+      <zendframework2>
+        <min>2.2</min>
+      </zendframework2>
+    </required>
+  </dependencies>
+    </package>
