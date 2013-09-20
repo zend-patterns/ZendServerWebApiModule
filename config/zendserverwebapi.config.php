@@ -58,7 +58,8 @@ return array (
 
         'service_manager' => array (
                 'factories' => array (
-                     'zend_server_api' => 'ZendServerWebApi\Service\ApiManagerFactory'
+                     'zend_server_api' => 'ZendServerWebApi\Service\ApiManagerFactory',
+                     'log' => 'ZendServerWebApi\Service\LogFactory'
                 ),
                 'invokables' => array (
                     'zpk'  => 'ZendServerWebApi\Service\ZpkInvokable',

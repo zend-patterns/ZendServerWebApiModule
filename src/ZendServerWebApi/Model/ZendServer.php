@@ -13,7 +13,7 @@ class ZendServer
      * 
      * @var string
      */
-    protected $version = '5.1';
+    protected $version;
 
     /**
      * Zend Server uri
@@ -23,16 +23,23 @@ class ZendServer
     protected $uri;
     
     /**
+     * Api Version
+     * @var string
+     */
+    protected $apiVersion;
+    
+    
+    /**
      * Api Version / zs version converter
      * @var array
      */
-    protected $apiVersionConfig = array();
+    protected static $apiVersionConfig = array();
 
     /**
      *
      * @param string $config            
      */
-    public function __construct ($config,$apiVersionConfig)
+    protected function __construct ($config)
     {
         $this->setUri(new \Zend\Uri\Http($config['zsurl']));
         $this->setVersion($config['zsversion']);
@@ -79,6 +86,36 @@ class ZendServer
      */
     public function getApiVersion()
     {
-        return current(array_keys($this->apiVersionConfig,$this->version));
+        return $this->apiVersion;
     }
+    
+	/**
+     * @param string $apiVersion
+     */
+    public function setApiVersion ($apiVersion)
+    {
+        $this->apiVersion = $apiVersion;
+    }
+    
+    /**
+     * Zend Server factory
+     * @param unknown $config
+     * @param unknown $apiVersionConfig
+     */
+    public static function factory($config)
+    {
+        $zendServer = new self($config);
+        $apiVersion = current(array_keys(self::$apiVersionConfig,$zendServer->getVersion()));
+        $zendServer->setApiVersion($apiVersion);
+        return $zendServer;
+    }
+    
+    /**
+     * Set the Api version configurator
+     */
+    public static function setApiVersionConf($apiVersionConfig)
+    {
+        self::$apiVersionConfig = $apiVersionConfig;
+    }
+
 }

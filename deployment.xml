@@ -13,6 +13,10 @@
       <zendframework2>
         <min>2.2</min>
       </zendframework2>
+      <library>
+        <name>Zend Framework 2</name>
+        <min>2.2.1</min>
+      </library>
     </required>
   </dependencies>
     </package>

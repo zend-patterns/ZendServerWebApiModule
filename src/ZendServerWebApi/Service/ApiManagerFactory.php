@@ -18,13 +18,7 @@ class ApiManagerFactory implements FactoryInterface
      */
     public function createService (ServiceLocatorInterface $serviceLocator)
     {
-        $apiKey = $serviceLocator->get('defaultApiKey');
-        $server = $serviceLocator->get('targetZendServer');
-        $client = $serviceLocator->get('zendserverclient');
-        $apiConfig = $serviceLocator->get('config');
-        $apiConfig = $apiConfig['console']['router']['routes'];
-        $apiManager = new ApiManager($server, $apiKey, $client, $apiConfig);
-
+        $apiManager = new ApiManager($serviceLocator);
         return $apiManager;
     }
 }

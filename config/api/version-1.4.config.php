@@ -10,7 +10,7 @@ return array(
                                                 'route' => 'daemonProbe',
                                                 'defaults' => array(
                                                         'controller' => 'webapi-api-controller',
-                                                        'action' => 'userAuthentificationSettings'
+                                                        'action' => 'daemonProbe'
                                                 )
                                         ),
                                         'info' => array(
