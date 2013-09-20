@@ -14,14 +14,14 @@ class ZendServer
      * 
      * @var string
      */
-    protected $apiVersion;
+    protected $apiVersion = '1.0';
 
     /**
      * Zend Server Version
      * 
      * @var string
      */
-    protected $version;
+    protected $version = '5.1';
 
     /**
      * Zend Server uri
@@ -51,10 +51,14 @@ class ZendServer
     public function __construct ($config)
     {
         $this->setUri(new \Zend\Uri\Http($config['zsurl']));
-        $this->setVersion($config['zs-version']);
-        preg_match('@(^[0-9]*\.[0-9]*)@', $config['zs-version'], $shortVersion);
-        $shortVersion = $shortVersion[0];
-        $this->setApiVersion($this->apiVersionAvailability[$shortVersion]);
+        if (isset($config['zsversion'])){
+            $this->setVersion($config['zsversion']);
+            preg_match('@(^[0-9]*\.[0-9]*)@', $config['zsversion'], $shortVersion);
+            if (count($shortVersion) == 0) return;
+            if (count($shortVersion) > 0)
+            $shortVersion = $shortVersion[0];
+            $this->setApiVersion($this->apiVersionAvailability[$shortVersion]);
+        }
     }
 
     /**
