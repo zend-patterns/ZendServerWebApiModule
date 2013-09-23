@@ -90,7 +90,7 @@ return array (
                                 ,
                                 'applicationDeploy' => array (
                                         'options' => array (
-                                                'route' => 'applicationDeploy --appPackage= --baseUrl= [--createVhost=] [--defaultServer=] [--userAppName=] [--ignoreFialures=] [--userParams=]',
+                                                'route' => 'applicationDeploy --appPackage= --baseUrl= [--createVhost] [--defaultServer] [--userAppName=] [--ignoreFailures] [--userParams=]',
                                                 'defaults' => array (
                                                         'controller'    => 'webapi-api-controller',
                                                         'action'        => 'applicationDeploy',

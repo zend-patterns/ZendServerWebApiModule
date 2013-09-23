@@ -12,9 +12,8 @@ use Zend\Console\Adapter\AdapterInterface as Console;
 use Zend\ModuleManager\Feature\ConsoleBannerProviderInterface;
 use Zend\Stdlib\ArrayObject;
 
-
-class Module implements ConfigProviderInterface, AutoloaderProviderInterface, 
-        BootstrapListenerInterface, ConsoleUsageProviderInterface, 
+class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
+        BootstrapListenerInterface, ConsoleUsageProviderInterface,
         ConsoleBannerProviderInterface
 {
     /**
@@ -22,7 +21,7 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
      * @var array
      */
     protected $config;
-    
+
     /**
      * (non-PHPdoc)
      *
@@ -50,6 +49,7 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
             }
             $mainConfig = array_merge_recursive($mainConfig, $config);
         }
+
         return $mainConfig;
     }
 
@@ -72,31 +72,31 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
     /**
      * Attach the module to the main MVC event
      *
-     * @param MvcEvent $e            
+     * @param MvcEvent $e
      */
     public function onBootstrap (EventInterface $event)
     {
-    	$serviceManager = $event->getApplication()->getServiceManager();
-    	$this->config = $serviceManager->get('config');
-        $eventManager = $event->getApplication()->getEventManager(); 
-        $eventManager->attach(MvcEvent::EVENT_DISPATCH, 
+        $serviceManager = $event->getApplication()->getServiceManager();
+        $this->config = $serviceManager->get('config');
+        $eventManager = $event->getApplication()->getEventManager();
+        $eventManager->attach(MvcEvent::EVENT_DISPATCH,
                 array(
                         $this,
                         'preDispatch'
                 ), 100);
-        
+
         $serviceManager->setService('targetconfig', new ArrayObject($this->config['zsapi']['target']));
     }
 
     /**
      * Manage API Key usage and define HTTP client
      *
-     * @param MvcEvent $event            
+     * @param  MvcEvent                                 $event
      * @throws \Zend\Console\Exception\RuntimeException
      */
     public function preDispatch (MvcEvent $event)
     {
-    	$match = $event->getRouteMatch();
+        $match = $event->getRouteMatch();
         if (! $match) {
             return;
         }
@@ -142,8 +142,14 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
                         $usage[] = $value;
                     }
                 }
+            } elseif (isset($route['options']['arrays'])) {
+                 $usage[] = sprintf("\tThe following options accept multiple values: %s",implode(',',$route['options']['arrays']));
+                 $usage[] = "\tYou can provide multiple values either with comma separated values or like HTTP query string.\n".
+                              "\tEx: Comma separated: --extensions='mysql,gd,iconv' \n".
+                              "\tEx: Query string: --userParams='APPLICAITON_ENV=develpment&user[x]=1&user[y]=2'";
             }
         }
+
         return $usage;
     }
 
