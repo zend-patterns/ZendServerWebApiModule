@@ -97,6 +97,10 @@ class ApiManager
 
             $apiRequest->setParameters($args[0]);
         }
+        
+        if(isset($args[0]['zsoutput'])) {
+        	$apiRequest->setOutputType($args[0]['zsoutput']);	
+        }	
 
         if ($methodConf == 'post') {
             $apiRequest->setMethod(Request::METHOD_POST);

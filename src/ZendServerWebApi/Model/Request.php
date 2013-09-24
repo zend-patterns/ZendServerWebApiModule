@@ -33,6 +33,14 @@ class Request extends Http\Request
      * @var string
      */
     protected $action;
+    
+    /**
+     * Server response output type
+     * @var string 
+     * 		- xml
+     * 		- json
+     */
+    protected $outputType = "xml";
 
     /**
      * The Zend Server the request is suppose to be addressed
@@ -109,7 +117,7 @@ class Request extends Http\Request
                 $this->uri->getHost() . ':' . $this->uri->getPort());
         $headers->addHeaderLine('Date', $date);
         $headers->addHeaderLine('Accept', 
-                'application/vnd.zend.serverapi+xml;version=' . $this->apiVersion);
+                'application/vnd.zend.serverapi+'.$this->outputType.';version=' . $this->apiVersion);
         $headers->addHeaderLine('X-Zend-Signature', 
                 $this->apiKey->getName() . '; ' . $signature);
         if ($this->isPost()) {
@@ -227,6 +235,16 @@ class Request extends Http\Request
     public function setAction ($action)
     {
         $this->action = $action;
+    }
+    
+    public function setOutputType($contentType)
+    {
+    	$this->outputType = $contentType;
+    }
+    
+    public function getOutputType()
+    {
+    	return $this->outputType;
     }
 
     /**
