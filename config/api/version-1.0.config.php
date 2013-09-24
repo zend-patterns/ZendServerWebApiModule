@@ -96,12 +96,12 @@ return array (
                                                 )
                                         )
                                 ),
-                                'restartPHP' => array (
+                                'restartPhp' => array (
                                         'options' => array (
-                                                'route' => 'restartPHP [--servers=] [--force=] [--parallelRestart=]',
+                                                'route' => 'restartPhp [--servers=] [--force=] [--parallelRestart=]',
                                                 'defaults' => array (
                                                         'controller' => 'webapi-api-controller',
-                                                        'action' => 'restartPHP',
+                                                        'action' => 'restartPhp',
                                                         'apiMethod' => 'post'
                                                 )
                                         )
