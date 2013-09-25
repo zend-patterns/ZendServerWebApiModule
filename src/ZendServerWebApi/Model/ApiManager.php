@@ -65,15 +65,16 @@ class ApiManager implements ServiceLocatorAwareInterface
             $methodConf = $this->apiConfig[$action]['options']['defaults']['apiMethod'];
         }
         $apiRequest = new Request($this->getTargetServer(), $action, $this->getApiKey());
-        $this->getServiceLocator()->get('log')->info($apiRequest->getUriString());
         if (isset($args[0]))
             $apiRequest->setParameters($args[0]);
         if ($methodConf == 'post')
             $apiRequest->setMethod(Request::METHOD_POST);
         $apiRequest->prepareRequest();
+        $this->getServiceLocator()->get('log')->info($apiRequest->getUriString());
         $httpResponse = $this->getZendServerClient()->send($apiRequest);
         $response = ApiResponse::factory($httpResponse);
         if ($response->isError()) {
+            $this->getServiceLocator()->get('log')->err($response->getErrorMessage() . $response->getHttpResponse()->getBody());
             throw new ApiException($response);
         }
         return $response;

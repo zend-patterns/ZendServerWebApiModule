@@ -56,6 +56,7 @@ class ApiController extends AbstractController
         } else {
             $response = $this->sendApiRequest($requestParameters);
         }
+        var_dump($response->getHttpResponse()->getBody());
         return $response->getHttpResponse();
     }
 
