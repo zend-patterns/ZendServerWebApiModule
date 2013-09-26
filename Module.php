@@ -126,10 +126,53 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
                     $command => $routes[$command]
             );
         } else {
-            $usage = array(
-                    "The following commands are available:"
-            );
+        	$parts = explode(':',$command);
+        	$noCommandFound = false;
+        	if(count($parts)!=2) {
+        		$noCommandFound = true;
+        	}
+        	else {
+        		$foundRoutes = array();
+        		foreach ($routes as $route) {
+        			if(isset($route['options']['group']) && $route['options']['group'] == $parts[1]) {
+        				$foundRoutes[] = $route; 
+        			}
+        		}
+        		if(empty($foundRoutes)) {
+        			$noCommandFound = true;
+        		}	
+        		else {
+        			$routes = $foundRoutes;
+        		}
+        	}
+        	
+        	if($noCommandFound) {
+        		// go through the commands and get their groups
+        		$groups = array();
+        		foreach ($routes as $route) {
+        			if(!isset($route['options']['group'])) {
+        				continue;
+        			}
+        			$group = $route['options']['group'];
+        			$groups[$group] = 1;
+        		}
+        		
+        		$usage = array();
+        		$usage[] = "The following group of command are available:";
+        		foreach($groups as $group=>$tmp) {
+        			if(empty($group)) {
+        				continue;
+        			}
+        			$usage[]=array('command:'.$group, ucfirst($group));
+        		}
+        		$usage[]='Below is an example how to get the list of commands in a group';
+        		$usage[]=array('Example:', $_SERVER['PHP_SELF'].' command:'.$group);
+        		$usage[]=array('', 'Will list all commands in the group "'.$group.'".');
+        		
+        		return $usage; 
+        	}
         }
+        
         foreach ($routes as $route) {
             $command = $route['options']['route'];
             $usage[] = "* $command";
@@ -148,6 +191,7 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
                               "\tEx: Comma separated: --extensions='mysql,gd,iconv' \n".
                               "\tEx: Query string: --userParams='APPLICAITON_ENV=develpment&user[x]=1&user[y]=2'";
             }
+            $usage[]="-------------------------------------------------------------------";
         }
 
         return $usage;
