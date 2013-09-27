@@ -131,7 +131,7 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
         	if(count($parts)!=2) {
         		$noCommandFound = true;
         	}
-        	else {
+        	else if($parts[1]!='all') {
         		$foundRoutes = array();
         		foreach ($routes as $route) {
         			if(isset($route['options']['group']) && $route['options']['group'] == $parts[1]) {
@@ -165,9 +165,12 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
         			}
         			$usage[]=array('command:'.$group, ucfirst($group));
         		}
+        		$usage[]=array('command:all', 'For all available commands');
         		$usage[]='Below is an example how to get the list of commands in a group';
         		$usage[]=array('Example:', $_SERVER['PHP_SELF'].' command:'.$group);
-        		$usage[]=array('', 'Will list all commands in the group "'.$group.'".');
+        		$usage[]=array('', 'Will list all commands in the group "'.ucfirst($group).'".');
+        		$usage[]='If you want to see all commands in all groups type:';
+        		$usage[]=array(' ', $_SERVER['PHP_SELF'].' command:all');
         		
         		return $usage; 
         	}
