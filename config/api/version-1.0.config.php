@@ -25,7 +25,7 @@ return array (
                                 ),
                                 'configurationImport' => array (
                                         'options' => array (
-                                                'route' => 'configurationImport --configFile= [--ignoreSystemMismatch]',
+                                                'route' => 'configurationImport --configFile= [--ignoreSystemMismatch=]',
                                                 'defaults' => array (
                                                         'controller' => 'webapi-api-controller',
                                                         'action' => 'configurationImport',
@@ -57,7 +57,7 @@ return array (
                                 ),
                                 'clusterGetServersStatus' => array (
                                         'options' => array (
-                                                'route' => 'clusterGetServersStatus [--servers=] [--force]',
+                                                'route' => 'clusterGetServersStatus [--servers=] [--force=]',
                                                 'defaults' => array (
                                                         'controller' => 'webapi-api-controller',
                                                         'action' => 'clusterGetServersStatus'
@@ -136,7 +136,7 @@ return array (
                                 ),
                                 'clusterReconfigureServer' => array (
                                         'options' => array (
-                                                'route' => 'clusterReconfigureServer --serverId= [--doRestart]',
+                                                'route' => 'clusterReconfigureServer --serverId= [--doRestart=]',
                                                 'defaults' => array (
                                                         'controller' => 'webapi-api-controller',
                                                         'action' => 'clusterReconfigureServer',
@@ -152,7 +152,7 @@ return array (
                                 ),
                                 'restartPhp' => array (
                                         'options' => array (
-                                                'route' => 'restartPhp [--servers=] [--force] [--parallelRestart]',
+                                                'route' => 'restartPhp [--servers=] [--force=] [--parallelRestart=]',
                                                 'defaults' => array (
                                                         'controller' => 'webapi-api-controller',
                                                         'action' => 'restartPhp',

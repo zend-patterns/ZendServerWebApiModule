@@ -54,7 +54,7 @@ return array (
 								),
 								'libraryVersionRemove' => array (
 										'options' => array (
-												'route' => 'libraryVersionRemove --libraryVersionId= [--ignoreFailures]',
+												'route' => 'libraryVersionRemove --libraryVersionId= [--ignoreFailures=]',
 												'defaults' => array (
 														'controller' => 'webapi-api-controller',
 														'action' => 'libraryVersionRemove',
@@ -70,7 +70,7 @@ return array (
 								),
 								'libraryVersionDeploy' => array (
 										'options' => array (
-												'route' => 'libraryVersionDeploy --libPackage= [--ignoreFailures]',
+												'route' => 'libraryVersionDeploy --libPackage= [--ignoreFailures=]',
 												'defaults' => array (
 														'controller' => 'webapi-api-controller',
 														'action' => 'libraryVersionDeploy',
@@ -89,7 +89,7 @@ return array (
 								),
 								'libraryRemove' => array (
 										'options' => array (
-												'route' => 'libraryRemove --libraryIds= [--ignoreFailures]',
+												'route' => 'libraryRemove --libraryIds= [--ignoreFailures=]',
 												'defaults' => array (
 														'controller' => 'webapi-api-controller',
 														'action' => 'libraryRemove',

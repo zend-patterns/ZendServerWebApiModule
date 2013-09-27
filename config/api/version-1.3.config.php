@@ -157,7 +157,7 @@ groupsAttribute: Name for a list of user groups’ membership'),
                                 ),
                                 'bootstrapSingleServer' => array (
                                         'options' => array (
-                                                'route' => 'bootstrapSingleServer [--zsurl=] [--production] --adminPassword= [--applicationUrl=] [--adminEmail=] [--developerPassword=] [--orderNumber=] [--licenseKey=] --acceptEula [--simple-output]',
+                                                'route' => 'bootstrapSingleServer [--zsurl=] [--production=] --adminPassword= [--applicationUrl=] [--adminEmail=] [--developerPassword=] [--orderNumber=] [--licenseKey=] --acceptEula [--simple-output]',
                                                 'defaults' => array (
                                                         'zsurl'     => 'http://localhost:10081',
                                                         'controller' => 'webapi-api-controller',
@@ -177,7 +177,7 @@ groupsAttribute: Name for a list of user groups’ membership'),
                                         				array('--orderNumber','License order number to store in the server’s configuration. This license can be obtained from zend.com'),
                                         				array('--licenseKey','License key to store in the server’s configuration. This license can be obtained from zend.com'),
                                         				array('--acceptEula','Must be set to true to accept ZS6’s EULA'),
-                                        				array('--simple-output','An associative list of role names and their corresponding group.'),
+                                        				array('--simple-output','If provided returns simple output with the web api key and secret.'),
                                         		)
                                         )
                                 ),
@@ -477,7 +477,7 @@ AUDIT_GROUP_LICENSE'),
                                 ),
                                 'configurationRevertChanges' => array (
                                         'options' => array (
-                                                'route' => 'configurationRevertChanges --serverId= [--doRestart]',
+                                                'route' => 'configurationRevertChanges --serverId= [--doRestart=]',
                                                 'defaults' => array (
                                                         'controller' => 'webapi-api-controller',
                                                         'action' => 'configurationRevertChanges',
@@ -508,7 +508,7 @@ AUDIT_GROUP_LICENSE'),
                                 ),
                                 'configurationReset' => array (
                                         'options' => array (
-                                                'route' => 'configurationReset --configFile= [--ignoreSystemMismatch]',
+                                                'route' => 'configurationReset --configFile= [--ignoreSystemMismatch=]',
                                                 'defaults' => array (
                                                         'controller' => 'webapi-api-controller',
                                                         'action' => 'configurationReset',
@@ -1197,7 +1197,7 @@ This action only returns a general Boolean response and does not display which t
 
                                 'serverAddToCluster' => array (
                                         'options' => array (
-                                                'route' => 'serverAddToCluster --serverName= --dbHost= --dbUsername= --dbPassword= --nodeIp= --dbName= [--failIfConnected]',
+                                                'route' => 'serverAddToCluster --serverName= --dbHost= --dbUsername= --dbPassword= --nodeIp= --dbName= [--failIfConnected=]',
                                                 'defaults' => array (
                                                         'controller' => 'webapi-api-controller'
                                                 ),

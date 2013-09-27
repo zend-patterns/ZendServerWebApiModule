@@ -5,7 +5,7 @@ return array (
                         'routes' => array (
                                 'codetracingDisable' => array (
                                         'options' => array (
-                                                'route' => 'codetracingDisable [--restartNow]',
+                                                'route' => 'codetracingDisable [--restartNow=]',
                                                 'defaults' => array (
                                                         'controller' => 'webapi-api-controller',
                                                         'action' => 'codetracingDisable',
@@ -21,7 +21,7 @@ return array (
                                 ,
                                 'codetracingEnable' => array (
                                         'options' => array (
-                                                'route' => 'codetracingEnable [--restartNow]',
+                                                'route' => 'codetracingEnable [--restartNow=]',
                                                 'defaults' => array (
                                                         'controller' => 'webapi-api-controller',
                                                         'action' => 'codetracingEnable',
@@ -137,7 +137,7 @@ return array (
                                 ,
                                 'applicationDeploy' => array (
                                         'options' => array (
-                                                'route' => 'applicationDeploy --appPackage= --baseUrl= [--createVhost] [--defaultServer] [--userAppName=] [--ignoreFailures] [--userParams=]',
+                                                'route' => 'applicationDeploy --appPackage= --baseUrl= [--createVhost=] [--defaultServer=] [--userAppName=] [--ignoreFailures=] [--userParams=]',
                                                 'defaults' => array (
                                                         'controller'    => 'webapi-api-controller',
                                                         'action'        => 'applicationDeploy',
@@ -172,7 +172,7 @@ Each user parameter defined in the package must be provided as a key for this pa
                                 ,
                                 'applicationUpdate' => array (
                                         'options' => array (
-                                                'route' => 'applicationUpdate --appId= --appPackage= [--ignoreFailures] [--userParams=]',
+                                                'route' => 'applicationUpdate --appId= --appPackage= [--ignoreFailures=] [--userParams=]',
                                                 'defaults' => array (
                                                         'controller' => 'webapi-api-controller',
                                                         'action' => 'applicationUpdate',
@@ -216,7 +216,7 @@ Each user parameter defined in the package must be provided as a key for this pa
                                 ,
                                 'applicationSynchronize' => array (
                                         'options' => array (
-                                                'route' => 'applicationSynchronize --appId= [--servers=] [--ignoreFailures]',
+                                                'route' => 'applicationSynchronize --appId= [--servers=] [--ignoreFailures=]',
                                                 'defaults' => array (
                                                         'controller' => 'webapi-api-controller',
                                                         'action' => 'applicationSynchronize',
@@ -363,7 +363,7 @@ ruleNames: array, a list of rule names that are defined in the system: Function 
                                 // Studio integration
                                 'studioStartDebug' => array (
                                         'options' => array (
-                                                'route' => 'studioStartDebug --eventsGroupId= [--noRemote] [--overrideHost=]',
+                                                'route' => 'studioStartDebug --eventsGroupId= [--noRemote=] [--overrideHost=]',
                                                 'defaults' => array (
                                                         'controller' => 'webapi-api-controller',
                                                         'action' => 'studioStartDebug',
