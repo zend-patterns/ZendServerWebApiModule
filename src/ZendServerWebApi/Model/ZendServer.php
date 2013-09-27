@@ -99,8 +99,8 @@ class ZendServer
     
     /**
      * Zend Server factory
-     * @param unknown $config
-     * @param unknown $apiVersionConfig
+     * @param string $config
+     * @param array $apiVersionConfig
      */
     public static function factory($config)
     {
