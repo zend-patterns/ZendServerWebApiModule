@@ -117,7 +117,7 @@ return array (
 												'group' => 'library',
 												'info' => array (
 														'Cause the library version to be deployed again from its original package file.',
-														array('--libraryVersionId','Library version ID..')
+														array('--libraryVersionId','Library version ID.')
 												)
 										)
 								),
@@ -145,7 +145,7 @@ return array (
 												'group' => 'library',
 												'info' => array (
 														'Get the library version ID that is deployed on the server or the cluster, and information about that version and its library.',
-														array('--libraryVersionId','Library version identifier. Note that a codetracing identifier is provided as part of the LibraryGetStatus xml response..')
+														array('--libraryVersionId','Library version identifier. Note that a codetracing identifier is provided as part of the LibraryGetStatus xml response.')
 												)
 										)
 								),

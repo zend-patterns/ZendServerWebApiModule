@@ -263,7 +263,7 @@ The default value is FALSE, meaning any failure will return an error.'),
                                         		'group' => 'monitor',
                                         		'info' => array (
                                         				'Get the library version ID that is deployed on the server or the cluster, and information about that version and its library.',
-                                        				array('--requestUid','Library version identifier. Note that a codetracing identifier is provided as part of the LibraryGetStatus xml response..')
+                                        				array('--requestUid','Library version identifier. Note that a codetracing identifier is provided as part of the LibraryGetStatus xml response.')
                                         		)
                                         )
                                 )
@@ -353,7 +353,7 @@ ruleNames: array, a list of rule names that are defined in the system: Function 
                                                 ),
                                         		'group' => 'monitor',
                                         		'info' => array (
-                                        				"Modify an Issue's status code based on an Issue's Id and a status code..",
+                                        				"Modify an Issue's status code based on an Issue's Id and a status code.",
                                         				array('--issueId','The issue identifier.'),
                                         				array('--newStatus','The new status to set: Open | Closed | Ignored.')
                                         		)
