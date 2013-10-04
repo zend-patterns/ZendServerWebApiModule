@@ -649,7 +649,8 @@ AUDIT_GROUP_LICENSE'),
                                         'options' => array (
                                                 'route' => 'jobqueueJobsList [--limit=] [--offset=] [--orderBy=] [--direction=] [--filter=]',
                                                 'defaults' => array (
-                                                        'controller' => 'webapi-api-controller'
+                                                        'controller' => 'webapi-api-controller',
+                                                		'action'=> 'jobqueueJobsList'
                                                 ),
                                         		'arrays' => array(
                                         				'filter'
@@ -973,7 +974,9 @@ Also note that this action returns only an XML output - it is not allowed to ret
                                         'options' => array (
                                                 'route' => 'monitorImportRules --monitorRules=',
                                                 'defaults' => array (
-                                                        'controller' => 'webapi-api-controller'
+                                                        'controller' => 'webapi-api-controller',
+                                                		'action'=> 'monitorImportRules',
+                                                		'apiMethod' => 'post'
                                                 ),
                                         		'group' => 'monitor-rules',
                                         		'info' => array (
@@ -1199,7 +1202,9 @@ This action only returns a general Boolean response and does not display which t
                                         'options' => array (
                                                 'route' => 'serverAddToCluster --serverName= --dbHost= --dbUsername= --dbPassword= --nodeIp= --dbName= [--failIfConnected=]',
                                                 'defaults' => array (
-                                                        'controller' => 'webapi-api-controller'
+                                                        'controller' => 'webapi-api-controller',
+                                                		'action'=> 'serverAddToCluster',
+                                                		'apiMethod' => 'post'
                                                 ),
                                         		'group' => 'server',
                                         		'info' => array (
