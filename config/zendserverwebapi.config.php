@@ -23,7 +23,6 @@ return array (
             // HTTP Client
             'client' => array(
                 'adapter' => '\ZendServerWebApi\Model\Http\Adapter\Socket',
-            	'timeout' => (getenv('HTTP_TIMEOUT')? getenv('HTTP_TIMEOUT'): 10),
             ),
         ),
 );

@@ -85,7 +85,7 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
                         'preDispatch'
                 ), 100);
 
-        $serviceManager->setService('targetconfig', new ArrayObject($this->config['zsapi']['target']));
+        $serviceManager->setService('targetConfig', new ArrayObject($this->config['zsapi']['target']));
     }
 
     /**
@@ -103,7 +103,13 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
         $serviceManager = $event->getApplication()->getServiceManager();
         $config = $serviceManager->get('config');
         $targetConfig = $serviceManager->get('targetConfig');
-        $zendServerClient = new Model\Http\Client(null, $config['zsapi']['client']);
+        $httpConfig = $config['zsapi']['client'];
+        if(!empty($targetConfig['http'])) {
+        	foreach($targetConfig['http'] as $k=>$v) {
+        		$httpConfig[$k]=$v;
+        	}
+        }
+        $zendServerClient = new Model\Http\Client(null, $httpConfig);
         $serviceManager->setService('zendServerClient', $zendServerClient);
         $defaultApiKey = new ApiKey($targetConfig['zskey'], $targetConfig['zssecret']);
         $serviceManager->setService('defaultApiKey', $defaultApiKey);
