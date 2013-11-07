@@ -43,7 +43,8 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
             if (isset($config['console']['router']['routes'])) {
                 foreach ($config['console']['router']['routes'] as &$router) {
                     if (! isset($router['options']['no-target'])) {
-                        $router['options']['route'] .= ' [--target=] [--zsurl=] [--zskey=] [--zssecret=] [--zsversion=]';
+                        $router['options']['route'] .= ' [--target=] [--zsurl=] [--zskey=] [--zssecret=] [--zsversion=] [--http=]';
+                        $router['options']['arrays'][] = 'http';
                     }
                 }
             }
