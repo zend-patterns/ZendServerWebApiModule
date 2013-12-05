@@ -50,14 +50,14 @@ return array(
                                                 'defaults' => array(
                                                         'controller' => 'webapi-api-controller',
                                                         'action' => 'vhostGetStatus'
-                                                )
+                                                ),
+		                                		'arrays' => array(
+		                                				'vhosts'
+		                                		),
+		                                        'info' => array(
+		                                                'Get the list of virtual hosts currently used by the web server and information about each virtual host.'
+		                                        )
                                         ),
-                                		'arrays' => array(
-                                				'vhosts'
-                                		),
-                                        'info' => array(
-                                                'Get the list of virtual hosts currently used by the web server and information about each virtual host.'
-                                        )
                                 ),
                         		'vhostRemove' => array (
                         				'options' => array (
@@ -66,14 +66,14 @@ return array(
                         								'controller' => 'webapi-api-controller',
                         								'action' => 'vhostRemove',
                         								'apiMethod' => 'post'
-                        						)
+                        						),
+		                        				'arrays' => array(
+		                        						'vhosts'
+		                        				),
+		                        				'info' => array(
+		                        						'Remove the list of virtual hosts currently used by the web server and information about each virtual host.'
+		                        				)
                         				),
-                        				'arrays' => array(
-                        						'vhosts'
-                        				),
-                        				'info' => array(
-                        						'Remove the list of virtual hosts currently used by the web server and information about each virtual host.'
-                        				)
                         		),
                         		'vhostAdd' => array (
                         				'options' => array (
@@ -82,11 +82,11 @@ return array(
                         								'controller' => 'webapi-api-controller',
                         								'action' => 'vhostAdd',
                         								'apiMethod' => 'post'
-                        						)
+                        						),
+		                        				'info' => array(
+		                        						'Add a new virtual host.'
+		                        				)
                         				),
-                        				'info' => array(
-                        						'Add a new virtual host.'
-                        				)
                         		),
                         		'vhostAddSecure' => array (
                         				'options' => array (
@@ -95,11 +95,11 @@ return array(
                         								'controller' => 'webapi-api-controller',
                         								'action' => 'vhostAddSecure',
                         								'apiMethod' => 'post'
-                        						)
+                        						),
+		                        				'info' => array(
+		                        						'This action is similar to vhostAdd, it adds a new vhost which is intended to be secure using SSL.'
+		                        				)
                         				),
-                        				'info' => array(
-                        						'This action is similar to vhostAdd, it adds a new vhost which is intended to be secure using SSL.'
-                        				)
                         		),
                         		'vhostAddSecureIbmi' => array (
                         				'options' => array (
@@ -108,11 +108,11 @@ return array(
                         								'controller' => 'webapi-api-controller',
                         								'action' => 'vhostAddSecureIbmi',
                         								'apiMethod' => 'post'
-                        						)
+                        						),
+		                        				'info' => array(
+		                        						'Adds a new virtual host which is intended to be secure using SSL. For IBMi systems only'
+		                        				)
                         				),
-                        				'info' => array(
-                        						'Adds a new virtual host which is intended to be secure using SSL. For IBMi systems only'
-                        				)
                         		),
                         		'vhostEdit' => array (
                         				'options' => array (
@@ -121,11 +121,11 @@ return array(
                         								'controller' => 'webapi-api-controller',
                         								'action' => 'vhostEdit',
                         								'apiMethod' => 'post'
-                        						)
+                        						),
+		                        				'info' => array(
+		                        						'Edit an existing vhost.'
+		                        				)
                         				),
-                        				'info' => array(
-                        						'Edit an existing vhost.'
-                        				)
                         		),
                         		'vhostGetDetails' => array (
                         				'options' => array (
@@ -133,11 +133,11 @@ return array(
                         						'defaults' => array (
                         								'controller' => 'webapi-api-controller',
                         								'action' => 'vhostGetDetails',
-                        						)
+                        						),
+		                        				'info' => array(
+		                        						'Get the list of virtual hosts currently used by the web server and full information about each virtual host.'
+		                        				)
                         				),
-                        				'info' => array(
-                        						'Get the list of virtual hosts currently used by the web server and full information about each virtual host.'
-                        				)
                         		),
                         		'vhostValidateSsl' => array (
                         				'options' => array (
@@ -146,11 +146,11 @@ return array(
                         								'controller' => 'webapi-api-controller',
                         								'action' => 'vhostValidateSsl',
                         								'apiMethod' => 'post'
-                        						)
+                        						),
+		                        				'info' => array(
+		                        						'Validate the existence of the supplied SSL certificate, key and chain provided during creation or edit of a virtual host.'
+		                        				)
                         				),
-                        				'info' => array(
-                        						'Validate the existence of the supplied SSL certificate, key and chain provided during creation or edit of a virtual host.'
-                        				)
                         		),
                         		'vhostValidateTemplate' => array (
                         				'options' => array (
@@ -159,11 +159,11 @@ return array(
                         								'controller' => 'webapi-api-controller',
                         								'action' => 'vhostValidateTemplate',
                         								'apiMethod' => 'post'
-                        						)
+                        						),
+		                        				'info' => array(
+		                        						'Validate the structure and syntax of a virtual host template.'
+		                        				)
                         				),
-                        				'info' => array(
-                        						'Validate the structure and syntax of a virtual host template.'
-                        				)
                         		),
                         		'vhostRedeploy' => array (
                         				'options' => array (
@@ -172,11 +172,11 @@ return array(
                         								'controller' => 'webapi-api-controller',
                         								'action' => 'vhostRedeploy',
                         								'apiMethod' => 'post'
-                        						)
+                        						),
+		                        				'info' => array(
+		                        						'Redeploy a virtual host to all servers.'
+		                        				)
                         				),
-                        				'info' => array(
-                        						'Redeploy a virtual host to all servers.'
-                        				)
                         		),
                         		'vhostEnableDeployment' => array (
                         				'options' => array (
@@ -185,11 +185,11 @@ return array(
                         								'controller' => 'webapi-api-controller',
                         								'action' => 'vhostEnableDeployment',
                         								'apiMethod' => 'post'
-                        						)
+                        						),
+		                        				'info' => array(
+		                        						'Enable deployment to a system virtual host..'
+		                        				)
                         				),
-                        				'info' => array(
-                        						'Enable deployment to a system virtual host..'
-                        				)
                         		),
                         		'vhostDisableDeployment' => array (
                         				'options' => array (
@@ -198,11 +198,11 @@ return array(
                         								'controller' => 'webapi-api-controller',
                         								'action' => 'vhostDisableDeployment',
                         								'apiMethod' => 'post'
-                        						)
+                        						),
+		                        				'info' => array(
+		                        						'Disable deployment to system virtual host that was enabled for deployment.'
+		                        				)
                         				),
-                        				'info' => array(
-                        						'Disable deployment to system virtual host that was enabled for deployment.'
-                        				)
                         		),
                         )
                 )
