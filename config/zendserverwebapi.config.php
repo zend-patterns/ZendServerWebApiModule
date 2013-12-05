@@ -2,7 +2,7 @@
 return array (
         'controllers' => array (
                 'invokables' => array (
-                        'webapi-api-controller'    => 'ZendServerWebApi\Controller\ApiController',
+                        'webapi-api-controller'	=> 'ZendServerWebApi\Controller\ApiController',
                         'webapi-target-controller' => 'ZendServerWebApi\Controller\TargetController',
                         'webapi-app-controller' => 'ZendServerWebApi\Controller\AppController'
                 )
