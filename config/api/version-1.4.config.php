@@ -11,11 +11,11 @@ return array(
                                                 'defaults' => array(
                                                         'controller' => 'webapi-api-controller',
                                                         'action' => 'daemonProbe'
-                                                )
+                                                ),
+		                                        'info' => array(
+		                                                'Retrieve a list of daemon restart states according to ZSD messages.'
+		                                        )
                                         ),
-                                        'info' => array(
-                                                'Retrieve a list of daemon restart states according to ZSD messages.'
-                                        )
                                 )
                         )
                 )

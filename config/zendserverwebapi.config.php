@@ -2,7 +2,7 @@
 return array (
         'controllers' => array (
                 'invokables' => array (
-                        'webapi-api-controller'    => 'ZendServerWebApi\Controller\ApiController',
+                        'webapi-api-controller'	=> 'ZendServerWebApi\Controller\ApiController',
                         'webapi-target-controller' => 'ZendServerWebApi\Controller\TargetController',
                         'webapi-app-controller' => 'ZendServerWebApi\Controller\AppController'
                 )
@@ -69,7 +69,7 @@ return array (
         //  Zend Server API specific Settings
         'zsapi' => array (
             //Target definition file
-            //'file' => $_SERVER['HOME'].'/.zsapi.ini',
+            'file' => $_SERVER['HOME'].'/.zsapi.ini',
             // Default Zend Server Target
             'default_target' => array(
                 'zsurl' => 'http://localhost:10081',
