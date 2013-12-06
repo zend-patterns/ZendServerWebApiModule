@@ -10,13 +10,17 @@ use ZendServerWebApi\Model\ZendServer;
 use Zend\ModuleManager\Feature\ConsoleUsageProviderInterface;
 use Zend\Console\Adapter\AdapterInterface as Console;
 use Zend\ModuleManager\Feature\ConsoleBannerProviderInterface;
-use Zend\Config\Reader\Ini as ConfigReader;
-use Zend\Http\Response as HttpResponse;
+use Zend\Stdlib\ArrayObject;
 
-class Module implements ConfigProviderInterface, AutoloaderProviderInterface, 
-        BootstrapListenerInterface, ConsoleUsageProviderInterface, 
+class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
+        BootstrapListenerInterface, ConsoleUsageProviderInterface,
         ConsoleBannerProviderInterface
 {
+    /**
+     * The configuration service
+     * @var array
+     */
+    protected $config;
 
     /**
      * (non-PHPdoc)
@@ -42,12 +46,14 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
             if (isset($config['console']['router']['routes'])) {
                 foreach ($config['console']['router']['routes'] as &$router) {
                     if (! isset($router['options']['no-target'])) {
-                        $router['options']['route'] .= ' [--target=] [--zsurl=] [--zskey=] [--zssecret=]';
+                        $router['options']['route'] .= ' [--target=] [--zsurl=] [--zskey=] [--zssecret=] [--zsversion=] [--http=]';
+                        $router['options']['arrays'][] = 'http';
                     }
                 }
             }
             $mainConfig = array_merge_recursive($mainConfig, $config);
         }
+
         return $mainConfig;
     }
 
@@ -70,130 +76,50 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
     /**
      * Attach the module to the main MVC event
      *
-     * @param MvcEvent $e            
+     * @param MvcEvent $e
      */
     public function onBootstrap (EventInterface $event)
     {
+        $serviceManager = $event->getApplication()->getServiceManager();
+        $this->config = $serviceManager->get('config');
         $eventManager = $event->getApplication()->getEventManager();
-        $eventManager->attach(MvcEvent::EVENT_ROUTE, 
-                array(
-                        $this,
-                        'postRoute'
-                ), - 2);
-        
-        $eventManager->attach(MvcEvent::EVENT_DISPATCH, 
+        $eventManager->attach(MvcEvent::EVENT_DISPATCH,
                 array(
                         $this,
                         'preDispatch'
                 ), 100);
-        
-        $eventManager->attach(MvcEvent::EVENT_FINISH, 
-                array(
-                        $this,
-                        'preFinish'
-                ), 100);
-    }
 
-    /**
-     * Manage Array-like parameters
-     *
-     * @param MvcEvent $event            
-     */
-    public function postRoute (MvcEvent $event)
-    {
-        $match = $event->getRouteMatch();
-        if (! $match) {
-            return;
-        }
-        // normalization of the arguments
-        $config = $event->getApplication()
-            ->getServiceManager()
-            ->get('config');
-        $routeName = $match->getMatchedRouteName();
-        if (isset(
-                $config['console']['router']['routes'][$routeName]['options']['arrays'])) {
-            foreach ($config['console']['router']['routes'][$routeName]['options']['arrays'] as $arrayParam) {
-                if ($value = $match->getParam($arrayParam)) {
-                    $data = array();
-                    // @todo: add exception if the value is not a valid query
-                    // string
-                    parse_str($value, $data); // the values is provided like
-                                              // a query string
-                    $match->setParam($arrayParam, $data);
-                }
-            }
-        }
+        $serviceManager->setService('targetConfig', new ArrayObject($this->config['zsapi']['target']));
     }
 
     /**
      * Manage API Key usage and define HTTP client
      *
-     * @param MvcEvent $event            
+     * @param  MvcEvent                                 $event
      * @throws \Zend\Console\Exception\RuntimeException
      */
     public function preDispatch (MvcEvent $event)
     {
         $match = $event->getRouteMatch();
-        if (! $match)
+        if (! $match) {
             return;
-        $serviceManager = $event->getApplication()->getServiceManager();
-        $appConfig = $serviceManager->get('config');
-        //$targetConfig = array();
-        if ($match->getParam('no-target')) return;
-        // Set a default target
-        if (isset($appConfig['zsapi']['default_target']))
-            $targetConfig = $appConfig['zsapi']['default_target'];
-        // Manage named target (config file defined target)
-        $target = $match->getParam('target');
-        if ($target) {
-            try {
-                $reader = new ConfigReader();
-                $data = $reader->fromFile($appConfig['zsapi']['file']);
-                $targetConfig = $data[$target];
-            } catch (\Zend\Config\Exception $ex) {
-                throw new \Zend\Console\Exception\RuntimeException(
-                        'Make sure that you have set your target first. \n
-                                                                This can be done with ' .
-                                 __FILE__ .
-                                 ' add-target --target=<UniqueName> --zsurl=http://localhost:10081/ZendServer --zskey= --zssecret=');
-            }
-        }         // Command line overrided target
-        else {
-            if (! $targetConfig && ! ($match->getParam('zskey') || $match->getParam('zssecret') ||
-                     $match->getParam('zsurl'))) {
-                throw new \Zend\Console\Exception\RuntimeException(
-                        'Specify either a --target= parameter or --zsurl=http://localhost:10081/ZendServer --zskey= --zssecret=');
-            }
-            foreach (array(
-                    'zsurl',
-                    'zskey',
-                    'zssecret'
-            ) as $key) {
-                if ( ! $match->getParam($key)) continue;
-                $targetConfig[$key] = $match->getParam($key);
-            }
         }
-        $zendServerClient = new Model\Http\Client(null, 
-                $appConfig['zsapi']['client']);
+        $serviceManager = $event->getApplication()->getServiceManager();
+        $config = $serviceManager->get('config');
+        $targetConfig = $serviceManager->get('targetConfig');
+        $httpConfig = $config['zsapi']['client'];
+        if(!empty($targetConfig['http'])) {
+        	foreach($targetConfig['http'] as $k=>$v) {
+        		$httpConfig[$k]=$v;
+        	}
+        }
+        $zendServerClient = new Model\Http\Client(null, $httpConfig);
         $serviceManager->setService('zendServerClient', $zendServerClient);
-        $defaultApiKey = new ApiKey($targetConfig['zskey'], 
-                $targetConfig['zssecret']);
+        $defaultApiKey = new ApiKey($targetConfig['zskey'], $targetConfig['zssecret']);
         $serviceManager->setService('defaultApiKey', $defaultApiKey);
         ZendServer::setApiVersionConf($appConfig['min-zsversion']);
         $targetServer = ZendServer::factory($targetConfig);
         $serviceManager->setService('targetZendServer', $targetServer);
-    }
-
-    /**
-     *
-     * @param MvcEvent $event            
-     */
-    public function preFinish (MvcEvent $event)
-    {
-        $response = $event->getResponse();
-        if ($response instanceof HttpResponse) {
-            $response->setContent($response->getBody());
-        }
     }
 
     /**
@@ -203,7 +129,7 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
      */
     public function getConsoleUsage (Console $console)
     {
-        $config = $this->getConfig();
+        $config = $this->config;
         $command = @$_SERVER['argv'][1];
         $routes = $config['console']['router']['routes'];
         if (isset($routes[$command])) {
@@ -211,10 +137,56 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
                     $command => $routes[$command]
             );
         } else {
-            $usage = array(
-                    "The following commands are available:"
-            );
+        	$parts = explode(':',$command);
+        	$noCommandFound = false;
+        	if(count($parts)!=2) {
+        		$noCommandFound = true;
+        	}
+        	else if($parts[1]!='all') {
+        		$foundRoutes = array();
+        		foreach ($routes as $route) {
+        			if(isset($route['options']['group']) && $route['options']['group'] == $parts[1]) {
+        				$foundRoutes[] = $route; 
+        			}
+        		}
+        		if(empty($foundRoutes)) {
+        			$noCommandFound = true;
+        		}	
+        		else {
+        			$routes = $foundRoutes;
+        		}
+        	}
+        	
+        	if($noCommandFound) {
+        		// go through the commands and get their groups
+        		$groups = array();
+        		foreach ($routes as $route) {
+        			if(!isset($route['options']['group'])) {
+        				continue;
+        			}
+        			$group = $route['options']['group'];
+        			$groups[$group] = 1;
+        		}
+        		
+        		$usage = array();
+        		$usage[] = "The following group of command are available:";
+        		foreach($groups as $group=>$tmp) {
+        			if(empty($group)) {
+        				continue;
+        			}
+        			$usage[]=array('command:'.$group, ucfirst($group));
+        		}
+        		$usage[]=array('command:all', 'For all available commands');
+        		$usage[]='Below is an example how to get the list of commands in a group';
+        		$usage[]=array('Example:', $_SERVER['PHP_SELF'].' command:'.$group);
+        		$usage[]=array('', 'Will list all commands in the group "'.ucfirst($group).'".');
+        		$usage[]='If you want to see all commands in all groups type:';
+        		$usage[]=array(' ', $_SERVER['PHP_SELF'].' command:all');
+        		
+        		return $usage; 
+        	}
         }
+        
         foreach ($routes as $route) {
             $command = $route['options']['route'];
             $usage[] = "* $command";
@@ -227,8 +199,15 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
                         $usage[] = $value;
                     }
                 }
+            } elseif (isset($route['options']['arrays'])) {
+                 $usage[] = sprintf("\tThe following options accept multiple values: %s",implode(',',$route['options']['arrays']));
+                 $usage[] = "\tYou can provide multiple values either with comma separated values or like HTTP query string.\n".
+                              "\tEx: Comma separated: --extensions='mysql,gd,iconv' \n".
+                              "\tEx: Query string: --userParams='APPLICAITON_ENV=develpment&user[x]=1&user[y]=2'";
             }
+            $usage[]="-------------------------------------------------------------------";
         }
+
         return $usage;
     }
 

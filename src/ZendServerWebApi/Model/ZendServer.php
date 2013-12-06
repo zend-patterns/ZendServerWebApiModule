@@ -8,6 +8,14 @@ namespace ZendServerWebApi\Model;
  */
 class ZendServer
 {
+
+    /**
+     * API Version
+     * 
+     * @var string
+     */
+    protected $apiVersion;
+
     /**
      * Zend Server Version
      * 
@@ -21,14 +29,19 @@ class ZendServer
      * @var Zend\Uri\http
      */
     protected $uri;
-    
+
     /**
-     * Api Version
-     * @var string
+     * @var array
      */
-    protected $apiVersion;
-    
-    
+    protected $apiVersionAvailability = array(
+            '5.1' => '1.0',
+            '5.5' => '1.1',
+            '5.6' => '1.2',
+            '6.0' => '1.4',
+            '6.1' => '1.5',
+            '6.2' => '1.6',
+    );
+
     /**
      * Api Version / zs version converter
      * @var array
@@ -43,8 +56,14 @@ class ZendServer
     {
         $this->setUri(new \Zend\Uri\Http($config['zsurl']));
         $this->setVersion($config['zsversion']);
+        preg_match('@(^[0-9]*\.[0-9]*)@', $config['zsversion'], $shortVersion);
+        $shortVersion = $shortVersion[0];
+        if(!isset($this->apiVersionAvailability[$shortVersion])) {
+        	throw new \RuntimeException("Invalid or unsupported Zend Server version");
+        }
+        $this->setApiVersion($this->apiVersionAvailability[$shortVersion]);
     }
-    
+
     /**
      *
      * @return the $version

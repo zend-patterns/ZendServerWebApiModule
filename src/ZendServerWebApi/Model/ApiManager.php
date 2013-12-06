@@ -20,16 +20,16 @@ class ApiManager implements ServiceLocatorAwareInterface
      * @var ServiceManager
      */
     protected $serviceManager;
-    
+
     /**
-     * 
+     *
      * @param ServiceLocatorInterface $serviceLocator
      */
     public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
     {
         $this->serviceManager = $serviceLocator; 
     }
- 
+
     /**
      * Get Service manager
      * @return \ZendServerWebApi\Model\ServiceManager
@@ -61,14 +61,43 @@ class ApiManager implements ServiceLocatorAwareInterface
     public function __call ($action, $args)
     {
         $methodConf = 'get';
-        if (isset($this->apiConfig[$action]['options']['defaults']['apiMethod'])) {
-            $methodConf = $this->apiConfig[$action]['options']['defaults']['apiMethod'];
+        $actionOptions = $this->apiConfig[$action]['options'];
+        if (isset($actionOptions['defaults']['apiMethod'])) {
+            $methodConf = $actionOptions['defaults']['apiMethod'];
         }
         $apiRequest = new Request($this->getTargetServer(), $action, $this->getApiKey());
-        if (isset($args[0]))
+        if (isset($args[0])) {
+            if ($methodConf == 'post') {
+                $files = array();
+                if(isset($actionOptions['files'])) {
+                    foreach($actionOptions['files'] as $fileParam) {
+                        $filePath = $args[0][$fileParam];
+                        $files[$filePath] = array(
+                            'formname' => $fileParam,
+                            'filename' => basename($filePath),
+                            'data'     => null,
+                            'ctype'    => null,
+                        );
+                        unset($args[0][$fileParam]);
+                    }
+                    unset($args[0]['files']);
+                }
+
+                if(count($files)) {
+                    $apiRequest->setFiles(new \Zend\Stdlib\Parameters($files));
+                }
+            }
+
             $apiRequest->setParameters($args[0]);
-        if ($methodConf == 'post')
+        }
+        
+        if(isset($args[0]['zsoutput'])) {
+        	$apiRequest->setOutputType($args[0]['zsoutput']);	
+        }	
+
+        if ($methodConf == 'post') {
             $apiRequest->setMethod(Request::METHOD_POST);
+        }
         $apiRequest->prepareRequest();
         $this->getServiceLocator()->get('log')->info($apiRequest->getUriString());
         $httpResponse = $this->getZendServerClient()->send($apiRequest);
@@ -77,6 +106,7 @@ class ApiManager implements ServiceLocatorAwareInterface
             $this->getServiceLocator()->get('log')->err($response->getErrorMessage() . $response->getHttpResponse()->getBody());
             throw new ApiException($response);
         }
+
         return $response;
     }
 

@@ -1,63 +1,25 @@
 <?php
-return array(
+return array (
         'min-zsversion' => '6.2',
-        'console' => array(
-                'router' => array(
-                        'routes' => array(
-                                'deploymentDownloadFile' => array (
+        'console' => array (
+                'router' => array (
+                        'routes' => array (
+                                'vhostGetStatus' => array (
                                         'options' => array (
-                                                'route' => 'deploymentDownloadFile --url= --name= --version= [--override=]',
-                                                'defaults' => array (
-                                                        'controller' => 'webapi-api-controller',
-                                                        'action' => 'deploymentDownloadFile',
-                                                        'apiMethod' => 'post'
-                                                ),
-                                        		'info' => array(
-                                                	'Download a deployment package file from a given URL to allow passing it to the deployment mechanism later.'
-                                        		)
-                                        )
-                                ),
-                        		'jobqueueAddJob' => array (
-                        				'options' => array (
-                        						'route' => 'jobqueueAddJob --url= [--vars=] --options=',
-                        						'defaults' => array (
-                        								'controller' => 'webapi-api-controller',
-                        								'action' => 'jobqueueAddJob',
-                        								'apiMethod' => 'post'
-                        						),
-                        						'arrays' => array(
-                        								'url','vars','options'
-                        						),
-                        						'info' => array(
-                        								'Create a new job.'
-                        						)
-                        				)
-                        		),
-                        		'librarySetDefault' => array (
-                        				'options' => array (
-                        						'route' => 'librarySetDefault [--libraryVersionId=]',
-                        						'defaults' => array (
-                        								'controller' => 'webapi-api-controller',
-                        								'action' => 'librarySetDefault',
-                        								'apiMethod' => 'post'
-                        						)
-                        				)
-                        		),
-                        		//Vhost
-                                'vhostGetStatus' => array(
-                                        'options' => array(
                                                 'route' => 'vhostGetStatus [--vhosts=]',
-                                                'defaults' => array(
+                                                'defaults' => array (
                                                         'controller' => 'webapi-api-controller',
                                                         'action' => 'vhostGetStatus'
                                                 ),
-		                                		'arrays' => array(
-		                                				'vhosts'
-		                                		),
-		                                        'info' => array(
-		                                                'Get the list of virtual hosts currently used by the web server and information about each virtual host.'
-		                                        )
-                                        ),
+                                                'arrays' => array(
+                                                        'vhosts'
+                                                ),
+                                        		'group' => 'virtualhost',
+                                        		'info' => array(
+                                        			'Get the list of virtual hosts currently used by the web server and information about each virtual host.',
+                                        			array('--vhosts', 'Comma separated list of virtual host IDs.'),
+												)
+                                        )
                                 ),
                         		'vhostRemove' => array (
                         				'options' => array (
@@ -67,65 +29,101 @@ return array(
                         								'action' => 'vhostRemove',
                         								'apiMethod' => 'post'
                         						),
-		                        				'arrays' => array(
-		                        						'vhosts'
-		                        				),
-		                        				'info' => array(
-		                        						'Remove the list of virtual hosts currently used by the web server and information about each virtual host.'
-		                        				)
-                        				),
+                        						'arrays' => array(
+                        								'vhosts'
+                        						),
+                        						'group' => 'virtualhost',
+                        						'info' => array(
+                        								'Remove the list of virtual hosts currently used by the web server and information about each virtual host.',
+                        								array('--vhosts', 'Comma separated list of virtual host IDs.'),
+                        								
+                        						)
+                        				)
                         		),
+                        		
                         		'vhostAdd' => array (
                         				'options' => array (
-                        						'route' => 'vhostAdd --name= --port= [--template=] [--forceCreate=]',
+                        						'route' => 'vhostAdd --name= --port= [--template=] [--forceCreation=]',
                         						'defaults' => array (
                         								'controller' => 'webapi-api-controller',
                         								'action' => 'vhostAdd',
                         								'apiMethod' => 'post'
                         						),
-		                        				'info' => array(
-		                        						'Add a new virtual host.'
-		                        				)
-                        				),
-                        		),
+                        						'group' => 'virtualhost',
+                        						'info' => array(
+                        								'Add a new virtual host. Receives name, port and template and returns a single virtual hostelement with the same information.',
+                        								array('--name', 'Name of virtual host.'),
+                        								array('--port', 'Port of virtual host.'),
+                        								array('--template', 'Template of the virtual hostsettings according to the web server configuration options.'),
+                        								array('--forceCreation', 'Force the creation of a virtual host, even if it fails syntax validation. Default: FALSE'),
+                        								//array('Example:','configurationExport --directivesBlacklist="zend_optimizerplus.blacklist_filename,pgsql.auto_reset_persistent"'),
+                        						)
+                        				)
+                        		),              		
                         		'vhostAddSecure' => array (
                         				'options' => array (
-                        						'route' => 'vhostAddSecure --name= --port= --sslCertificatePath= --sslCertificateKeyPath= [--template=] [--sslCertificateChainPath=] [--forceCreate=]',
+                        						'route' => 'vhostAddSecure --name= --port= --sslCertificatePath= --sslCertificateKeyPath= [--sslCertificateChainPath=]  [--template=] [--forceCreation=]',
                         						'defaults' => array (
                         								'controller' => 'webapi-api-controller',
                         								'action' => 'vhostAddSecure',
                         								'apiMethod' => 'post'
                         						),
-		                        				'info' => array(
-		                        						'This action is similar to vhostAdd, it adds a new vhost which is intended to be secure using SSL.'
-		                        				)
-                        				),
+                        						'group' => 'virtualhost',
+                        						'info' => array(
+                        								'This action is similar to vhostAdd, it adds a new vhost which is intended to be secure using SSL. Receives name, port, template and certificate paths and returns a single virtual host element with the same information.',
+                        								array('--name', 'Name of virtual host.'),
+                        								array('--port', 'Port of virtual host.'),
+                        								array('--sslCertificatePath', 'File path to locate the SSL certificate file.'),
+                        								array('--sslCertificateKeyPath', 'File path to locate the SSL public key file.'),
+                        								array('--sslCertificateChainPath', 'Full file path to the SSL chain file.'),
+                        								array('--template', 'Template of the virtual hostsettings according to the web server configuration options.'),
+                        								array('--forceCreation', 'Force the creation of a virtual host, even if it fails syntax validation. Default: FALSE'),
+                        								//array('Example:','configurationExport --directivesBlacklist="zend_optimizerplus.blacklist_filename,pgsql.auto_reset_persistent"'),
+                        						)
+                        				)
                         		),
                         		'vhostAddSecureIbmi' => array (
                         				'options' => array (
-                        						'route' => 'vhostAddSecureIbmi --name= --port= --sslAppName= [--template=] [--forceCreate=]',
+                        						'route' => 'vhostAddSecureIbmi --name= --port= --sslAppName=  [--template=] [--forceCreation=]',
                         						'defaults' => array (
                         								'controller' => 'webapi-api-controller',
                         								'action' => 'vhostAddSecureIbmi',
                         								'apiMethod' => 'post'
                         						),
-		                        				'info' => array(
-		                        						'Adds a new virtual host which is intended to be secure using SSL. For IBMi systems only'
-		                        				)
-                        				),
+                        						'group' => 'virtualhost',
+                        						'info' => array(
+                        								'Adds a new virtual host which is intended to be secure using SSL. Receives name, port, template and certificate application name and returns a single virtual host element with the same information.',
+                        								array('--name', 'Name of virtual host.'),
+                        								array('--port', 'Port of virtual host.'),
+                        								array('--sslAppName', 'Application name for SSL.'),
+                        								array('--template', 'Template of the virtual hostsettings according to the web server configuration options.'),
+                        								array('--forceCreation', 'Force the creation of a virtual host, even if it fails syntax validation. Default: FALSE'),
+                        								//array('Example:','configurationExport --directivesBlacklist="zend_optimizerplus.blacklist_filename,pgsql.auto_reset_persistent"'),
+                        						)
+                        				)
                         		),
                         		'vhostEdit' => array (
                         				'options' => array (
-                        						'route' => 'vhostEdit --vhostId= --template= [--sslCertificatePath=] [--forceCreate=] [--sslCertificateKeyPath=] [--sslCertificateChainPath=] [--sslAppName=]',
+                        						'route' => 'vhostEdit --vhostId= --template= [--forceCreate=] [--sslCertificatePath=] [--sslCertificateKeyPath=] '.
+                        								   '[--sslCertificateChainPath=] [--sslAppName]',
                         						'defaults' => array (
                         								'controller' => 'webapi-api-controller',
                         								'action' => 'vhostEdit',
                         								'apiMethod' => 'post'
                         						),
-		                        				'info' => array(
-		                        						'Edit an existing vhost.'
-		                        				)
-                        				),
+                        						'group' => 'virtualhost',
+                        						'info' => array(
+                        								'Get the list of virtual hosts currently used by the web server and information about each virtual host.',
+                        								array('--vhostId', 'virtual host ID.'),
+                        								array('--template', 'New vhost template of virtual host settings.'),
+                        								array('--forceCreate', 'Force edit of the virtual host template even if any errors are detected.'),
+                        								array('--sslCertificatePath', 'File path to locate the SSL certificate file'),
+                        								array('--sslCertificateKeyPath', 'File path to locate the SSL key file.'),
+                        								array('--sslCertificateChainPath', 'File path to locate the SSL chain file.'),
+                        								array('--sslAppName', 'Application name for SSL (IBMI only).'),
+                        								//array('Example:','configurationExport --directivesBlacklist="zend_optimizerplus.blacklist_filename,pgsql.auto_reset_persistent"'),
+                        						)
+                        				)
                         		),
                         		'vhostGetDetails' => array (
                         				'options' => array (
@@ -133,37 +131,57 @@ return array(
                         						'defaults' => array (
                         								'controller' => 'webapi-api-controller',
                         								'action' => 'vhostGetDetails',
+                        								'apiMethod' => 'post'
                         						),
-		                        				'info' => array(
-		                        						'Get the list of virtual hosts currently used by the web server and full information about each virtual host.'
-		                        				)
-                        				),
+                        						'group' => 'virtualhost',
+                        						'info' => array(
+                        								'Get the list of virtual hosts currently used by the web server and full information about each virtual host.',
+                        								array('--vhost', 'The ID of a single virtual host.'),
+                        								//array('Example:','configurationExport --directivesBlacklist="zend_optimizerplus.blacklist_filename,pgsql.auto_reset_persistent"'),
+                        						)
+                        		
+                        				)
                         		),
                         		'vhostValidateSsl' => array (
                         				'options' => array (
-                        						'route' => 'vhostValidateSsl --sslCertificatePath= --sslCertificateKeyPath= [--sslCertificateChainPath=]',
+                        						'route' => 'vhostValidateSsl --sslCertificatePath= --sslCertificateKeyPath [--sslChainPath=]',
                         						'defaults' => array (
                         								'controller' => 'webapi-api-controller',
-                        								'action' => 'vhostValidateSsl',
-                        								'apiMethod' => 'post'
+                        								'action' => 'vhostValidateSsl'
                         						),
-		                        				'info' => array(
-		                        						'Validate the existence of the supplied SSL certificate, key and chain provided during creation or edit of a virtual host.'
-		                        				)
-                        				),
+                        						'group' => 'virtualhost',
+                        						'info' => array(
+                        								'Validate the existence of the supplied SSL certificate, key and chain provided during creation or edit of a virtual host.',
+                        								array('--sslCertificatePath', 'Full filepath to the ssl certificate file.'),
+                        								array('--sslCertificateKeyPath', 'Full filepath to the ssl key file.'),
+                        								array('--sslChainPath', 'Full filepath to the chain file.'),	
+                        								//array('Example:','configurationExport --directivesBlacklist="zend_optimizerplus.blacklist_filename,pgsql.auto_reset_persistent"'),
+                        						)
+                        		
+                        				)
                         		),
                         		'vhostValidateTemplate' => array (
                         				'options' => array (
-                        						'route' => 'vhostValidateTemplate --name= --port= --template= [--sslEnabled=] [--sslCertificatePath=] [--sslCertificateKeyPath=] [--sslChainPath=]',
+                        						'route' => 'vhostValidateTemplate --name= --port= --template= [--sslEnabled=] [--sslCertificatePath=] --sslCertificateKeyPath [--sslChainPath=]',
                         						'defaults' => array (
                         								'controller' => 'webapi-api-controller',
                         								'action' => 'vhostValidateTemplate',
                         								'apiMethod' => 'post'
                         						),
-		                        				'info' => array(
-		                        						'Validate the structure and syntax of a virtual host template.'
-		                        				)
-                        				),
+                        						'group' => 'virtualhost',
+                        						'info' => array(
+                        								'Validate the existence of the supplied SSL certificate, key and chain provided during creation or edit of a virtual host.',
+                        								array('--name', 'Name of virtual host.'),
+                        								array('--port', 'Port of virtual host.'),
+                        								array('--template', 'Template text to be validated.'),
+                        								array('--sslEnabled', 'Indicates if the provided template to be used is SSL template.'),
+                        								array('--sslCertificatePath', 'File path to locate the SSL certificate file.'),
+                        								array('--sslCertificateKeyPath', 'File path to locate the SSL public key file.'),
+                        								array('--sslCertificateChainPath', 'Full file path to the SSL chain file.'),
+                        								//array('Example:','configurationExport --directivesBlacklist="zend_optimizerplus.blacklist_filename,pgsql.auto_reset_persistent"'),
+                        						)
+                        		
+                        				)
                         		),
                         		'vhostRedeploy' => array (
                         				'options' => array (
@@ -173,10 +191,14 @@ return array(
                         								'action' => 'vhostRedeploy',
                         								'apiMethod' => 'post'
                         						),
-		                        				'info' => array(
-		                        						'Redeploy a virtual host to all servers.'
-		                        				)
-                        				),
+                        						'group' => 'virtualhost',
+                        						'info' => array(
+                        								'Get the list of virtual hosts currently used by the web server and full information about each virtual host.',
+                        								array('--vhost', 'The ID of a single virtual host.'),
+                        								//array('Example:','configurationExport --directivesBlacklist="zend_optimizerplus.blacklist_filename,pgsql.auto_reset_persistent"'),
+                        						)
+                        		
+                        				)
                         		),
                         		'vhostEnableDeployment' => array (
                         				'options' => array (
@@ -186,10 +208,21 @@ return array(
                         								'action' => 'vhostEnableDeployment',
                         								'apiMethod' => 'post'
                         						),
-		                        				'info' => array(
-		                        						'Enable deployment to a system virtual host..'
-		                        				)
-                        				),
+                        						'group' => 'virtualhost',
+                        						'info' => array(
+                        								'Enable deployment to a system virtual host. This action requires user intervention.
+Enabling deployment is performed in two stages:
+A file is created to contain the overriding virtual host configuration.
+A blueprint entry is created to control and monitor the virtual host (performed if applyImmediately is TRUE)
+After these two steps, the user is expected to link this new configuration file to the server’s virtual host section of the configuration file. This step is required because Zend Server generally does not have the write permissions needed to perform the action.
+The split to two workflow modes allows the user to create a minimal setup, complete the file system part of the workflow and only then enforce blueprint control. Changes will come into effect only after a full restart anyway.',
+                        								array('--vhost', 'The ID of a single virtual host.'),
+                        								array('--applyImmediately', 'False: will only create an overriding configuration file.
+True: will create an overriding configuration.'),
+                        								//array('Example:','configurationExport --directivesBlacklist="zend_optimizerplus.blacklist_filename,pgsql.auto_reset_persistent"'),
+                        						)
+                        		
+                        				)
                         		),
                         		'vhostDisableDeployment' => array (
                         				'options' => array (
@@ -199,12 +232,18 @@ return array(
                         								'action' => 'vhostDisableDeployment',
                         								'apiMethod' => 'post'
                         						),
-		                        				'info' => array(
-		                        						'Disable deployment to system virtual host that was enabled for deployment.'
-		                        				)
-                        				),
+                        						'group' => 'virtualhost',
+                        						'info' => array(
+                        								'Disable deployment to system virtual host that was enabled for deployment.',
+                        								array('--vhost', 'The ID of a single virtual host.'),
+                        								//array('Example:','configurationExport --directivesBlacklist="zend_optimizerplus.blacklist_filename,pgsql.auto_reset_persistent"'),
+                        						)
+                        		
+                        				)
                         		),
-                        )
+                        		
+                        		
+                     	)       
                 )
         )
 );
