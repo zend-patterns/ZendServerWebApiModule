@@ -61,7 +61,8 @@ class ApiManager implements ServiceLocatorAwareInterface
     public function __call ($action, $args)
     {
         $methodConf = 'get';
-        $actionOptions = $this->apiConfig[$action]['options'];
+        $apiConfig  = $this->getApiConfig();
+        $actionOptions = $apiConfig[$action]['options'];
         if (isset($actionOptions['defaults']['apiMethod'])) {
             $methodConf = $actionOptions['defaults']['apiMethod'];
         }

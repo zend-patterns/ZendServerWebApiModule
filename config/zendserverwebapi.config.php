@@ -1,4 +1,5 @@
 <?php
+use Zend\Log\Logger;
 return array (
         'controllers' => array (
                 'invokables' => array (
@@ -26,4 +27,8 @@ return array (
                 'adapter' => '\ZendServerWebApi\Model\Http\Adapter\Socket',
             ),
         ),
+        'zsapilog' => array (
+            'file' => 'php://stderr',
+            'priority' => getenv('DEBUG')? Logger::DEBUG: Logger::WARN,    	
+        )
 );
