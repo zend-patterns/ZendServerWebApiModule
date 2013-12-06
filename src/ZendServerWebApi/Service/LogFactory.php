@@ -19,8 +19,7 @@ class LogFactory implements FactoryInterface
      * @return mixed
      */
     public function createService (ServiceLocatorInterface $serviceLocator)
-    {
-        $client = $serviceLocator->get('zendserverclient');
+    {   
         $config = $serviceLocator->get('config');
         $log = new Logger();
         $logWriter = new Stream($config['zsapilog']['file']);

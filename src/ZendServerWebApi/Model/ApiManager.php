@@ -40,18 +40,6 @@ class ApiManager implements ServiceLocatorAwareInterface
     }
 
     /**
-     * API Manager constructor
-     *
-     * @param unknown $targetServer            
-     * @param unknown $apiKey            
-     * @param unknown $zendServerClient            
-     */
-    public function __construct ($serviceManager)
-    {
-        $this->setServiceLocator($serviceManager);
-    }
-
-    /**
      * Magical function to use API method has API Manager method.
      *
      * @param string $action            
@@ -100,11 +88,12 @@ class ApiManager implements ServiceLocatorAwareInterface
             $apiRequest->setMethod(Request::METHOD_POST);
         }
         $apiRequest->prepareRequest();
-        $this->getServiceLocator()->get('log')->info($apiRequest->getUriString());
+        $log = $this->getServiceLocator()->get('log');
+        $log->info($apiRequest->getUriString());
         $httpResponse = $this->getZendServerClient()->send($apiRequest);
         $response = ApiResponse::factory($httpResponse);
         if ($response->isError()) {
-            $this->getServiceLocator()->get('log')->err($response->getErrorMessage() . $response->getHttpResponse()->getBody());
+            $log->err($response->getErrorMessage() . $response->getHttpResponse()->getBody());
             throw new ApiException($response);
         }
 

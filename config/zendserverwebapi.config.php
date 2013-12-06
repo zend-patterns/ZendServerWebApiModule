@@ -8,8 +8,10 @@ return array (
         ),
         'service_manager' => array (
                 'factories' => array (
-                     'zend_server_api' => 'ZendServerWebApi\Service\ApiManagerFactory',
                      'log' => 'ZendServerWebApi\Service\LogFactory'
+                ),
+                'invokables' => array (
+                    'zend_server_api' => 'ZendServerWebApi\Model\ApiManager',
                 ),
         ),
 
