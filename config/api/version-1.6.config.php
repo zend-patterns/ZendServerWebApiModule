@@ -131,7 +131,6 @@ return array (
                         						'defaults' => array (
                         								'controller' => 'webapi-api-controller',
                         								'action' => 'vhostGetDetails',
-                        								'apiMethod' => 'post'
                         						),
                         						'group' => 'virtualhost',
                         						'info' => array(

@@ -218,6 +218,6 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
      */
     public function getConsoleBanner (Console $console)
     {
-        return 'ZendServerWebApi Client version 1.0';
+        return 'ZendServerWebApi Client version 1.2';
     }
 }
