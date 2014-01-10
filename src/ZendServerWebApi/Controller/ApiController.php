@@ -1,7 +1,9 @@
 <?php
 namespace ZendServerWebApi\Controller;
+
 use Zend\Mvc\Controller\AbstractController;
 use Zend\Mvc\MvcEvent;
+use ZendServerWebApi\Model\ApiManager;
 
 /**
  * Main Console Controller
@@ -10,6 +12,10 @@ use Zend\Mvc\MvcEvent;
  */
 class ApiController extends AbstractController
 {
+	/**
+	 * The API manager
+	 * @var ApiManager
+	 */
     protected $apiManager;
 
     /**

@@ -1,5 +1,6 @@
 <?php
 namespace ZendServerWebApi\Model;
+
 use ZendServerWebApi\Model\Response\ApiResponse;
 use ZendServerWebApi\Model\Request;
 use ZendServerWebApi\Model\Exception\ApiException;
@@ -20,6 +21,19 @@ class ApiManager implements ServiceLocatorAwareInterface
      * @var ServiceManager
      */
     protected $serviceManager;
+    
+    /**
+     * Default API key
+     * @var ApiKey
+     */
+    protected $apiKey;
+    
+    /**
+     * Target Zend Server
+     * 
+     * @var ZendServer
+     */
+    protected $target;
 
     /**
      *
@@ -71,15 +85,12 @@ class ApiManager implements ServiceLocatorAwareInterface
                     }
                     unset($args[0]['files']);
                 }
-
                 if(count($files)) {
                     $apiRequest->setFiles(new \Zend\Stdlib\Parameters($files));
                 }
             }
-
             $apiRequest->setParameters($args[0]);
         }
-        
         if(isset($args[0]['zsoutput'])) {
         	$apiRequest->setOutputType($args[0]['zsoutput']);	
         }	
@@ -106,7 +117,19 @@ class ApiManager implements ServiceLocatorAwareInterface
      */
     public function getApiKey ()
     {
-        return $this->getServiceLocator()->get('defaultApiKey');
+    	if (is_a($this->apiKey, 'ZendServerWebApi\Model\ApiKey')) return $this->apiKey;
+    	$this->apiKey = $this->getServiceLocator()->get('defaultApiKey');
+    	return $this->apiKey;
+    }
+    
+    /**
+     * Set the API key
+     * 
+     * @param ApiKey $apiKey
+     */
+    public function setApiKey(ApiKey $apiKey)
+    {
+    	$this->apiKey = $apiKey;
     }
 
     /**
@@ -115,7 +138,19 @@ class ApiManager implements ServiceLocatorAwareInterface
      */
     public function getTargetServer ()
     {
-        return $this->getServiceLocator()->get('targetZendServer');
+    	if (is_a($this->target, 'ZendServerWebApi\Model\ZendServer')) return $this->target;
+    	$this->target = $this->getServiceLocator()->get('targetZendServer');
+        return $this->target;
+    }
+    
+    /**
+     * Set the target zend server
+     * 
+     * @param ZendServer $target
+     */
+    public function setTargetServer(ZendServer $target)
+    {
+    	$this->target = $target;
     }
 
     /**
@@ -126,15 +161,17 @@ class ApiManager implements ServiceLocatorAwareInterface
     {
         return $this->getServiceLocator()->get('zendserverclient');
     }
-
+    
     /**
-     *
-     * @return the $apiConfig
+     * Set and entirely ZS web Api context
+     * 
+     * @param array $config
      */
-    public function getApiConfig ()
+    public function setApiContext($config)
     {
-        $apiConfig = $this->getServiceLocator()->get('config');
-        $apiConfig = $apiConfig['console']['router']['routes'];
-        return $apiConfig;
+    	$target = new ZendServer($config);
+    	$apiKey = new ApiKey($config['zskey'], $config['zssecret']);
+    	$this->setTargetServer($target);
+    	$this->setApiKey($apiKey);
     }
 }
