@@ -63,7 +63,8 @@ class ApiManager implements ServiceLocatorAwareInterface
     public function __call ($action, $args)
     {
         $methodConf = 'get';
-        $apiConfig  = $this->getApiConfig();
+        $apiConfig  = $this->getServiceLocator()->get('config');
+        $apiConfig = $apiConfig['console']['router']['routes'];
         $actionOptions = $apiConfig[$action]['options'];
         if (isset($actionOptions['defaults']['apiMethod'])) {
             $methodConf = $actionOptions['defaults']['apiMethod'];
@@ -94,20 +95,18 @@ class ApiManager implements ServiceLocatorAwareInterface
         if(isset($args[0]['zsoutput'])) {
         	$apiRequest->setOutputType($args[0]['zsoutput']);	
         }	
-
         if ($methodConf == 'post') {
             $apiRequest->setMethod(Request::METHOD_POST);
         }
         $apiRequest->prepareRequest();
-        $log = $this->getServiceLocator()->get('log');
-        $log->info($apiRequest->getUriString());
+        //$log = $this->getServiceLocator()->get('log');
+        //$log->info($apiRequest->getUriString());
         $httpResponse = $this->getZendServerClient()->send($apiRequest);
         $response = ApiResponse::factory($httpResponse);
         if ($response->isError()) {
-            $log->err($response->getErrorMessage() . $response->getHttpResponse()->getBody());
+            //$log->err($response->getErrorMessage() . $response->getHttpResponse()->getBody());
             throw new ApiException($response);
         }
-
         return $response;
     }
 

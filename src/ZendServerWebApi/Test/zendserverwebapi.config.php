@@ -18,8 +18,8 @@ return array (
             // Default Zend Server Target
             'target' => array(
                 'zsurl' => 'http://localhost:10081',
-                'zskey' => 'zf',
-                'zssecret' => 'a1c5b69aa706450c6715fd817b5c7cd643144bb2c70d1e4d34c8a0f3098e2c65',
+                'zskey' => 'admin',
+                'zssecret' => 'fdbe02cc14bf1b48787e379bc420fd46ba9c88a3cc85c2030b5e32610e75efa5',
                 'zsversion' => '6.2',
             ),
             // HTTP Client

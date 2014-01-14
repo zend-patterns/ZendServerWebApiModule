@@ -1,0 +1,24 @@
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/3.7/phpunit.xsd"
+         bootstrap="bootstrap.php"
+         verbose="true">
+		<testsuites>
+		  <testsuite name="WebApi">
+		    <directory>Administration</directory>
+		    <directory>Audit</directory>
+		    <directory>Cache</directory>
+		    <directory>Codetracing</directory>
+		    <directory>Deployment</directory>
+		    <directory>Filter</directory>
+		    <directory>JobQueue</directory>
+		    <directory>Library</directory>
+		    <directory>Monitor</directory>
+		    <directory>Notification</directory>
+		    <directory>PageCache</directory>
+		    <directory>Server</directory>
+		    <directory>Statistics</directory>
+		    <directory>Studio</directory>
+		    <directory>VirtualHost</directory>
+		  </testsuite>
+		</testsuites>
+</phpunit>

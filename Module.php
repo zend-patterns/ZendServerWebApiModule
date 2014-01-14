@@ -29,7 +29,7 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
      */
     public function getConfig ()
     {
-        $mainConfig = include __DIR__ . '/config/zendserverwebapi.config.php';
+        /*$mainConfig = include __DIR__ . '/config/zendserverwebapi.config.php';
         $mainConfig['min-zsversion'] = array();
         $apiConf = array();
         foreach (scandir(__DIR__ . '/config/api') as $confFile) {
@@ -53,8 +53,11 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
             }
             $mainConfig = array_merge_recursive($mainConfig, $config);
         }
-
-        return $mainConfig;
+        return $mainConfig;*/
+    	$configManager = new \ZendServerWebApi\Model\ApiConfigManager(
+    			__DIR__ . '/config/api',
+    			__DIR__ . '/config/zendserverwebapi.config.php');
+    	return $configManager->getConfig();
     }
 
     /**
