@@ -1,8 +1,6 @@
 <?php
 namespace ZendServerWebApi\Model;
 
-use ZendServerWebApi\Model\Request;
-
 class ApiParameter
 {
 	const VAR_TYPE_STRING = 'string';
