@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cache_settings>
+	<dont_cache />
+	<cache>
+		<url schema="http" lifetime="360" path="demo-application/time.php"
+			host="&lt;default-server>:80" compress="true" match_type="regex_match"
+			app_id="9" id="1">
+			<name><![CDATA[time]]></name>
+		</url>
+	</cache>
+</cache_settings>

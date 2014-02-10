@@ -2,11 +2,14 @@
 namespace ZendServerWebApi\Test;
 
 
-use ZendServerWebApi\Model\ApiConfigManager;
 use Zend\Mvc\Service\ServiceManagerConfig;
-use ZendServerWebApi\Model\ApiKey;
+
 abstract class WebApiTestCase extends \PHPUnit_Framework_TestCase
 {
+	/**
+	 * Api Manager
+	 * @var unknown
+	 */
 	protected $apiManager;
 	
 	/**
@@ -14,6 +17,13 @@ abstract class WebApiTestCase extends \PHPUnit_Framework_TestCase
 	 * @var unknown
 	 */
 	protected $serviceManager;
+	
+	/**
+	 * test parameters
+	 * 
+	 * @var array
+	 */
+	protected $params = array();
 	
 	/**
 	 * (non-PHPdoc)
@@ -26,38 +36,8 @@ abstract class WebApiTestCase extends \PHPUnit_Framework_TestCase
 		$smConfig = new ServiceManagerConfig($smConfig);
 		$this->serviceManager = new \Zend\ServiceManager\ServiceManager($smConfig);
 		$this->serviceManager->setService('config', $configuration);
-		$this->serviceManager->setService('targetConfig', new \ArrayObject($configuration['zsapi']['target']));
-		$targetConfig = $this->serviceManager->get('targetConfig');
-		$targetServer = \ZendServerWebApi\Model\ZendServer::factory($targetConfig);
-		$this->serviceManager->setService('targetZendServer', $targetServer);
-		$defaultApiKey = new ApiKey($targetConfig['zskey'], $targetConfig['zssecret']);
-		$this->serviceManager->setService('defaultApiKey', $defaultApiKey);
-		$httpConfig = $configuration['zsapi']['client'];
-        if(!empty($targetConfig['http'])) {
-        	foreach($targetConfig['http'] as $k=>$v) {
-        		$httpConfig[$k]=$v;
-        	}
-        }
-        $zendServerClient = new \ZendServerWebApi\Model\Http\Client(null, $httpConfig);
-        $this->serviceManager->setService('zendServerClient', $zendServerClient);
-	}
-	
-	/**
-	 * Test that the service is reachable
-	 */
-	public function test_ServiceIsReachable()
-	{
-		$serviceName = get_called_class();
-		$serviceName = str_replace('Test', '', $serviceName);
-		$serviceName = current(array_reverse(explode( '\\',$serviceName)));
-		$serviceName = lcfirst($serviceName);
-		$config = $this->getServiceConfig($serviceName);
-		$httpMethod = 'get';
-		if (isset($config['options']['defaults']['apiMethod']))
-			$httpMethod = $config['options']['defaults']['apiMethod'];
-		$apiManager = $this->serviceManager->get('zend_server_api');
-		$response = $apiManager->$serviceName();
-		$this->assertFalse($response->isError());
+		$this->apiManager = $this->serviceManager->get('zend_server_api');
+        $this->setParams(__DIR__ . '/data/testparameters.php');
 	}
 	
 	/**
@@ -82,5 +62,43 @@ abstract class WebApiTestCase extends \PHPUnit_Framework_TestCase
 		$apiConfiguration = new \ZendServerWebApi\Model\ApiConfigManager($apiConfigFileDir, $mainConfigFile);
 		$apiConfiguration = $apiConfiguration->getConfig();
 		return $apiConfiguration;
+	}
+	
+	/**
+	 * Check if the given response if a ApiResponse object
+	 * @param unknown $response
+	 */
+	protected function isValidApiResponse($response)
+	{
+		$this->assertTrue(is_a($response, ApiResponse));
+	}
+	
+	/**
+	 * Return the Test directory
+	 * @return string
+	 */
+	protected function getRootDir()
+	{
+		return __DIR__;
+	}
+	
+	/**
+	 * Set test parameter
+	 * 
+	 * @param stirng $file
+	 */
+	protected function setParams($file)
+	{
+		$this->params = include $file;
+	}
+	
+	/**
+	 * 
+	 * @param unknown $name
+	 * @param unknown $value
+	 */
+	protected function getParam($name)
+	{
+		return $this->params[$name];
 	}
 }

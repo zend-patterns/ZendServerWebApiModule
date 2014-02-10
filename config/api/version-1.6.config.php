@@ -146,7 +146,8 @@ return array (
                         						'route' => 'vhostValidateSsl --sslCertificatePath= --sslCertificateKeyPath [--sslChainPath=]',
                         						'defaults' => array (
                         								'controller' => 'webapi-api-controller',
-                        								'action' => 'vhostValidateSsl'
+                        								'action' => 'vhostValidateSsl',
+                        								'apiMethod' => 'post'
                         						),
                         						'group' => 'virtualhost',
                         						'info' => array(
@@ -238,6 +239,44 @@ True: will create an overriding configuration.'),
                         								//array('Example:','configurationExport --directivesBlacklist="zend_optimizerplus.blacklist_filename,pgsql.auto_reset_persistent"'),
                         						)
                         		
+                        				)
+                        		),
+                        		
+                        		'jobqueueAddJob' => array (
+                        				'options' => array (
+                        						'route' => 'jobqueueAddJob --url= --options= [--vars=]',
+                        						'defaults' => array (
+                        								'controller' => 'webapi-api-controller',
+                        								'action' => 'jobqueueSaveRule',
+                        								'apiMethod' => 'post'
+                        						),
+                        						'arrays' => array(
+                        								'options',
+                        								'vars'
+                        						),
+                        						'group'=> 'jobqueue',
+                        						'info' => array(
+                        								"Create a job queue rule.",
+                        								array('--url','A URL for the job.'),
+                        								array('--options','Rule options.'),
+                        								array('--vars','Variables for the rule.'),
+                        						),
+                        				)
+                        		),
+                        		
+                        		'librarySetDefault' => array (
+                        				'options' => array (
+                        						'route' => 'librarySetDefault --libraryVersionId= ',
+                        						'defaults' => array (
+                        								'controller' => 'webapi-api-controller',
+                        								'action' => 'librarySetDefault',
+                        								'apiMethod' => 'post'
+                        						),
+                        						'group'=> 'library',
+                        						'info' => array(
+                        								"Change library version to be the default version for the library.",
+                        								array('--libraryVersionId','A library version ID'),
+                        						),
                         				)
                         		),
                         		

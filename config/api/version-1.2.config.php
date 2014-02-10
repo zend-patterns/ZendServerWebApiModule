@@ -269,7 +269,7 @@ The default value is FALSE, meaning any failure will return an error.'),
                                         )
                                 )
                                 ,
-                                'monitorGetIssuesListPredefinedFilter' => array (
+                                'monitorGetIssuesByPredefinedFilter' => array (
                                         'options' => array (
                                                 'route' => 'monitorGetIssuesListPredefinedFilter --filterId= [--limit=] [--offset=] [--order=] [--direction=] [--filters=]',
                                                 'defaults' => array (

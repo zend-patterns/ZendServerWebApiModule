@@ -6,29 +6,24 @@ return array (
                         'webapi-api-controller'    => 'ZendServerWebApi\Controller\ApiController',
                 )
         ),
-        'service_manager' => array (
-                'factories' => array (
-                     'log' => 'ZendServerWebApi\Service\LogFactory',
-                	 'zend_server_api' => 'ZendServerWebApi\Service\ApiManagerFactory',
-                ),
-        ),
+		'service_manager' => array (
+				'factories' => array (
+						'log' => 'ZendServerWebApi\Service\LogFactory',
+						'zend_server_api' => 'ZendServerWebApi\Service\ApiManagerFactory',
+						'targetManager' => 'ZendServerWebApi\Service\TargetManagerFactory',
+						'apiMethodsConfig' => 'ZendServerWebApi\Service\ApiMethodsConfigFactory'
+				),
+		),
+		'target_manager_config' => array(
+				'default' => array(
+						'zsurl' => 'http://localhost:10081',
+						'zskey' => 'nagios',
+						'zssecret' => '39007905543029a96f3c2ffb24f624eaaccefd9ae8cf291ffd398c14830a6b0f',
+						'zsversion' => '6.2',
+				),
+		),
 
-        //  Zend Server API specific Settings
-        'zsapi' => array (
-            // Default Zend Server Target
-            'target' => array(
-                'zsurl' => 'http://localhost:10081',
-                'zskey' => 'admin',
-                'zssecret' => 'fdbe02cc14bf1b48787e379bc420fd46ba9c88a3cc85c2030b5e32610e75efa5',
-                'zsversion' => '6.2',
-            ),
-            // HTTP Client
-            'client' => array(
-                'adapter' => '\ZendServerWebApi\Model\Http\Adapter\Socket',
-            ),
-        ),
         'zsapilog' => array (
-            'file' => 'php://stderr',
-            'priority' => getenv('DEBUG')? Logger::DEBUG: Logger::WARN,    	
+            'file' => '/tmp/webapi.log',
         )
 );

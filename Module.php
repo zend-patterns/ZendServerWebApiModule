@@ -29,31 +29,6 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
      */
     public function getConfig ()
     {
-        /*$mainConfig = include __DIR__ . '/config/zendserverwebapi.config.php';
-        $mainConfig['min-zsversion'] = array();
-        $apiConf = array();
-        foreach (scandir(__DIR__ . '/config/api') as $confFile) {
-            if ($confFile == '.' || $confFile == '..')
-                continue;
-            $tmp = preg_split('@-@', $confFile);
-            $apiVersion = preg_replace('@\.config\.php@', '', $tmp[1]);
-            $apiConf[$apiVersion] = include __DIR__ . '/config/api/' . $confFile;
-            $mainConfig['min-zsversion'][$apiVersion] = $apiConf[$apiVersion]['min-zsversion'];
-            unset($apiConf[$apiVersion]['min-zsversion']);
-        }
-        ksort($apiConf);
-        foreach ($apiConf as $version => $config) {
-            if (isset($config['console']['router']['routes'])) {
-                foreach ($config['console']['router']['routes'] as &$router) {
-                    if (! isset($router['options']['no-target'])) {
-                        $router['options']['route'] .= ' [--target=] [--zsurl=] [--zskey=] [--zssecret=] [--zsversion=] [--http=]';
-                        $router['options']['arrays'][] = 'http';
-                    }
-                }
-            }
-            $mainConfig = array_merge_recursive($mainConfig, $config);
-        }
-        return $mainConfig;*/
     	$configManager = new \ZendServerWebApi\Model\ApiConfigManager(
     			__DIR__ . '/config/api',
     			__DIR__ . '/config/zendserverwebapi.config.php');
@@ -86,12 +61,7 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
         $serviceManager = $event->getApplication()->getServiceManager();
         $this->config = $serviceManager->get('config');
         $eventManager = $event->getApplication()->getEventManager();
-        $eventManager->attach(MvcEvent::EVENT_DISPATCH,
-                array(
-                        $this,
-                        'preDispatch'
-                ), 100);
-
+        $eventManager->attach(MvcEvent::EVENT_DISPATCH,array($this,'preDispatch'), 100);
         $serviceManager->setService('targetConfig', new ArrayObject($this->config['zsapi']['target']));
     }
 
@@ -104,9 +74,7 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
     public function preDispatch (MvcEvent $event)
     {
         $match = $event->getRouteMatch();
-        if (! $match) {
-            return;
-        }
+        if (! $match) return;
         $serviceManager = $event->getApplication()->getServiceManager();
         $config = $serviceManager->get('config');
         $targetConfig = $serviceManager->get('targetConfig');
@@ -116,13 +84,6 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
         		$httpConfig[$k]=$v;
         	}
         }
-        $zendServerClient = new Model\Http\Client(null, $httpConfig);
-        $serviceManager->setService('zendServerClient', $zendServerClient);
-        $defaultApiKey = new ApiKey($targetConfig['zskey'], $targetConfig['zssecret']);
-        $serviceManager->setService('defaultApiKey', $defaultApiKey);
-        ZendServer::setApiVersionConf($config['min-zsversion']);
-        $targetServer = ZendServer::factory($targetConfig);
-        $serviceManager->setService('targetZendServer', $targetServer);
     }
 
     /**

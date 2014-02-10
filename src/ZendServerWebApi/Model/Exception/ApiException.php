@@ -18,9 +18,10 @@ class ApiException extends \Exception {
 	 * @param unknown $previous        	
 	 */
 	public function __construct(ApiResponse $response, $previous = null) {
-		$this->message = $response->getErrorMessage ();
 		$this->code = $response->getHttpResponse ()->getstatusCode ();
 		$this->apiErrorCode = $response->getApiErrorCode();
+		$this->message = '['. $this->apiErrorCode .'] ' . $response->getErrorMessage ();
+		//$this->message .= "\r" . $response->getHttpResponse()->getBody();
 	}
 	/**
 	 *

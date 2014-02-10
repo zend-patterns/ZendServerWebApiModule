@@ -5,12 +5,12 @@ return array (
                 'router' => array (
                         'routes' => array (
                                 // Adminsitration
-                                'userAuthentificationSettings' => array (
+                                'userAuthenticationSettings' => array (
                                         'options' => array (
-                                                'route' => 'userAuthentificationSettings --type= --ldap= --password= --confirmNewPassword=',
+                                                'route' => 'userAuthenticationSettings --type= --ldap= --password= --confirmNewPassword=',
                                                 'defaults' => array (
                                                         'controller' => 'webapi-api-controller',
-                                                        'action' => 'userAuthentificationSettings',
+                                                        'action' => 'userAuthenticationSettings',
                                                         'apiMethod' => 'post'
                                                 ),
                                         		'arrays' => array(
@@ -409,7 +409,7 @@ AUDIT_GROUP_LICENSE'),
                                         		)
                                         )
                                 ),
-                                'configurationSearch' => array (
+                                /*'configurationSearch' => array (
                                         'options' => array (
                                                 'route' => 'configurationSearch --query= [--filter=]',
                                                 'defaults' => array (
@@ -424,7 +424,7 @@ AUDIT_GROUP_LICENSE'),
                                         				array('Example:','configurationSearch --query="gob" --filter="All Extensions"')
                                         		)
                                         )
-                                ),
+                                ),*/
                                 'configurationExtensionsList' => array (
                                         'options' => array (
                                                 'route' => 'configurationExtensionsList [--type=] [--order=] [--direction=] [--filter=]',
@@ -603,7 +603,8 @@ AUDIT_GROUP_LICENSE'),
                                                 'route' => 'filterSave --type= --name= [--data=] [--id=]',
                                                 'defaults' => array (
                                                         'controller' => 'webapi-api-controller',
-                                                        'action' => 'filterSave'
+                                                        'action' => 'filterSave',
+                                                		'apiMethod' => 'post'
                                                 ),
                                         		'arrays' => array(
                                         				'data'
@@ -623,7 +624,8 @@ AUDIT_GROUP_LICENSE'),
                                                 'route' => 'filterDelete --name=',
                                                 'defaults' => array (
                                                         'controller' => 'webapi-api-controller',
-                                                        'action' => 'filterDelete'
+                                                        'action' => 'filterDelete',
+                                                		'apiMethod' => 'post'
                                                 ),
                                         		'group'=> 'filter',
                                         		'info' => array(
@@ -1546,7 +1548,8 @@ Also note that this action returns only an XML output - it is not allowed to ret
                                                 'route' => 'pagecacheDeleteRules [--rules=]',
                                                 'defaults' => array (
                                                         'controller' => 'webapi-api-controller',
-                                                        'action' => 'pagecacheListRules'
+                                                        'action' => 'pagecacheListRules',
+                                                		'apiMethod' => 'post'
                                                 ),
                                         		'arrays' => array(
                                         			'rules'

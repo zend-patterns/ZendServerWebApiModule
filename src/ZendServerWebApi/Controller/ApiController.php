@@ -42,7 +42,6 @@ class ApiController extends AbstractController
         } else {
             $response = $this->sendApiRequest($requestParameters);
         }
-        var_dump($response->getHttpResponse()->getBody());
         return $response->getHttpResponse();
     }
 
@@ -59,6 +58,10 @@ class ApiController extends AbstractController
             $this->apiManager = $serviceLocator->get('zend_server_api');
         }
         $action = $this->params('action');
+        //$target = $this->serviceLocator->get('target_manager')->get('default');
+        $apiMethodsConfig = $this->serviceLocator->get('apiMethodsConfig');
+        //$this->apiManager->setTarget($target);
+        $this->apiManager->setApiMethodsConfig($apiMethodsConfig);
         $response = $this->apiManager->$action($params);
         return $response;
     }

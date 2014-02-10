@@ -2,10 +2,10 @@
 namespace ZendServerWebApi\Model;
 
 use ZendServerWebApi\Model\Response\ApiResponse;
-use ZendServerWebApi\Model\Request;
+use ZendServerWebApi\Model\ApiRequest;
+use ZendServerWebApi\Model\ApiTarget;
 use ZendServerWebApi\Model\Exception\ApiException;
-use Zend\ServiceManager\ServiceLocatorAwareInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use ZendServerWebApi\Model\Http\Client;
 
 /**
  * API Manager
@@ -14,45 +14,29 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  * Request can be send as an internal method of this class :
  * $this->getNotifications() will call "getNotications" API Method
  */
-class ApiManager implements ServiceLocatorAwareInterface
+class ApiManager
 {
     /**
-     * Service manager
-     * @var ServiceManager
-     */
-    protected $serviceManager;
-    
-    /**
-     * Default API key
-     * @var ApiKey
-     */
-    protected $apiKey;
-    
-    /**
-     * Target Zend Server
+     * Api Target
      * 
-     * @var ZendServer
+     * @var ApiTarget
      */
     protected $target;
-
+    
     /**
-     *
-     * @param ServiceLocatorInterface $serviceLocator
+     * Api Manager config
+     * 
+     * @var array
      */
-    public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
-    {
-        $this->serviceManager = $serviceLocator; 
-    }
-
+    protected $apiMethodsConfig;
+    
     /**
-     * Get Service manager
-     * @return \ZendServerWebApi\Model\ServiceManager
+     * Zend Server HTTP client
+     * 
+     * @var ZendClient
      */
-    public function getServiceLocator()
-    {
-        return $this->serviceManager;
-    }
-
+    protected $zendServerClient;
+    
     /**
      * Magical function to use API method has API Manager method.
      *
@@ -62,115 +46,60 @@ class ApiManager implements ServiceLocatorAwareInterface
      */
     public function __call ($action, $args)
     {
-        $methodConf = 'get';
-        $apiConfig  = $this->getServiceLocator()->get('config');
-        $apiConfig = $apiConfig['console']['router']['routes'];
-        $actionOptions = $apiConfig[$action]['options'];
-        if (isset($actionOptions['defaults']['apiMethod'])) {
-            $methodConf = $actionOptions['defaults']['apiMethod'];
-        }
-        $apiRequest = new Request($this->getTargetServer(), $action, $this->getApiKey());
-        if (isset($args[0])) {
-            if ($methodConf == 'post') {
-                $files = array();
-                if(isset($actionOptions['files'])) {
-                    foreach($actionOptions['files'] as $fileParam) {
-                        $filePath = $args[0][$fileParam];
-                        $files[$filePath] = array(
-                            'formname' => $fileParam,
-                            'filename' => basename($filePath),
-                            'data'     => null,
-                            'ctype'    => null,
-                        );
-                        unset($args[0][$fileParam]);
-                    }
-                    unset($args[0]['files']);
-                }
-                if(count($files)) {
-                    $apiRequest->setFiles(new \Zend\Stdlib\Parameters($files));
-                }
-            }
-            $apiRequest->setParameters($args[0]);
-        }
-        if(isset($args[0]['zsoutput'])) {
-        	$apiRequest->setOutputType($args[0]['zsoutput']);	
-        }	
-        if ($methodConf == 'post') {
-            $apiRequest->setMethod(Request::METHOD_POST);
-        }
+        $apiMethodConfig = $this->apiMethodsConfig[$action]['options'];
+    	$apiMethod = new ApiMethod($apiMethodConfig);
+        $apiRequest = new ApiRequest($this->target, $apiMethod);
+        $apiRequest->setParameters($args[0]);
+        if(isset($args[0]['zsoutput'])) 
+        	$apiRequest->setOutputType($args[0]['zsoutput']);
         $apiRequest->prepareRequest();
-        //$log = $this->getServiceLocator()->get('log');
-        //$log->info($apiRequest->getUriString());
         $httpResponse = $this->getZendServerClient()->send($apiRequest);
-        $response = ApiResponse::factory($httpResponse);
-        if ($response->isError()) {
-            //$log->err($response->getErrorMessage() . $response->getHttpResponse()->getBody());
-            throw new ApiException($response);
+        $apiResponse = ApiResponse::factory($httpResponse);
+        if ($apiResponse->isError()) {
+        	$message = $apiRequest->getMethod() . '-';
+        	$message .= $apiResponse->getErrorMessage();
+        	$message .= $apiResponse->getHttpResponse()->getBody();
+            throw new ApiException($apiResponse);
         }
-        return $response;
+        return $apiResponse;
     }
 
-    /**
-     *
-     * @return the $apiKey
-     */
-    public function getApiKey ()
-    {
-    	if (is_a($this->apiKey, 'ZendServerWebApi\Model\ApiKey')) return $this->apiKey;
-    	$this->apiKey = $this->getServiceLocator()->get('defaultApiKey');
-    	return $this->apiKey;
-    }
+	/**
+	 * @param multitype: $config
+	 */
+	public function setApiMethodsConfig($config) {
+		$this->apiMethodsConfig = $config;
+	}
     
     /**
-     * Set the API key
+     * Set the target
      * 
-     * @param ApiKey $apiKey
+     * @param ApiTarget $target
      */
-    public function setApiKey(ApiKey $apiKey)
-    {
-    	$this->apiKey = $apiKey;
-    }
-
-    /**
-     *
-     * @return the $targetServer
-     */
-    public function getTargetServer ()
-    {
-    	if (is_a($this->target, 'ZendServerWebApi\Model\ZendServer')) return $this->target;
-    	$this->target = $this->getServiceLocator()->get('targetZendServer');
-        return $this->target;
-    }
-    
-    /**
-     * Set the target zend server
-     * 
-     * @param ZendServer $target
-     */
-    public function setTargetServer(ZendServer $target)
+    public function setTarget(ApiTarget $target)
     {
     	$this->target = $target;
     }
 
+    /**
+     * @param \ZendServerWebApi\Model\ZendClient $zendServerClient
+     */
+    public function setZendServerClient($zendServerClient) {
+    	$this->zendServerClient = $zendServerClient;
+    }
+    
     /**
      *
      * @return the $zendServerClient
      */
     public function getZendServerClient ()
     {
-        return $this->getServiceLocator()->get('zendserverclient');
-    }
-    
-    /**
-     * Set and entirely ZS web Api context
-     * 
-     * @param array $config
-     */
-    public function setApiContext($config)
-    {
-    	$target = new ZendServer($config);
-    	$apiKey = new ApiKey($config['zskey'], $config['zssecret']);
-    	$this->setTargetServer($target);
-    	$this->setApiKey($apiKey);
+    	if ( ! $this->zendServerClient){
+    		$config = $this->config;
+    		$httpConfig = $config['zsapi']['client'];
+    		$zendserverClient= new Client(null, $httpConfig);
+    		$this->setZendServerClient($zendserverClient);
+    	}
+        return $this->zendServerClient;
     }
 }

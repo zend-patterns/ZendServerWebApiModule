@@ -4,7 +4,7 @@ return array (
 		'console' => array (
 				'router' => array (
 						'routes' => array (
-								'cacheClear' => array (
+								'cacheClear2' => array (
 										'options' => array (
 												'route' => 'cacheClear --component=',
 												'defaults' => array (

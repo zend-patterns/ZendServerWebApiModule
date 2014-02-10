@@ -28,7 +28,6 @@ if ($zf2Path) {
 	}
 }
 
-//var_dump(realpath(__DIR__ . '/../../../Module.php'));
 require_once realpath(__DIR__ . '/../../../Module.php');
 
 if (!class_exists('Zend\Loader\AutoloaderFactory')) {

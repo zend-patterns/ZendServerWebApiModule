@@ -37,6 +37,7 @@ class ApiConfigManager
                         $router['options']['route'] .= ' [--target=] [--zsurl=] [--zskey=] [--zssecret=] [--zsversion=] [--http=]';
                         $router['options']['arrays'][] = 'http';
                     }
+                    
                 }
             }
             $mainConfig = array_merge_recursive($mainConfig, $config);
@@ -53,5 +54,4 @@ class ApiConfigManager
 	{
 		return $this->config;
 	}
-	
 }

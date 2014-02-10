@@ -56,7 +56,7 @@ return array (
                                         		)
                                         )
                                 ),
-                                'clusterGetServersStatus' => array (
+                                'clusterGetServerStatus' => array (
                                         'options' => array (
                                                 'route' => 'clusterGetServersStatus [--servers=] [--force=]',
                                                 'defaults' => array (

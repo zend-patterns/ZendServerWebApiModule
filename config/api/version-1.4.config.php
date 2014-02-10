@@ -5,12 +5,12 @@ return array(
                 'router' => array(
                         'routes' => array(
                                 // Zend Server Daemons
-                                'daemonProbe' => array(
+                                'daemonsProbe' => array(
                                         'options' => array(
-                                                'route' => 'daemonProbe',
+                                                'route' => 'daemonsProbe',
                                                 'defaults' => array(
                                                         'controller' => 'webapi-api-controller',
-                                                        'action' => 'daemonProbe'
+                                                        'action' => 'daemonsProbe'
                                                 ),
 		                                        'info' => array(
 		                                                'Retrieve a list of daemon restart states according to ZSD messages.'
