@@ -22,7 +22,7 @@ class ApiKey
     protected $key;
 
     /**
-     *
+     * Consrtructor 
      * @param string $name            
      * @param string $key            
      */
@@ -33,8 +33,9 @@ class ApiKey
     }
 
     /**
-     *
-     * @return the $name
+     * Return api key name
+     * 
+     * @return string
      */
     public function getName ()
     {
@@ -42,8 +43,9 @@ class ApiKey
     }
 
     /**
-     *
-     * @return the $key
+     * Return api key secret hash
+     * 
+     * @return string
      */
     public function getKey ()
     {
@@ -51,7 +53,8 @@ class ApiKey
     }
 
     /**
-     *
+     * Set key name
+     * 
      * @param string $name            
      */
     public function setName ($name)
@@ -60,7 +63,8 @@ class ApiKey
     }
 
     /**
-     *
+     * Set key secret hash
+     * 
      * @param string $key            
      */
     public function setKey ($key)

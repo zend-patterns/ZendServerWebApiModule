@@ -28,7 +28,7 @@ class ApiResponse
     /**
      * Check if the API Response is an error
      *
-     * Can be an HTTP erro or a API fonctionnal error.
+     * Can be an HTTP error or a API fonctionnal error.
      *
      * @var boolean
      */

@@ -15,8 +15,8 @@ class AdministrationTest extends WebApiTestCase
 				'name' => $this->getParam('apiKeyName'),
 				'username' => $this->getParam('apiKeyUsername')
 		));
-		$this->assertFalse($response->isError());
-		$this->apiKeysRemoveKey();
+		$this->isValidApiResponse($response);
+		return $this->getParam('apiKeyName');
 	}
 	
 	/**
@@ -26,7 +26,7 @@ class AdministrationTest extends WebApiTestCase
 	public function apiKeysGetList($keyName)
 	{
 		$response = $this->apiManager->apiKeysGetList();
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 		foreach ($response->responseData->apiKeys->apiKey as $apiKey)
 		{
 			$name = (string)$apiKey->name;
@@ -42,14 +42,14 @@ class AdministrationTest extends WebApiTestCase
 	
 	/**
 	 * @test
-	 * @depends apiKeysAddKey
+	 * @depends apiKeysGetList
 	 */
-	public function apiKeysRemoveKey($keyName)
+	public function apiKeysRemoveKey($id)
 	{
 		$response = $this->apiManager->apiKeysRemoveKey(array(
-				'ids' => array($keyName),
+				'ids' => array($id),
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -63,7 +63,7 @@ class AdministrationTest extends WebApiTestCase
 			'password' => 'admin',
 			'confirmNewPassword' => 'admin'
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -77,7 +77,7 @@ class AdministrationTest extends WebApiTestCase
 			'newPassword' => 'admin',
 			'confirmNewPassword' => 'admin'
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -90,7 +90,7 @@ class AdministrationTest extends WebApiTestCase
 			'newPassword' => 'admin',
 			'confirmNewPassword' => 'admin'
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -102,7 +102,7 @@ class AdministrationTest extends WebApiTestCase
 			'licenseName' => 'sophie.b',
 			'licenseValue' => 'G8VO7050C01H21CF2ACD532A8718CEE0',
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -113,7 +113,7 @@ class AdministrationTest extends WebApiTestCase
 		$response = $this->apiManager->aclSetGroups(array(
 			'role_groups' => array('administrator' => 'Admin-test'),
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -126,7 +126,7 @@ class AdministrationTest extends WebApiTestCase
 				'adminPassword' => 'admin',
 				'acceptEula' => true,
 			));
-			$this->assertFalse($response->isError());
+			$this->isValidApiResponse($response);
 		} catch (ApiException $e)
 		{
 			$this->assertEquals('alreadyBootstrapped', $e->getApiErrorCode());
@@ -142,6 +142,6 @@ class AdministrationTest extends WebApiTestCase
 			'licenseName' => 'sophie.b',
 			'licenseValue' => 'G8VO7050C01H21CF2ACD532A8718CEE0',
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 }

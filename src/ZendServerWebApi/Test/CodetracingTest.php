@@ -11,9 +11,7 @@ class CodetracingTest extends WebApiTestCase
 	public function codetracingDisable()
 	{
 		$response = $this->apiManager->codetracingDisable();
-		$this->assertFalse($response->isError());
-		//$traceEnabled = (string)$response->responseData->codeTracingStatus->traceEnabled;
-		//$this->assertEquals('0', $traceEnabled);
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -22,9 +20,7 @@ class CodetracingTest extends WebApiTestCase
 	public function codetracingEnable()
 	{
 		$response = $this->apiManager->codetracingEnable();
-		$this->assertFalse($response->isError());
-		//$traceEnabled = (string)$response->responseData->codeTracingStatus->traceEnabled;
-		//$this->assertEquals('1', $traceEnabled);
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -33,7 +29,7 @@ class CodetracingTest extends WebApiTestCase
 	public function codetracingIsEnabled()
 	{
 		$response = $this->apiManager->codetracingIsEnabled();
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 		$traceEnabled = (string)$response->responseData->codeTracingStatus->traceEnabled;
 		$this->assertEquals('1', $traceEnabled);
 	}
@@ -43,11 +39,11 @@ class CodetracingTest extends WebApiTestCase
 	 */
 	public function codetracingCreate()
 	{
-		$tarceUrl = 'http://www.symfony-simple-app.dev/';
+		$tarceUrl = 'http://localhost/';
 		$response = $this->apiManager->codetracingCreate(array(
 			'url' => $tarceUrl
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 		$id = (string)$response->responseData->codeTrace->id;
 		return $id;
 	}
@@ -62,7 +58,7 @@ class CodetracingTest extends WebApiTestCase
 		$response = $this->apiManager->codetracingGetInfo(array(
 			'id' => $id
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -71,7 +67,7 @@ class CodetracingTest extends WebApiTestCase
 	public function codetracingList()
 	{
 		$response = $this->apiManager->codetracingList();
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -84,7 +80,7 @@ class CodetracingTest extends WebApiTestCase
 		$response = $this->apiManager->codetracingDownloadTraceFile(array(
 			'traceFile' => $id,
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -97,6 +93,6 @@ class CodetracingTest extends WebApiTestCase
 		$response = $this->apiManager->codetracingDelete(array(
 				'traceFile' => $id
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 }

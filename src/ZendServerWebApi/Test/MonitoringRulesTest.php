@@ -9,7 +9,7 @@ class MonitoringRulesTest extends WebApiTestCase
 	public function monitorSetRuleUpdated()
 	{
 		$response = $this->apiManager->monitorSetRuleUpdated();
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -18,7 +18,7 @@ class MonitoringRulesTest extends WebApiTestCase
 	public function monitorExportRules()
 	{
 		$response = $this->apiManager->monitorExportRules();
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -29,7 +29,7 @@ class MonitoringRulesTest extends WebApiTestCase
 		$response = $this->apiManager->monitorImportRules(array(
 				'monitorRules' => '<xml>',
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -38,7 +38,7 @@ class MonitoringRulesTest extends WebApiTestCase
 	public function monitorGetRulesList()
 	{
 		$response = $this->apiManager->monitorGetRulesList();
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 		$id = (string) $response->responseData->rules->rule->id;
 		return $id;
 	}
@@ -52,7 +52,7 @@ class MonitoringRulesTest extends WebApiTestCase
 		$response = $this->apiManager->monitorDisableRules(array(
 				'rulesIds' => array($id)
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -64,7 +64,7 @@ class MonitoringRulesTest extends WebApiTestCase
 		$response = $this->apiManager->monitorEnableRules(array(
 				'rulesIds' => array($id)
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -93,7 +93,7 @@ class MonitoringRulesTest extends WebApiTestCase
 						),
 				),
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 		$id = (string)$response->responseData->rules->rule->id;
 		return $id;
 	}
@@ -107,6 +107,6 @@ class MonitoringRulesTest extends WebApiTestCase
 		$response = $this->apiManager->monitorRemoveRules(array(
 				'rulesIds' => array($id)
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 }

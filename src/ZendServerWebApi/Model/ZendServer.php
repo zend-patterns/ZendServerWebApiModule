@@ -8,20 +8,23 @@ namespace ZendServerWebApi\Model;
  */
 class ZendServer
 {
-
-    /**
-     * API Version
-     * 
-     * @var string
-     */
-    protected $apiVersion;
-
+	static $apiVersion = array(
+		'5.1' => '1.0',
+		'5.5' => '1.1',
+		'5.6' => '1.2',
+		'6.0' => '1.3',
+		'6.0.1' => '1.4',
+		'6.1' => '1.5',
+		'6.2' => '1.6',
+		'6.3' => '1.7',
+	);
+	
     /**
      * Zend Server Version
      * 
      * @var string
      */
-    protected $version;
+    protected $version = '5.1';
 
     /**
      * Zend Server uri
@@ -29,44 +32,21 @@ class ZendServer
      * @var Zend\Uri\http
      */
     protected $uri;
-
+    
     /**
-     * @var array
+     * 
+     * @param string $uri
      */
-    protected $apiVersionAvailability = array(
-            '5.1' => '1.0',
-            '5.5' => '1.1',
-            '5.6' => '1.2',
-            '6.0' => '1.4',
-            '6.1' => '1.5',
-            '6.2' => '1.6',
-    );
-
-    /**
-     * Api Version / zs version converter
-     * @var array
-     */
-    protected static $apiVersionConfig = array();
-
-    /**
-     *
-     * @param string $config            
-     */
-    protected function __construct ($config)
+    public function __construct($uri = null, $version = null)
     {
-        $this->setUri(new \Zend\Uri\Http($config['zsurl']));
-        $this->setVersion($config['zsversion']);
-        preg_match('@(^[0-9]*\.[0-9]*)@', $config['zsversion'], $shortVersion);
-        $shortVersion = $shortVersion[0];
-        if(!isset($this->apiVersionAvailability[$shortVersion])) {
-        	throw new \RuntimeException("Invalid or unsupported Zend Server version");
-        }
-        $this->setApiVersion($this->apiVersionAvailability[$shortVersion]);
+    	if ($uri) $this->setUri(new \Zend\Uri\Http($uri));
+    	if ($version) $this->setVersion($version);
     }
 
     /**
-     *
-     * @return the $version
+     * Get zend server version
+     * 
+     * @return string
      */
     public function getVersion ()
     {
@@ -74,7 +54,8 @@ class ZendServer
     }
 
     /**
-     *
+     * Set server version
+     * 
      * @param string $version            
      */
     public function setVersion ($version)
@@ -83,8 +64,9 @@ class ZendServer
     }
 
     /**
-     *
-     * @return the $uri
+     * Get Zend Server URI
+     * 
+     * @return Zend\Uri\http
      */
     public function getUri ()
     {
@@ -92,7 +74,8 @@ class ZendServer
     }
 
     /**
-     *
+     * Set Zend Server URI
+     * 
      * @param \ZendServerWebApi\Model\Zend\Uri\http $uri            
      */
     public function setUri ($uri)
@@ -101,40 +84,12 @@ class ZendServer
     }
     
     /**
-     * Return the available web API versions
+     * Return api version
+     * 
+     * @return string
      */
     public function getApiVersion()
     {
-        return $this->apiVersion;
+    	return self::$apiVersion[$this->version];
     }
-    
-	/**
-     * @param string $apiVersion
-     */
-    public function setApiVersion ($apiVersion)
-    {
-        $this->apiVersion = $apiVersion;
-    }
-    
-    /**
-     * Zend Server factory
-     * @param string $config
-     * @param array $apiVersionConfig
-     */
-    public static function factory($config)
-    {
-        $zendServer = new self($config);
-        $apiVersion = current(array_keys(self::$apiVersionConfig,$zendServer->getVersion()));
-        $zendServer->setApiVersion($apiVersion);
-        return $zendServer;
-    }
-    
-    /**
-     * Set the Api version configurator
-     */
-    public static function setApiVersionConf($apiVersionConfig)
-    {
-        self::$apiVersionConfig = $apiVersionConfig;
-    }
-
 }

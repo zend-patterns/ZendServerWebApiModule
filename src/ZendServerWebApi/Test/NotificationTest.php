@@ -9,7 +9,7 @@ class NotificationTest extends WebApiTestCase
 	public function getNotifications()
 	{
 		$response = $this->apiManager->getNotifications();
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 		$id = (string)$response->responseData->notifications->notification->id;
 		return $id;
 	}
@@ -22,7 +22,7 @@ class NotificationTest extends WebApiTestCase
 		$response = $this->apiManager->deleteNotification(array(
 			'type' => 'serverOffline',
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -34,7 +34,7 @@ class NotificationTest extends WebApiTestCase
 			'type' => 'serverOffline',
 			'repeat' => 1
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -46,6 +46,6 @@ class NotificationTest extends WebApiTestCase
 			'type' => 'serverOffline',
 			'ip' => '127.0.0.1',
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 }

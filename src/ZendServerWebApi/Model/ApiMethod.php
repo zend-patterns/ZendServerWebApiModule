@@ -1,13 +1,13 @@
 <?php
 namespace ZendServerWebApi\Model;
 
-use Zend\XmlRpc\Value\String;
 /**
  * Modelize a API method
  * 
  * The configuration of these instances are based on route definition
  *
  */
+use Zend\XmlRpc\Value\String;
 
 class ApiMethod
 {
@@ -40,7 +40,7 @@ class ApiMethod
 	protected $info = array();
 	
 	/**
-	 * Minimal API version required to use the moethod
+	 * Minimal API version required to use the method
 	 * 
 	 * @var string
 	 */
@@ -103,56 +103,72 @@ class ApiMethod
 	}
 	
 	/**
-	 * @return the $name
+	 * Get method name
+	 * 
+	 * @return string
 	 */
 	public function getName() {
 		return $this->name;
 	}
 
 	/**
-	 * @return the $group
+	 * Get group
+	 * 
+	 * @return string
 	 */
 	public function getGroup() {
 		return $this->group;
 	}
 
 	/**
-	 * @return the $httpMethod
+	 * Checkif Http method is POST
+	 * 
+	 * @return boolean
 	 */
 	public function isPost() {
 		return ($this->httpMethod == 'post');
 	}
 
 	/**
-	 * @return the $info
+	 * Return api method information
+	 * 
+	 * @return array
 	 */
 	public function getInfo() {
 		return $this->info;
 	}
 
 	/**
-	 * @return the $minVersion
+	 * Get the minimal api version
+	 * 
+	 * @return string
 	 */
 	public function getMinVersion() {
 		return $this->minVersion;
 	}
 
 	/**
-	 * @return the $controllerName
+	 * Get controller name
+	 * 
+	 * @return string
 	 */
 	public function getControllerName() {
 		return $this->controllerName;
 	}
 
 	/**
-	 * @return the $controllerActioName
+	 * Get controller actin name
+	 * 
+	 * @return string
 	 */
 	public function getControllerActioName() {
 		return $this->controllerActionName;
 	}
 
 	/**
-	 * @return the $parameters
+	 * Return api method parametersdefinitions
+	 * 
+	 * @return array
 	 */
 	public function getParamDefinitions() {
 		return $this->paramDefinitions;
@@ -196,31 +212,19 @@ class ApiMethod
 	}
 
 	/**
+	 * Constructor
+	 * 
+	 * @param array $config
+	 */
+	public function __construct($config = null)
+	{
+		if (is_array($config)) $this->setConfig($config);
+	}
+	/**
 	 * @param string $name
 	 */
 	public function setName($name) {
 		$this->name = $name;
-	}
-
-	/**
-	 * @param \Zend\XmlRpc\Value\String $group
-	 */
-	public function setGroup($group) {
-		$this->group = $group;
-	}
-
-	/**
-	 * @param string $httpMethod
-	 */
-	public function setHttpMethod($httpMethod) {
-		$this->httpMethod = $httpMethod;
-	}
-
-	/**
-	 * @param multitype: $info
-	 */
-	public function setInfo($info) {
-		$this->info = $info;
 	}
 
 	/**
@@ -230,35 +234,5 @@ class ApiMethod
 		$this->minVersion = $minVersion;
 	}
 
-	/**
-	 * @param string $controllerName
-	 */
-	public function setControllerName($controllerName) {
-		$this->controllerName = $controllerName;
-	}
-
-	/**
-	 * @param \ZendServerWebApi\Model\unknown $controllerActioName
-	 */
-	public function setControllerActioName($controllerActioName) {
-		$this->controllerActionName = $controllerActioName;
-	}
-
-	/**
-	 * @param multitype: $parameters
-	 */
-	public function setParameters($parameters) {
-		$this->paramDefinitions = $parameters;
-	}
-
-	/**
-	 * Constructor
-	 * 
-	 * @param array $config
-	 */
-	public function __construct($config = null)
-	{
-		if (is_array($config)) $this->setConfig($config);
-	}
 	
 }

@@ -14,7 +14,7 @@ class CacheTest extends WebApiTestCase
 		$response = $this->apiManager->cacheClear(array(
 			'component' => $backend,
 		));
-		$this->assertFalse($response->isError(), $backend . ' has not been cleared');
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -23,9 +23,9 @@ class CacheTest extends WebApiTestCase
 	public function datacacheClear()
 	{
 		$response = $this->apiManager->datacacheClear(array(
-				'keys' => array(),
+				'keys' => array('bidule'),
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**

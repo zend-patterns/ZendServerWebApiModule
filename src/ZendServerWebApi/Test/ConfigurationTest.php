@@ -14,7 +14,7 @@ class ConfigurationTest extends WebApiTestCase
 				'subject' => 'test sbject',
 				'templateName' => 'default',
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -27,7 +27,7 @@ class ConfigurationTest extends WebApiTestCase
 			'extensions' => array($extension),
 		));
 		$name= (string) $response->responseData->extensions->extension->name;
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 		$this->assertEquals($extension,$name);
 	}
 	
@@ -41,7 +41,7 @@ class ConfigurationTest extends WebApiTestCase
 				'extensions' => array($extension),
 		));
 		$name= (string) $response->responseData->extensions->extension->name;
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 		$this->assertEquals($extension,$name);
 	}
 	
@@ -65,7 +65,7 @@ class ConfigurationTest extends WebApiTestCase
 		$response = $this->apiManager->configurationValidateDirectives(array(
 			'directives' => array( $directive => $value),
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 		$valid = (string)$response->responseData->validates->validate->valid;
 		$this->assertEquals($isValid,$valid);
 	}
@@ -80,7 +80,7 @@ class ConfigurationTest extends WebApiTestCase
 		$response = $this->apiManager->configurationStoreDirectives(array(
 				'directives' => array( $directive => $value),
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -112,7 +112,7 @@ class ConfigurationTest extends WebApiTestCase
 	public function configurationExtensionsList()
 	{
 		$response = $this->apiManager->configurationExtensionsList();
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -121,7 +121,7 @@ class ConfigurationTest extends WebApiTestCase
 	public function configurationDirectivesList()
 	{
 		$response = $this->apiManager->configurationDirectivesList();
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -130,7 +130,7 @@ class ConfigurationTest extends WebApiTestCase
 	public function configurationComponentsList()
 	{
 		$response = $this->apiManager->configurationComponentsList();
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -139,7 +139,7 @@ class ConfigurationTest extends WebApiTestCase
 	public function configurationExport()
 	{
 		$response = $this->apiManager->configurationExport();
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -150,7 +150,7 @@ class ConfigurationTest extends WebApiTestCase
 		$response = $this->apiManager->configurationImport(array(
 			'configFile' => '',
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -158,10 +158,10 @@ class ConfigurationTest extends WebApiTestCase
 	 */
 	public function configurationsRevertChanges()
 	{
-		$response = $this->apiManager->configurationsRevertChanges(array(
-			'serverId' => 0,
+		$response = $this->apiManager->configurationRevertChanges(array(
+			'serverId' => 1,
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -169,10 +169,10 @@ class ConfigurationTest extends WebApiTestCase
 	 */
 	public function configurationsApplyChanges()
 	{
-		$response = $this->apiManager->configurationsApplyChanges(array(
-			'serverId' => 0,
+		$response = $this->apiManager->configurationApplyChanges(array(
+			'serverId' => 1,
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -183,7 +183,7 @@ class ConfigurationTest extends WebApiTestCase
 		$response = $this->apiManager->configurationReset(array(
 			'configFile' => '',
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 }

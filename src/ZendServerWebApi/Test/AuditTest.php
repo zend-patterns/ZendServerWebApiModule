@@ -11,7 +11,7 @@ class AuditTest extends WebApiTestCase
 	public function auditGetList()
 	{
 		$response = $this->apiManager->auditGetList();
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 		foreach ($response->responseData->auditMessages->auditMessage as $auditMessage)
 		{
 			$id = (string)$auditMessage->id;
@@ -28,7 +28,7 @@ class AuditTest extends WebApiTestCase
 		$response = $this->apiManager->auditGetDetails(array(
 			'auditId' => $auditId,
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 		foreach ($response->responseData->auditMessageDetails->auditMessage as $auditMessage)
 		{
 			$id = (string)$auditMessage->id;
@@ -47,9 +47,8 @@ class AuditTest extends WebApiTestCase
 	{
 		$response = $this->apiManager->auditSetSettings(array(
 			'history' => 10,
-				
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -58,7 +57,7 @@ class AuditTest extends WebApiTestCase
 	public function auditExport()
 	{
 		$response = $this->apiManager->auditExport();
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	

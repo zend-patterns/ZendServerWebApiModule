@@ -11,7 +11,7 @@ class JobQueueTest extends WebApiTestCase
 		$response = $this->apiManager->jobqueueAddJob(array(
 				'url' => 'http://'  .time(),
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -20,7 +20,7 @@ class JobQueueTest extends WebApiTestCase
 	public function jobqueueStatistics()
 	{
 		$response = $this->apiManager->jobqueueStatistics();
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -29,7 +29,7 @@ class JobQueueTest extends WebApiTestCase
 	public function jobqueueJobsList()
 	{
 		$response = $this->apiManager->jobqueueJobsList();
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 		$id = (string) $response->responseData->jobs->job->id;
 		return $id;
 	}
@@ -43,7 +43,7 @@ class JobQueueTest extends WebApiTestCase
 		$response = $this->apiManager->jobqueueJobInfo(array(
 				'id' => $id,
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -82,7 +82,7 @@ class JobQueueTest extends WebApiTestCase
 						'name' => 'test JQ rule'
 				)
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 		$id = (string)$response->responseData->ruleInfo->rule->id;
 		return $id;
 	}
@@ -93,7 +93,7 @@ class JobQueueTest extends WebApiTestCase
 	public function jobqueueRulesList()
 	{
 		$response = $this->apiManager->jobqueueRulesList();
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 		$id = (string)$response->responseData->rules->rule->id;
 		return $id;
 	}
@@ -107,7 +107,7 @@ class JobQueueTest extends WebApiTestCase
 		$response = $this->apiManager->jobqueueRuleInfo(array(
 				'id' => $id,
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -119,7 +119,7 @@ class JobQueueTest extends WebApiTestCase
 		$response = $this->apiManager->jobqueueDisableRules(array(
 			'rules' => array($id),
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -131,7 +131,7 @@ class JobQueueTest extends WebApiTestCase
 		$response = $this->apiManager->jobqueueResumeRules(array(
 				'rules' => array($id),
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -143,7 +143,7 @@ class JobQueueTest extends WebApiTestCase
 		$response = $this->apiManager->jobqueueRunNowRule(array(
 				'ruleId' => $id,
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -155,6 +155,6 @@ class JobQueueTest extends WebApiTestCase
 		$response = $this->apiManager->jobqueueDeleteRules(array(
 				'rules' => array($id),
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 }

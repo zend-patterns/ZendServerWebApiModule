@@ -1,12 +1,11 @@
 <?php
 namespace ZendServerWebApi;
+
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Zend\ModuleManager\Feature\BootstrapListenerInterface;
 use Zend\Mvc\MvcEvent;
 use Zend\EventManager\EventInterface;
-use ZendServerWebApi\Model\ApiKey;
-use ZendServerWebApi\Model\ZendServer;
 use Zend\ModuleManager\Feature\ConsoleUsageProviderInterface;
 use Zend\Console\Adapter\AdapterInterface as Console;
 use Zend\ModuleManager\Feature\ConsoleBannerProviderInterface;
@@ -29,10 +28,10 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
      */
     public function getConfig ()
     {
-    	$configManager = new \ZendServerWebApi\Model\ApiConfigManager(
-    			__DIR__ . '/config/api',
-    			__DIR__ . '/config/zendserverwebapi.config.php');
-    	return $configManager->getConfig();
+    	$mainConfig = include __DIR__ . '/config/zendserverwebapi.config.php';
+    	$apiConfigManager = new Model\ApiConfigManager(__DIR__ . '/config/api');
+    	$routerConfig = $apiConfigManager->getRouterConfig();
+    	return array_merge($mainConfig, $routerConfig);
     }
 
     /**

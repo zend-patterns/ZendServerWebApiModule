@@ -58,10 +58,10 @@ return array (
                                 ),
                                 'clusterGetServerStatus' => array (
                                         'options' => array (
-                                                'route' => 'clusterGetServersStatus [--servers=] [--force=]',
+                                                'route' => 'clusterGetServerStatus [--servers=] [--force=]',
                                                 'defaults' => array (
                                                         'controller' => 'webapi-api-controller',
-                                                        'action' => 'clusterGetServersStatus'
+                                                        'action' => 'clusterGetServerStatus'
                                                 ),
                                         		'arrays' => array(
                                         				'servers'

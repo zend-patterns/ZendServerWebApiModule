@@ -11,7 +11,7 @@ class VirtualhostTest extends WebApiTestCase
 	public function vhostGetStatus()
 	{
 		$response = $this->apiManager->vhostGetStatus();
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -23,7 +23,7 @@ class VirtualhostTest extends WebApiTestCase
 				'name' => 'vhost-test',
 				'port' => 80,
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 		$id= (string)$response->responseData->vhostList->vhostInfo->id;
 		return $id;
 	}
@@ -39,7 +39,7 @@ class VirtualhostTest extends WebApiTestCase
 				'sslCertificatePath' => $this->getRootDir() . '/data/ssl.key',
 				'sslCertificateKeyPath' => '123'
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -52,7 +52,7 @@ class VirtualhostTest extends WebApiTestCase
 				'port' => 80,
 				'sslAppName' => 'sslIBMi',
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -65,7 +65,7 @@ class VirtualhostTest extends WebApiTestCase
 				'vhostId' => $id,
 				'template' => 'xxx',
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -77,7 +77,7 @@ class VirtualhostTest extends WebApiTestCase
 		$response = $this->apiManager->vhostGetDetails(array(
 			'vhost' => $id
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -89,7 +89,7 @@ class VirtualhostTest extends WebApiTestCase
 		$response = $this->apiManager->vhostRedeploy(array(
 				'vhost' => $id
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -101,7 +101,7 @@ class VirtualhostTest extends WebApiTestCase
 		$response = $this->apiManager->vhostEnableDeployment(array(
 				'vhost' => $id
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -113,7 +113,7 @@ class VirtualhostTest extends WebApiTestCase
 		$response = $this->apiManager->vhostDisableDeployment(array(
 				'vhost' => $id
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -125,7 +125,7 @@ class VirtualhostTest extends WebApiTestCase
 		$response = $this->apiManager->vhostRemove(array(
 			'vhosts' => array($id)
 		));
-		$this->assertFalse($response->isError());
+		$$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -137,7 +137,7 @@ class VirtualhostTest extends WebApiTestCase
 			'sslCertificatePath' => '/',
 			'sslCertificateKeyPath' => '123'
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -150,6 +150,6 @@ class VirtualhostTest extends WebApiTestCase
 				'port' => 80,
 				'template' => 'test template'
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 }

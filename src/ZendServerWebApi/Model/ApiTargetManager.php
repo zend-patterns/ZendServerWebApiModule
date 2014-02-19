@@ -4,7 +4,9 @@ namespace ZendServerWebApi\Model;
 use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\ServiceManager\ServiceManager;
-
+/**
+ * Service locator to manage targets lists
+ */
 class ApiTargetManager implements ServiceLocatorAwareInterface
 {
 	/**

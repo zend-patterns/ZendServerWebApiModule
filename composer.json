@@ -28,7 +28,7 @@
 	},
 	"autoload" : {
 		"psr-0" : {
-			"ZendServerWebApi\\" : "/src"
+			"ZendServerWebApi\\" : "/ZendServerWebApi/src"
 		},
 		"classmap" : [
 			"./Module.php"

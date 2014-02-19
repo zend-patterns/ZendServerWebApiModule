@@ -1,6 +1,11 @@
 <?php
 namespace ZendServerWebApi\Model;
 
+/**
+ * Api method parameter definition
+ * 
+ * Define api method parameter.
+ */
 class ApiParameter
 {
 	const VAR_TYPE_STRING = 'string';
@@ -51,13 +56,17 @@ class ApiParameter
 	}
 	
 	/**
-	 * @return the $value
+	 * Get parameter value
+	 * 
+	 * @return mixed
 	 */
 	public function getValue() {
 		return $this->value;
 	}
 	
 	/**
+	 * Set parameter value
+	 * 
 	 * @param \ZendServerWebApi\Model\mixed $value
 	 */
 	public function setValue($value) {
@@ -75,6 +84,8 @@ class ApiParameter
 	}
 	
 	/**
+	 * Check if parameter is required
+	 * 
 	 * @return the $isRequired
 	 */
 	public function isRequired() {
@@ -82,20 +93,26 @@ class ApiParameter
 	}
 
 	/**
-	 * @return the $varType
+	 * et parameter var type
+	 * 
+	 * @return string
 	 */
 	public function getVarType() {
 		return $this->varType;
 	}
 
 	/**
-	 * @return the $name
+	 * Get parameter name
+	 * 
+	 * @return string
 	 */
 	public function getName() {
 		return $this->name;
 	}
 
 	/**
+	 * Set parameter required status
+	 * 
 	 * @param boolean $isRequired
 	 */
 	public function setIsRequired($isRequired) {
@@ -103,6 +120,8 @@ class ApiParameter
 	}
 
 	/**
+	 * set parameter var type
+	 * 
 	 * @param string $varType
 	 */
 	public function setVarType($varType) {
@@ -110,6 +129,8 @@ class ApiParameter
 	}
 
 	/**
+	 * set parameter name
+	 * 
 	 * @param string $name
 	 */
 	public function setName($name) {

@@ -46,6 +46,7 @@ class ApiRequest extends Http\Request
     
     /**
      * File parameters definition
+     * 
      * @var array
      */
     protected $files = array();
@@ -65,11 +66,10 @@ class ApiRequest extends Http\Request
     const USER_AGENT = 'Zend\Http\Client';
 
     /**
-     * API reqiest constructor
+     * API request constructor
      * 
-     * @param ZendServer $targetServer            
+     * @param ApiTarget $target            
      * @param ApiMethod $apiMethod            
-     * @param ApiKey $apiKey            
      */
     public function __construct (ApiTarget $target, ApiMethod $apiMethod)
     {
@@ -93,7 +93,7 @@ class ApiRequest extends Http\Request
     /**
      * Prepare the request before it been send to Zend Server
      */
-    public function prepareRequest ()
+    public function prepareRequest()
     {
         $date = gmdate('D, d M Y H:i:s ') . 'GMT';
         $webApiUri = self::API_URI . $this->apiMethod->getName();
@@ -184,9 +184,11 @@ class ApiRequest extends Http\Request
      */
     public function setParameters ($params)
     {
-        foreach ($params as $name => $value) {
-            $this->setParameter($name, $value);
-        }
+    	if (is_array($params)){
+	        foreach ($params as $name => $value) {
+	            $this->setParameter($name, $value);
+	        }
+    	}
         $this->setFiles(new \Zend\Stdlib\Parameters($this->files));
     }
 
@@ -218,8 +220,10 @@ class ApiRequest extends Http\Request
     {
     	return $this->target->getApiKey()->getName();
     }
+    
     /**
-     *
+     * set Api method
+     * 
      * @param ApiMethod $apiMethod            
      */
     public function setApiMethod ($apiMethod)
@@ -237,6 +241,7 @@ class ApiRequest extends Http\Request
     }
     
     /**
+     * Get output typr
      * 
      * @return string
      */
@@ -246,6 +251,7 @@ class ApiRequest extends Http\Request
     }
     
 	/**
+	 * Set api target
 	 * @param \ZendServerWebApi\Model\ApiTarget $target
 	 */
 	public function setTarget($target) {

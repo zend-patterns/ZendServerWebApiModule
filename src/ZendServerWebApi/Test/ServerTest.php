@@ -11,7 +11,7 @@ class ServerTest extends WebApiTestCase
 	public function tasksComplete()
 	{
 		$response = $this->apiManager->tasksComplete();
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -22,7 +22,7 @@ class ServerTest extends WebApiTestCase
 		$response = $this->apiManager->getServerInfo(array(
 			'serverId' => 0
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -31,7 +31,7 @@ class ServerTest extends WebApiTestCase
 	public function getSystemInfo()
 	{
 		$response = $this->apiManager->getSystemInfo();
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -40,7 +40,7 @@ class ServerTest extends WebApiTestCase
 	public function clusterGetServersCount()
 	{
 		$response = $this->apiManager->clusterGetServersCount();
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -49,7 +49,7 @@ class ServerTest extends WebApiTestCase
 	public function clusterGetServerStatus()
 	{
 		$response = $this->apiManager->clusterGetServerStatus();
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -69,7 +69,7 @@ class ServerTest extends WebApiTestCase
 			'serverName' => 'server_test',
 			'serverId' => 0
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -120,7 +120,7 @@ class ServerTest extends WebApiTestCase
 		$response = $this->apiManager->clusterReconfigureServer(array(
 				'serverId' => 0
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -129,7 +129,7 @@ class ServerTest extends WebApiTestCase
 	public function restartPhp()
 	{
 		$response = $this->apiManager->restartPhp();
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -140,7 +140,7 @@ class ServerTest extends WebApiTestCase
 		$response = $this->apiManager->restartDaemon(array(
 				'daemon' => 'monitor_node'
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -149,7 +149,7 @@ class ServerTest extends WebApiTestCase
 	public function daemonsProbe()
 	{
 		$response = $this->apiManager->daemonsProbe();
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -160,7 +160,7 @@ class ServerTest extends WebApiTestCase
 		$response = $this->apiManager->logsReadLines(array(
 				'logName' => 'deployment'
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -171,6 +171,6 @@ class ServerTest extends WebApiTestCase
 		$response = $this->apiManager->logsGetLogfile(array(
 				'logName' => 'deployment'
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 }

@@ -24,7 +24,7 @@ class ApiManager
     protected $target;
     
     /**
-     * Api Manager config
+     * Api methods configuration
      * 
      * @var array
      */
@@ -65,14 +65,16 @@ class ApiManager
     }
 
 	/**
-	 * @param multitype: $config
+	 * Set Api methods configuration
+	 * 
+	 * @param array $config
 	 */
 	public function setApiMethodsConfig($config) {
 		$this->apiMethodsConfig = $config;
 	}
     
     /**
-     * Set the target
+     * Set Api target
      * 
      * @param ApiTarget $target
      */
@@ -82,6 +84,8 @@ class ApiManager
     }
 
     /**
+     * Set Http client
+     * 
      * @param \ZendServerWebApi\Model\ZendClient $zendServerClient
      */
     public function setZendServerClient($zendServerClient) {
@@ -89,17 +93,12 @@ class ApiManager
     }
     
     /**
-     *
-     * @return the $zendServerClient
+     * Get Http client
+     * 
+     * @return Zend\Http\Client
      */
     public function getZendServerClient ()
     {
-    	if ( ! $this->zendServerClient){
-    		$config = $this->config;
-    		$httpConfig = $config['zsapi']['client'];
-    		$zendserverClient= new Client(null, $httpConfig);
-    		$this->setZendServerClient($zendserverClient);
-    	}
         return $this->zendServerClient;
     }
 }

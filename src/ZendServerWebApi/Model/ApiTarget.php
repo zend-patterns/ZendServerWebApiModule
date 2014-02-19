@@ -3,11 +3,17 @@ namespace ZendServerWebApi\Model;
 
 use ZendServerWebApi\Model\ApiKey;
 use ZendServerWebApi\Model\ZendServer;
-
+/**
+ * Model for api target
+ * 
+ * Api target is a combination of a target Zend Server to request
+ * and an Api key to use/
+ */
 class ApiTarget
 {
 	/**
 	 * Api Key
+	 * 
 	 * @var ApiKey
 	 */
 	protected $apiKey;
@@ -39,42 +45,40 @@ class ApiTarget
 	}
 	
 	/**
-	 * Set targte configuration
+	 * Set targtet configuration
 	 * 
 	 * @param array $targetConfig
 	 */
 	public function setConfig($targetConfig)
 	{
 		$this->apiKey = new ApiKey($targetConfig['zskey'], $targetConfig['zssecret']);
-		$this->zendServer = ZendServer::factory($targetConfig);
+		$this->zendServer = new ZendServer($targetConfig['zsurl'],$targetConfig['zsversion']);
 	}
 	
 	/**
-	 * @return the $apiKey
+	 * Get api key
+	 * 
+	 * @return ApiKey
 	 */
 	public function getApiKey() {
 		return $this->apiKey;
 	}
 
 	/**
-	 * @return the $zendServer
+	 * Get Zend server
+	 * 
+	 * @return ZendServer
 	 */
 	public function getZendServer() {
 		return $this->zendServer;
 	}
 
 	/**
-	 * @return the $name
+	 * Get target name
+	 * 
+	 * @return string
 	 */
 	public function getName() {
 		return $this->name;
 	}
-
-	/**
-	 * @param string $name
-	 */
-	public function setName($name) {
-		$this->name = $name;
-	}
-
 }

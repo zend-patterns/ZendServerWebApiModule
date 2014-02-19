@@ -11,7 +11,7 @@ class MonitorTest extends WebApiTestCase
 		$response = $this->apiManager->monitorGetIssuesByPredefinedFilter(array(
 				'filterId' => 'All Issues'
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 		$id = (string) $response->responseData->issues->issue->id;
 		$eventGroupId =( string) $response->responseData->issues->issue->codeTracingEventGroupId; 
 		return array('eventGroupId' => $eventGroupId,'id' => $id);
@@ -27,7 +27,7 @@ class MonitorTest extends WebApiTestCase
 				'eventsGroupId' => $event['eventGroupId'],
 				'backtraceNum' => 0
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -39,7 +39,7 @@ class MonitorTest extends WebApiTestCase
 		$response = $this->apiManager->monitorExportIssueByEventsGroup(array(
 				'eventsGroupId' => $event['eventGroupId'],
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -51,7 +51,7 @@ class MonitorTest extends WebApiTestCase
 		$response = $this->apiManager->monitorGetIssueDetails(array(
 				'issueId' => $event['id'],
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -64,7 +64,7 @@ class MonitorTest extends WebApiTestCase
 				'issueId' => $event['id'],
 				'newStatus' => 'ignored'
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -77,7 +77,7 @@ class MonitorTest extends WebApiTestCase
 				'eventsGroupId' => $event['eventGroupId'],
 				'issueId' => $event['id'],
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -89,7 +89,7 @@ class MonitorTest extends WebApiTestCase
 		$response = $this->apiManager->monitorDeleteIssuesByPredefinedFilter(array(
 				'filterId' => 'org',
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -101,6 +101,6 @@ class MonitorTest extends WebApiTestCase
 		$response = $this->apiManager->monitorDeleteIssues(array(
 				'issuesIds' => array($event['id']),
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 }

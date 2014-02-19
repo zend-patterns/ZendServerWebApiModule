@@ -13,31 +13,16 @@ return array (
                 	'apiMethodsConfig' => 'ZendServerWebApi\Service\ApiMethodsConfigFactory'
                 ),
         ),
-
-        //  Zend Server API specific Settings
-        'zsapi' => array (
-            // Default Zend Server Target
-            'target' => array(
-                'zsurl' => 'http://localhost:10081',
-                'zskey' => 'zf',
-                'zssecret' => 'a1c5b69aa706450c6715fd817b5c7cd643144bb2c70d1e4d34c8a0f3098e2c65',
-                'zsversion' => '6.2',
-            ),
-            // HTTP Client
-            'client' => array(
-                'adapter' => '\ZendServerWebApi\Model\Http\Adapter\Socket',
-            ),
-        ),
-		
 		
 		'target_manager_config' => array(
-			'default' => array(
-					'zsurl' => 'http://localhost:10081',
-					'zskey' => 'zf',
-					'zssecret' => 'a1c5b69aa706450c6715fd817b5c7cd643144bb2c70d1e4d34c8a0f3098e2c65',
-					'zsversion' => '6.2',
-			),
-        ),
+				'default' => array(
+						'zsurl' => 'http://localhost:10081',
+						'zskey' => 'admin',
+						'zssecret' => 'f4db592a7dc1d7076c6d83ba13c0eb277859cba1bc1933f19a6ad4da8da982f0',
+						'zsversion' => '6.3',
+				),
+		),
+		
         /*'zsapilog' => array (
             'file' => 'php://stderr',
             'priority' => getenv('DEBUG')? Logger::DEBUG: Logger::WARN,    	

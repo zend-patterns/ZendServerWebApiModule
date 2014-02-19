@@ -11,7 +11,7 @@ class PagecacheTest extends WebApiTestCase
 	public function pagecacheRulesList()
 	{
 		$response = $this->apiManager->pagecacheRulesList();
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -27,7 +27,7 @@ class PagecacheTest extends WebApiTestCase
 				'lifetime' => 360,
 				'name' => 'test rule'. time(),
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 		$id= (string)$response->responseData->ruleInfo->rule->id;
 		return $id;
 	}
@@ -48,7 +48,7 @@ class PagecacheTest extends WebApiTestCase
 				'applicationId' => $appId,
 				'name' => 'test rule'. time(),
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 		$id= (string)$response->responseData->ruleInfo->rule->id;
 		$response = $this->apiManager->pagecacheDeleteRules(array(
 				'rules' => array($id)
@@ -61,7 +61,7 @@ class PagecacheTest extends WebApiTestCase
 	public function pagecacheExportRules()
 	{
 		$response = $this->apiManager->pagecacheExportRules();
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -73,7 +73,7 @@ class PagecacheTest extends WebApiTestCase
 		$response = $this->apiManager->pagecacheImportRules(array(
 			'pageCacheRules' => $xmlContent
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -85,7 +85,7 @@ class PagecacheTest extends WebApiTestCase
 		$response = $this->apiManager->pagecacheRuleInfo(array(
 			'id' => $id
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -97,7 +97,7 @@ class PagecacheTest extends WebApiTestCase
 		$response = $this->apiManager->pagecacheClearRulesCache(array(
 				'rules' => array($id)
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -108,7 +108,7 @@ class PagecacheTest extends WebApiTestCase
 		$response = $this->apiManager->pagecacheClearCacheByRuleName(array(
 				'ruleName' => 'test rule'
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -120,7 +120,7 @@ class PagecacheTest extends WebApiTestCase
 		$response = $this->apiManager->pagecacheDeleteRules(array(
 			'rules' => array($id)
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	

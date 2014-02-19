@@ -14,7 +14,7 @@ class DeploymentTest extends WebApiTestCase
 				'logo' => $this->getRootDir() . '/data/logo-zend.jpg',
 	
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 		$appName = (string)$response->responseData->applicationInfo->appName;
 		$this->assertEquals('test defined app', $appName);
 		$id = (string)$response->responseData->applicationInfo->id;
@@ -27,9 +27,7 @@ class DeploymentTest extends WebApiTestCase
 	public function applicationGetStatus()
 	{
 		$response = $this->apiManager->applicationGetStatus();
-		//var_dump($response->getHttpResponse()->getBody());
-		//die();
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 		$id = (string)$response->responseData->applicationsList->applicationInfo->id;
 		return $id;
 		
@@ -45,7 +43,7 @@ class DeploymentTest extends WebApiTestCase
 			'application' => $id,
 		));
 		$resultId = (string)$response->responseData->applicationsList->applicationInfo->id;
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -66,7 +64,7 @@ class DeploymentTest extends WebApiTestCase
 			'baseUrl' => 'http://<default-server>/dummyapp',
 			'userAppName' => 'dummyApp',
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**

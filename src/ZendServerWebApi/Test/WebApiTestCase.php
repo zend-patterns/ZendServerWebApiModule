@@ -3,6 +3,7 @@ namespace ZendServerWebApi\Test;
 
 
 use Zend\Mvc\Service\ServiceManagerConfig;
+use ZendServerWebApi\Model\Http\Client;
 
 abstract class WebApiTestCase extends \PHPUnit_Framework_TestCase
 {
@@ -31,37 +32,20 @@ abstract class WebApiTestCase extends \PHPUnit_Framework_TestCase
 	 */
 	public function setUp()
 	{
-		$configuration = $this->getConfig();
+		$module = new \ZendServerWebApi\Module();
+		$configuration = $module->getConfig();
 		$smConfig = $configuration['service_manager'];
 		$smConfig = new ServiceManagerConfig($smConfig);
 		$this->serviceManager = new \Zend\ServiceManager\ServiceManager($smConfig);
 		$this->serviceManager->setService('config', $configuration);
 		$this->apiManager = $this->serviceManager->get('zend_server_api');
+		$apiMethodsConfig = $this->serviceManager->get('apiMethodsConfig');
+		$this->apiManager->setApiMethodsConfig($apiMethodsConfig);
+		$targetManager = current($this->serviceManager->get('targetManager'));
+		$this->apiManager->setTarget($targetManager->getTarget('default'));
+		$client = new Client();
+		$this->apiManager->setZendServerClient($client);
         $this->setParams(__DIR__ . '/data/testparameters.php');
-	}
-	
-	/**
-	 * Get configuration of the given service
-	 * 
-	 * @param string $service
-	 */
-	protected function getServiceConfig($service)
-	{
-		$apiConfiguration = $this->getConfig();
-		return $apiConfiguration['console']['router']['routes'][$service];
-	}
-	
-	/**
-	 * Get whole configuration
-	 * @return unknown
-	 */
-	protected function getConfig()
-	{
-		$apiConfigFileDir = __DIR__ .'/../../../config/api';
-		$mainConfigFile = __DIR__ . '/zendserverwebapi.config.php';
-		$apiConfiguration = new \ZendServerWebApi\Model\ApiConfigManager($apiConfigFileDir, $mainConfigFile);
-		$apiConfiguration = $apiConfiguration->getConfig();
-		return $apiConfiguration;
 	}
 	
 	/**
@@ -70,7 +54,7 @@ abstract class WebApiTestCase extends \PHPUnit_Framework_TestCase
 	 */
 	protected function isValidApiResponse($response)
 	{
-		$this->assertTrue(is_a($response, ApiResponse));
+		$this->assertTrue(is_a($response, 'ZendServerWebApi\Model\Response\ApiResponse'));
 	}
 	
 	/**
@@ -83,7 +67,7 @@ abstract class WebApiTestCase extends \PHPUnit_Framework_TestCase
 	}
 	
 	/**
-	 * Set test parameter
+	 * Set test parameters
 	 * 
 	 * @param stirng $file
 	 */
@@ -93,12 +77,21 @@ abstract class WebApiTestCase extends \PHPUnit_Framework_TestCase
 	}
 	
 	/**
+	 * Get test parameter
 	 * 
-	 * @param unknown $name
-	 * @param unknown $value
+	 * @param string $name
 	 */
 	protected function getParam($name)
 	{
 		return $this->params[$name];
+	}
+	
+	/**
+	 * Display response XML data
+	 * @param ApiResponse $response
+	 */
+	protected function debugResponse($response)
+	{
+		var_dump($response->getHttpResponse()->getBody());
 	}
 }

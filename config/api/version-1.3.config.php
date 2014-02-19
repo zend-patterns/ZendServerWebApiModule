@@ -738,12 +738,12 @@ AUDIT_GROUP_LICENSE'),
                                         		),
                                         )
                                 ),
-                                'jobqueueListRules' => array (
+                                'jobqueueRulesList' => array (
                                         'options' => array (
-                                                'route' => 'jobqueueListRules [--limit=] [--offset=] [--orderBy=] [--direction=]',
+                                                'route' => 'jobqueueRulesList [--limit=] [--offset=] [--orderBy=] [--direction=]',
                                                 'defaults' => array (
                                                         'controller' => 'webapi-api-controller',
-                                                        'action' => 'jobqueueListRules'
+                                                        'action' => 'jobqueueRulesList'
                                                 ),
                                         		'group'=> 'jobqueue',
                                         		'info' => array(
@@ -876,12 +876,12 @@ AUDIT_GROUP_LICENSE'),
                                         )
                                 ),
 
-                                'getBacktraceFile' => array (
+                                'monitorGetBacktraceFile' => array (
                                         'options' => array (
-                                                'route' => 'getBacktraceFile --backtraceNum= --eventsGroupId=',
+                                                'route' => 'monitorGetBacktraceFile --backtraceNum= --eventsGroupId=',
                                                 'defaults' => array (
                                                         'controller' => 'webapi-api-controller',
-                                                        'action' => 'getBacktraceFile'
+                                                        'action' => 'monitorGetBacktraceFile'
                                                 ),
                                         		'group' => 'monitor',
                                         		'info' => array (
@@ -1421,13 +1421,12 @@ Poll until the server no longer requires a restart at which point the server is 
                                         		)
                                         )
                                 ),
-                                'studioIsDebugModeenabled' => array (
+                                'studioIsDebugModeEnabled' => array (
                                         'options' => array (
-                                                'route' => 'studioIsDebugModeenabled',
+                                                'route' => 'studioIsDebugModeEnabled',
                                                 'defaults' => array (
                                                         'controller' => 'webapi-api-controller',
-                                                        'action' => 'studioIsDebugModeenabled',
-                                                        'apiMethod' => 'post'
+                                                        'action' => 'studioIsDebugModeEnabled',
                                                 ),
                                         		'group' => 'studio',
                                         		'info' => array (
@@ -1436,12 +1435,12 @@ Poll until the server no longer requires a restart at which point the server is 
                                         )
                                 ),
                                 // Page cache
-                                'pagecacheListRules' => array (
+                                'pagecacheRulesList' => array (
                                         'options' => array (
-                                                'route' => 'pagecacheListRules [--applicationsId=] [--freeText=]',
+                                                'route' => 'pagecacheRulesList [--applicationsId=] [--freeText=]',
                                                 'defaults' => array (
                                                         'controller' => 'webapi-api-controller',
-                                                        'action' => 'pagecacheListRules'
+                                                        'action' => 'pagecacheRulesList'
                                                 ),
                                         		'arrays' => array(
                                         				'applicationsId'

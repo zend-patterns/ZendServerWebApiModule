@@ -11,7 +11,7 @@ class FilterTest extends WebApiTestCase
 		$response = $this->apiManager->filterGetByType(array(
 				'type' => 'issue',
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 		$id = (string)$response->responseData->filters->filter->id;
 		$this->assertTrue(is_string($id));
 	}
@@ -26,7 +26,7 @@ class FilterTest extends WebApiTestCase
 				'type' => 'issue',
 				'name' => $name,
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 		$id = (string)$response->responseData->filters->filter->id;
 		$this->assertTrue(is_string($id));
 		return $name;
@@ -41,6 +41,6 @@ class FilterTest extends WebApiTestCase
 		$response = $this->apiManager->filterDelete(array(
 				'name' => $name
 		));
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 }

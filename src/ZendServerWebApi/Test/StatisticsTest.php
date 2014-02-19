@@ -14,7 +14,7 @@ class StatisticsTest extends WebApiTestCase
 		$response = $this->apiManager->statisticsGetSeries(array(
 			'type' => $type,
 		));
-		$this->assertFalse($response->isError(), $type . ' is not reachable');
+		$this->isValidApiResponse($response);
 	}
 	
 	/**
@@ -23,7 +23,7 @@ class StatisticsTest extends WebApiTestCase
 	public function statisticsClearData()
 	{
 		$response = $this->apiManager->statisticsClearData();
-		$this->assertFalse($response->isError());
+		$this->isValidApiResponse($response);
 	}
 	
 	/**

@@ -58,9 +58,8 @@ class ApiController extends AbstractController
             $this->apiManager = $serviceLocator->get('zend_server_api');
         }
         $action = $this->params('action');
-        //$target = $this->serviceLocator->get('target_manager')->get('default');
         $apiMethodsConfig = $this->serviceLocator->get('apiMethodsConfig');
-        //$this->apiManager->setTarget($target);
+        //$@todo manage target pushed by cli
         $this->apiManager->setApiMethodsConfig($apiMethodsConfig);
         $response = $this->apiManager->$action($params);
         return $response;
