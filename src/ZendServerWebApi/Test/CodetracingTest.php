@@ -39,7 +39,7 @@ class CodetracingTest extends WebApiTestCase
 	 */
 	public function codetracingCreate()
 	{
-		$tarceUrl = 'http://localhost/';
+		$tarceUrl = 'http://localhost/demo';
 		$response = $this->apiManager->codetracingCreate(array(
 			'url' => $tarceUrl
 		));

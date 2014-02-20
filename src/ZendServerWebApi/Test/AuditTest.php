@@ -46,7 +46,7 @@ class AuditTest extends WebApiTestCase
 	public function auditSetSettings()
 	{
 		$response = $this->apiManager->auditSetSettings(array(
-			'history' => 10,
+			'history' =>  rand(1, 100),
 		));
 		$this->isValidApiResponse($response);
 	}

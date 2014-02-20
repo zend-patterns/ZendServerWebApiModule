@@ -56,7 +56,9 @@ abstract class WebApiTestCase extends \PHPUnit_Framework_TestCase
 	 */
 	protected function isValidApiResponse($response)
 	{
-		$this->assertTrue(is_a($response, 'ZendServerWebApi\Model\Response\ApiResponse'));
+		$isValid = is_a($response, 'ZendServerWebApi\Model\Response\ApiResponse');
+		if ( ! $isValid) $this->debugResponse($response);
+		$this->assertTrue($isValid);
 	}
 	
 	/**

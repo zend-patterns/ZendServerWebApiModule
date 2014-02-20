@@ -846,7 +846,7 @@ AUDIT_GROUP_LICENSE'),
                                 ),
                                 'jobqueueRunNowRule' => array (
                                         'options' => array (
-                                                'route' => 'jobqueueRunNowRule --rule=',
+                                                'route' => 'jobqueueRunNowRule --ruleId=',
                                                 'defaults' => array (
                                                         'controller' => 'webapi-api-controller',
                                                         'action' => 'jobqueueRunNowRule',

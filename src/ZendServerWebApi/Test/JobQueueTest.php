@@ -141,7 +141,7 @@ class JobQueueTest extends WebApiTestCase
 	public function jobqueueRunNowRule($id)
 	{
 		$response = $this->apiManager->jobqueueRunNowRule(array(
-				'ruleId' => $id,
+				'ruleId' => $id
 		));
 		$this->isValidApiResponse($response);
 	}
