@@ -88,7 +88,7 @@ class ApiController extends AbstractController
      */
     protected function getTragetByParemeters()
     {
-    	if ( ! $this->param('zsurl',null)) return;
+    	if ( ! $this->params('zsurl',null)) return;
     	$target = new ApiTarget('anonymous', array(
     		'zsurl' => $this->params('zsurl'),
     		'zskey' => $this->params('zskey'),
@@ -106,7 +106,7 @@ class ApiController extends AbstractController
      */
     protected function getTargetByName()
     {
-    	if ( ! $this->param('target',null)) return;
+    	if ( ! $this->params('target',null)) return;
     	$targetName = $this->params('target',null);
     	if ( ! $targetName) return;
     	$targetManager = current($this->serviceLocator->get('target_manager'));
