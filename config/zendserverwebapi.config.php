@@ -11,6 +11,7 @@ return array (
                 	'zend_server_api' => 'ZendServerWebApi\Service\ApiManagerFactory',
                 	'targetManager' => 'ZendServerWebApi\Service\TargetManagerFactory',
                 	'apiMethodsConfig' => 'ZendServerWebApi\Service\ApiMethodsConfigFactory'
+                	
                 ),
         ),
 		
@@ -20,6 +21,12 @@ return array (
 						'zskey' => 'admin',
 						'zssecret' => 'f4db592a7dc1d7076c6d83ba13c0eb277859cba1bc1933f19a6ad4da8da982f0',
 						'zsversion' => '6.3',
+				),
+		),
+		'api_http_client' => array(
+				'class' => 'ZendServerWebApi\Model\Http\Client',
+				'config' => array(
+						'adapter'=> 'ZendServerWebApi\Model\Http\Adapter\Socket'
 				),
 		),
 		

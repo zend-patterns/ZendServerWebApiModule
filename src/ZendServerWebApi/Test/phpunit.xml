@@ -1,13 +1,13 @@
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/3.7/phpunit.xsd"
 	bootstrap="bootstrap.php" verbose="true" stopOnError="true"
-	stopOnFailure="false" stopOnIncomplete="false" stopOnSkipped="false">
+	stopOnFailure="true" stopOnIncomplete="false" stopOnSkipped="false">
 	<testsuites>
 		<testsuite name="WebApi">
 			<file>AdministrationTest.php</file>
 			<file>AuditTest.php</file> 
 			<file>CacheTest.php</file>
-			<file>StudioTest.php</file>
+			<!-- <file>StudioTest.php</file> -->
 			<file>NotificationTest.php</file> 
 			<file>FilterTest.php</file>
 			<file>CodetracingTest.php</file> 

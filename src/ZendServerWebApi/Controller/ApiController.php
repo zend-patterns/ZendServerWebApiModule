@@ -51,9 +51,13 @@ class ApiController extends AbstractController
     	$target = $this->getTarget();
         $action = $this->params('action');
         $apiMethodsConfig = $this->serviceLocator->get('apiMethodsConfig');
+        $config = $this->serviceLocator->get('config');
+        $httpClientConfig = $config['api_http_client'];
+        $zsclient = new $httpClientConfig['class']('',$httpClientConfig['config']);
         $apiManager = new ApiManager();
         $apiManager->setTarget($target);
         $apiManager->setApiMethodsConfig($apiMethodsConfig);
+        $apiManager->setZendServerClient($zsclient);
         $response = $apiManager->$action($params);
         return $response;
     }

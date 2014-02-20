@@ -41,11 +41,12 @@ abstract class WebApiTestCase extends \PHPUnit_Framework_TestCase
 		$this->serviceManager->setService('config', $configuration);
 		$target = current($this->serviceManager->get('target_manager'))->getTarget('default');
 		$apiMethodsConfig = $this->serviceManager->get('apiMethodsConfig');
+		$httpClientConfig = $configuration['api_http_client'];
+		$zsclient = new $httpClientConfig['class']('',$httpClientConfig['config']);
 		$this->apiManager = new ApiManager();
 		$this->apiManager->setTarget($target);
 		$this->apiManager->setApiMethodsConfig($apiMethodsConfig);
-		$client = new Client();
-		$this->apiManager->setZendServerClient($client);
+		$this->apiManager->setZendServerClient($zsclient);
         $this->setParams(__DIR__ . '/data/testparameters.php');
 	}
 	
