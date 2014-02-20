@@ -13,12 +13,6 @@ use ZendServerWebApi\Model\ApiTarget;
  */
 class ApiController extends AbstractController
 {
-	/**
-	 * The API manager
-	 * @var ApiManager
-	 */
-    protected $apiManager;
-
     /**
      * (non-PHPdoc)
      *
