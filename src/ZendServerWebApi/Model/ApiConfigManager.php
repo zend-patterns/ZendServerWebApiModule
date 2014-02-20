@@ -35,7 +35,7 @@ class ApiConfigManager
 	}
 	
 	/**
-	 * Add default target parameter to eevry methods
+	 * Add default target parameter to every methods
 	 */
 	protected function addDefaultTargetParameters()
 	{

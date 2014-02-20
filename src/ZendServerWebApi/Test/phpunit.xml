@@ -4,28 +4,23 @@
 	stopOnFailure="false" stopOnIncomplete="false" stopOnSkipped="false">
 	<testsuites>
 		<testsuite name="WebApi">
-			<!-- 
 			<file>AdministrationTest.php</file>
-			<file>AuditTest.php</file> //auditSetSettings issue
+			<file>AuditTest.php</file> 
 			<file>CacheTest.php</file>
-			<file>StatisticsTest.php</file>
 			<file>StudioTest.php</file>
-			<file>NotificationTest.php</file> // issue with updateNotification (adpater interface)
+			<file>NotificationTest.php</file> 
 			<file>FilterTest.php</file>
-			<file>CodetracingTest.php</file> //A url to trace is missing... find a way.
-			<file>ConfigurationTest.php</file> // Import not tested
-			<file>ServerTest.php</file> // Missing server Id... to run on a cluster
-			<file>JobQueueTest.php</file> //Some more job to do but quite Ok..
+			<file>CodetracingTest.php</file> 
+			<file>ConfigurationTest.php</file> 
+			<file>ServerTest.php</file>
+			<file>JobQueueTest.php</file>
 			<file>MonitoringRulesTest.php</file>
-			<file>LibraryTest.php</file> //a lot of incomplete tests
-			<file>DeploymentTest.php</file> //Some stuff about file management
-			 -->
-			<!-- 
+			<file>LibraryTest.php</file> 
+			<file>DeploymentTest.php</file>
+			<file>StatisticsTest.php</file>
 			<file>PagecacheTest.php</file>
 			<file>VirtualhostTest.php</file>
 			<file>MonitorTest.php</file>
-			
-			 -->
 		</testsuite>
 	</testsuites>
 </phpunit>

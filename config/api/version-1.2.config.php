@@ -276,6 +276,7 @@ The default value is FALSE, meaning any failure will return an error.'),
                                                         'controller' => 'webapi-api-controller',
                                                         'action' => 'monitorGetIssuesListPredefinedFilter'
                                                 ),
+                                        		'arrays' => array('filters'),
                                         		'group' => 'monitor',
                                         		'info' => array (
                                         				'Get the library version ID that is deployed on the server or the cluster, and information about that version and its library.',

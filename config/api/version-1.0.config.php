@@ -79,7 +79,7 @@ return array (
                                                 'route' => 'clusterAddServer --serverName= --serverIp=',
                                                 'defaults' => array (
                                                         'controller' => 'webapi-api-controller',
-                                                        'action' => 'changeServerNameById',
+                                                        'action' => 'clusterAddServer',
                                                         'apiMethod' => 'post'
                                                 ),
                                         		'group' => 'server',

@@ -86,7 +86,8 @@ class ApiManager
     /**
      * Set Http client
      * 
-     * @param \ZendServerWebApi\Model\ZendClient $zendServerClient
+     * Http client to be used to connect Api server
+     * @param Zend\Http\Client $zendServerClient
      */
     public function setZendServerClient($zendServerClient) {
     	$this->zendServerClient = $zendServerClient;

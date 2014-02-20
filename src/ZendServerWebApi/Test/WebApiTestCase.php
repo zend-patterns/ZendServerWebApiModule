@@ -4,6 +4,7 @@ namespace ZendServerWebApi\Test;
 
 use Zend\Mvc\Service\ServiceManagerConfig;
 use ZendServerWebApi\Model\Http\Client;
+use ZendServerWebApi\Model\ApiManager;
 
 abstract class WebApiTestCase extends \PHPUnit_Framework_TestCase
 {
@@ -38,11 +39,11 @@ abstract class WebApiTestCase extends \PHPUnit_Framework_TestCase
 		$smConfig = new ServiceManagerConfig($smConfig);
 		$this->serviceManager = new \Zend\ServiceManager\ServiceManager($smConfig);
 		$this->serviceManager->setService('config', $configuration);
-		$this->apiManager = $this->serviceManager->get('zend_server_api');
+		$target = current($this->serviceManager->get('target_manager'))->getTarget('default');
 		$apiMethodsConfig = $this->serviceManager->get('apiMethodsConfig');
+		$this->apiManager = new ApiManager();
+		$this->apiManager->setTarget($target);
 		$this->apiManager->setApiMethodsConfig($apiMethodsConfig);
-		$targetManager = current($this->serviceManager->get('targetManager'));
-		$this->apiManager->setTarget($targetManager->getTarget('default'));
 		$client = new Client();
 		$this->apiManager->setZendServerClient($client);
         $this->setParams(__DIR__ . '/data/testparameters.php');

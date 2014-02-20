@@ -4,6 +4,7 @@ namespace ZendServerWebApi\Controller;
 use Zend\Mvc\Controller\AbstractController;
 use Zend\Mvc\MvcEvent;
 use ZendServerWebApi\Model\ApiManager;
+use ZendServerWebApi\Model\ApiTarget;
 
 /**
  * Main Console Controller
@@ -53,15 +54,62 @@ class ApiController extends AbstractController
      */
     protected function sendApiRequest($params)
     {
-        if(!$this->apiManager) {
-            $serviceLocator = $this->getServiceLocator();
-            $this->apiManager = $serviceLocator->get('zend_server_api');
-        }
+    	$target = $this->getTarget();
         $action = $this->params('action');
         $apiMethodsConfig = $this->serviceLocator->get('apiMethodsConfig');
-        //$@todo manage target pushed by cli
-        $this->apiManager->setApiMethodsConfig($apiMethodsConfig);
-        $response = $this->apiManager->$action($params);
+        $apiManager = new ApiManager();
+        $apiManager->setTarget($target);
+        $apiManager->setApiMethodsConfig($apiMethodsConfig);
+        $response = $apiManager->$action($params);
         return $response;
+    }
+    
+    /**
+     * Return the target to use
+     * 
+     * Will return the default target or the target given in parameters
+     * @return ApiTarget
+     */
+    protected function getTarget()
+    {
+    	$target = $this->getTargetByName();
+    	if ($target) return $target;
+    	$target = $this->getTragetByParemeters();
+    	if ($target) return $target;
+    	$targetManager = current($this->serviceLocator->get('target_manager'));
+    	return $targetManager->getTarget('default');
+    }
+    
+    /**
+     * Compute a target from requets parameters
+     * 
+     * When setting taget by its parameter in command line
+     * @return void|\ZendServerWebApi\Model\ApiTarget
+     */
+    protected function getTragetByParemeters()
+    {
+    	if ( ! $this->param('zsurl',null)) return;
+    	$target = new ApiTarget('anonymous', array(
+    		'zsurl' => $this->params('zsurl'),
+    		'zskey' => $this->params('zskey'),
+    		'zssecret' => $this->params('zssecret'),
+    		'zsversion' => $this->params('zsversion'),
+    	));
+    	return $target;
+    }
+    
+    /**
+     * Get target from target manager
+     * 
+     * Use target request parameter to look into target manager.
+     * @return void|\ZendServerWebApi\Model\ApiTarget
+     */
+    protected function getTargetByName()
+    {
+    	if ( ! $this->param('target',null)) return;
+    	$targetName = $this->params('target',null);
+    	if ( ! $targetName) return;
+    	$targetManager = current($this->serviceLocator->get('target_manager'));
+    	return $targetManager->getTarget($targetName);
     }
 }

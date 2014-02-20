@@ -112,10 +112,6 @@ class ApiRequest extends Http\Request
         	$contentLength = 0;
             if(count($this->getFiles())) {
                 $headers->addHeaderLine('Content-Type', 'multipart/form-data');
-                /*foreach ($this->getFiles() as $path => $fileParam){
-                	$size = strlen(file_get_contents($path));
-                	$contentLength += $size;
-                }*/
             } else {
                 $headers->addHeaderLine('Content-Type', 'application/x-www-form-urlencoded');
             }

@@ -85,7 +85,7 @@ class MonitorTest extends WebApiTestCase
 	 */
 	public function monitorDeleteIssuesByPredefinedFilter()
 	{
-		$this->markTestSkipped('To damn hazardous !');
+		$this->markTestSkipped('Too damn hazardous !');
 		$response = $this->apiManager->monitorDeleteIssuesByPredefinedFilter(array(
 				'filterId' => 'org',
 		));
