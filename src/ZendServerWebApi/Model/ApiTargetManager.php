@@ -33,6 +33,7 @@ class ApiTargetManager implements ServiceLocatorAwareInterface
     {
     	if ($this->serviceLocator) return $this->serviceLocator;
     	$this->serviceLocator = new ServiceManager();
+    	$this->serviceLocator->setRetrieveFromPeeringManagerFirst(false);
     	return $this->serviceLocator;
     }
     
