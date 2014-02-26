@@ -34,25 +34,17 @@ class ApiParameter
 	protected $name;
 	
 	/**
-	 * Parameter value
-	 * 
-	 * @var mixed
-	 */
-	protected $value;
-	
-	/**
 	 * Constructor
 	 * 
 	 * @param string $name
 	 * @param string $varType
 	 * @param boolean $isRequired
 	 */
-	public function __construct($name, $value, $varType= self::VAR_TYPE_STRING, $isRequired = false)
+	public function __construct($name, $varType= self::VAR_TYPE_STRING, $isRequired = false)
 	{
 		$this->setName($name);
 		$this->setIsRequired($isRequired);
 		$this->setVarType($varType);
-		$this->setValue($value);
 	}
 	
 	/**
@@ -62,25 +54,6 @@ class ApiParameter
 	 */
 	public function getValue() {
 		return $this->value;
-	}
-	
-	/**
-	 * Set parameter value
-	 * 
-	 * @param \ZendServerWebApi\Model\mixed $value
-	 */
-	public function setValue($value) {
-		if ($this->isFile()) {
-			$value = array(
-				$value => array(
-					'formname' => $this->getName(),
-					'filename' => basename($value),
-					'data'     => null,
-					'ctype'    => null,
-				),
-			);
-		}
-		$this->value = $value;
 	}
 	
 	/**

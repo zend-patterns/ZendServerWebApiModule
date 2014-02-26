@@ -97,7 +97,7 @@ class ApiMethod
 				if (in_array($paramName, $config['arrays'])) $varType = ApiParameter::VAR_TYPE_ARRAY;
 			if (isset($config['files']))
 				if (in_array($paramName, $config['files'])) $varType = ApiParameter::VAR_TYPE_FILE;
-			$this->paramDefinitions[$paramName] = new ApiParameter($paramName, $varType, $isRequired);
+			$this->paramDefinitions[$paramName] = new ApiParameter($paramName,$varType, $isRequired);
 		}
 		
 	}

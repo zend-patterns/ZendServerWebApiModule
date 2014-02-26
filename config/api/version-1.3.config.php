@@ -201,7 +201,7 @@ groupsAttribute: Name for a list of user groups’ membership'),
                                 // Audit
                                 'auditGetList' => array (
                                         'options' => array (
-                                                'route' => 'auditGetList [--limit=] [--offset=] [--order=] [--direction=] [--filter=]',
+                                                'route' => 'auditGetList [--limit=] [--offset=] [--order=] [--direction=] [--filters=]',
                                                 'defaults' => array (
                                                         'controller' => 'webapi-api-controller',
                                                         'action' => 'auditGetList'
