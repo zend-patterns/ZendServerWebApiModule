@@ -57,33 +57,10 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
      */
     public function onBootstrap (EventInterface $event)
     {
-        $serviceManager = $event->getApplication()->getServiceManager();
+    	$serviceManager = $event->getApplication()->getServiceManager();
         $this->config = $serviceManager->get('config');
-        $eventManager = $event->getApplication()->getEventManager();
-        $eventManager->attach(MvcEvent::EVENT_DISPATCH,array($this,'preDispatch'), 100);
-        $serviceManager->setService('targetConfig', new ArrayObject($this->config['zsapi']['target']));
     }
 
-    /**
-     * Manage API Key usage and define HTTP client
-     *
-     * @param  MvcEvent                                 $event
-     * @throws \Zend\Console\Exception\RuntimeException
-     */
-    public function preDispatch (MvcEvent $event)
-    {
-        $match = $event->getRouteMatch();
-        if (! $match) return;
-        $serviceManager = $event->getApplication()->getServiceManager();
-        $config = $serviceManager->get('config');
-        $targetConfig = $serviceManager->get('targetConfig');
-        $httpConfig = $config['zsapi']['client'];
-        if(!empty($targetConfig['http'])) {
-        	foreach($targetConfig['http'] as $k=>$v) {
-        		$httpConfig[$k]=$v;
-        	}
-        }
-    }
 
     /**
      * (non-PHPdoc)
@@ -92,9 +69,9 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
      */
     public function getConsoleUsage (Console $console)
     {
-        $config = $this->config;
+    	
         $command = @$_SERVER['argv'][1];
-        $routes = $config['console']['router']['routes'];
+        $routes = $this->config['console']['router']['routes'];
         if (isset($routes[$command])) {
             $routes = array(
                     $command => $routes[$command]
