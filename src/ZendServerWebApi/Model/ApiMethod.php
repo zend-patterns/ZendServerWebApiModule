@@ -184,7 +184,7 @@ class ApiMethod
 		$array = array();
 		foreach ($this->paramDefinitions as $name => $param)
 		{
-			if ( ! $param->getVarType() == ApiParameter::VAR_TYPE_FILE) continue;
+			if ($param->getVarType() != ApiParameter::VAR_TYPE_FILE) continue;
 			$array[$name] = $param;
 		}
 		return $array;
