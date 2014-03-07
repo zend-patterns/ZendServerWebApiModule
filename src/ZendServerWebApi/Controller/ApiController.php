@@ -2,6 +2,7 @@
 namespace ZendServerWebApi\Controller;
 use Zend\Mvc\Controller\AbstractController;
 use Zend\Mvc\MvcEvent;
+use ZendServerWebApi\Model\Response\ApiResponse;
 
 /**
  * Main Console Controller
@@ -36,7 +37,12 @@ class ApiController extends AbstractController
         } else {
             $response = $this->sendApiRequest($requestParameters);
         }
-        return $response->getHttpResponse();
+        
+        if($response instanceof ApiResponse) {
+            return $response->getHttpResponse();
+        }
+        
+        return $response;
     }
 
     /**
@@ -45,13 +51,15 @@ class ApiController extends AbstractController
      * @param  array    $params Request parameter
      * @return Response
      */
-    protected function sendApiRequest($params)
+    protected function sendApiRequest($params, $action="")
     {
         if(!$this->apiManager) {
             $serviceLocator = $this->getServiceLocator();
             $this->apiManager = $serviceLocator->get('zend_server_api');
         }
-        $action = $this->params('action');
+        if(!$action) {
+            $action = $this->params('action');
+        }
         $response = $this->apiManager->$action($params);
         return $response;
     }

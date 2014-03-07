@@ -56,12 +56,12 @@ return array (
                                         		)
                                         )
                                 ),
-                                'clusterGetServersStatus' => array (
+                                'clusterGetServerStatus' => array (
                                         'options' => array (
-                                                'route' => 'clusterGetServersStatus [--servers=] [--force=]',
+                                                'route' => 'clusterGetServerStatus [--servers=] [--force=]',
                                                 'defaults' => array (
                                                         'controller' => 'webapi-api-controller',
-                                                        'action' => 'clusterGetServersStatus'
+                                                        'action' => 'clusterGetServerStatus'
                                                 ),
                                         		'arrays' => array(
                                         				'servers'
@@ -98,6 +98,7 @@ return array (
                                                         'action' => 'clusterRemoveServer',
                                                         'apiMethod' => 'post'
                                                 ),
+                                                'async' => true,
                                         		'group' => 'server',
                                         		'info' => array (
                                         				'This method removes a server from the cluster. The removal process may be asynchronous if Session Clustering is used. If this is the case, the initial operation will return an HTTP 202 response. As long as the server is not fully removed, further calls to remove the same server should be idempotent. On a Zend Server with no valid license, this operation fails.',

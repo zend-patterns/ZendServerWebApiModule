@@ -23,6 +23,9 @@ return array (
                 'zskey' => 'zf',
                 'zssecret' => 'a1c5b69aa706450c6715fd817b5c7cd643144bb2c70d1e4d34c8a0f3098e2c65',
                 'zsversion' => '6.2',
+                'http' => array (
+                    'timeout' => 30 // 30 seconds by default for the HTTP timeout
+            	)
             ),
             // HTTP Client
             'client' => array(

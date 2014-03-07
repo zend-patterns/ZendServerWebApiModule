@@ -166,6 +166,7 @@ groupsAttribute: Name for a list of user groups’ membership'),
                                                         'apiMethod' => 'post'
                                                 ),
                                                 'no-target' => true,
+                                                'async' => true,
                                         		'group' => 'admin',
                                         		'info' => array(
                                         				'Bootstrap a server for standalone usage in production or development environment. This action is designed to give an automated process the option to bootstrap a server with particular settings.',
@@ -1208,6 +1209,7 @@ This action only returns a general Boolean response and does not display which t
                                                 		'apiMethod' => 'post'
                                                 ),
                                         		'group' => 'server',
+                                                'async' => true,
                                         		'info' => array (
                                         				'Join the current server to a cluster. If the cluster database is not set up, the server will attempt to create the database and then perform the join using the provided credentials. If possible, a user “zend” will be created and used to perform the connection.',
                                         				array('--serverName','Server name.'),

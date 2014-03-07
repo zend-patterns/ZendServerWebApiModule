@@ -49,6 +49,10 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
                         $router['options']['route'] .= ' [--target=] [--zsurl=] [--zskey=] [--zssecret=] [--zsversion=] [--http=]';
                         $router['options']['arrays'][] = 'http';
                     }
+                    if (isset($router['options']['async'])) {
+                        $router['options']['route'] .= ' [--wait] ';
+                        $router['options']['info'][] = array('--wait', 'This operation is asynchronous. When the "wait" option is added the client will wait  until the operation really finishes on all servers.');
+                    }
                 }
             }
             $mainConfig = array_merge_recursive($mainConfig, $config);
