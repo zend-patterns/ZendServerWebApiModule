@@ -32,18 +32,18 @@ Setting
 You can set a default configuration of your environment in the zendserverwebapi.conf.php file 
 under the 'zsapi' key:
 
- 'zsapi' => array (
-		//Configuratin of the HTTP client that will connect to the Zend Server
-		'client' => array (
-				'adapter' => 'Zend\Http\Client\Adapter\Curl',
-		),
-		// Target - the Zend Server you want to reach through API
-		'target' => new ArrayObject(array (
-			'zsurl' => 'http://localhost:10081', //
+    'zsapi' => array (
+        //Configuratin of the HTTP client that will connect to the Zend Server
+        'client' => array (
+            'adapter' => 'Zend\Http\Client\Adapter\Curl',
+        ),
+        // Target - the Zend Server you want to reach through API
+        'target' => new ArrayObject(array (
+            'zsurl' => 'http://localhost:10081', //
             'zskey' => '<SECRET-NAME>',
             'zssecret' => '<SECRET-HASH>',
             'zsversion' => '6.1',
-		)),
+    )),
 
 
 
