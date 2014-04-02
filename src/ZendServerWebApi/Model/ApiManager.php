@@ -49,9 +49,14 @@ class ApiManager
         $apiMethodConfig = $this->apiMethodsConfig[$action]['options'];
     	$apiMethod = new ApiMethod($apiMethodConfig);
         $apiRequest = new ApiRequest($this->target, $apiMethod);
+        
+        if(isset($args[0]['zsoutput'])) {
+            $apiRequest->setOutputType($args[0]['zsoutput']);
+            unset($args[0]['zsoutput']);
+        }
+        
         $apiRequest->setParameters($args[0]);
-        if(isset($args[0]['zsoutput'])) 
-        	$apiRequest->setOutputType($args[0]['zsoutput']);
+        
         $apiRequest->prepareRequest();
         $httpResponse = $this->getZendServerClient()->send($apiRequest);
         $apiResponse = ApiResponse::factory($httpResponse);
