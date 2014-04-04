@@ -92,8 +92,22 @@ class ApiManager implements ServiceLocatorAwareInterface
         $log->info($apiRequest->getUriString());
         $httpResponse = $this->getZendServerClient()->send($apiRequest);
         $response = ApiResponse::factory($httpResponse);
+        
         if ($response->isError()) {
-            $log->err($response->getErrorMessage() . $response->getHttpResponse()->getBody());
+            $error = '';
+            if (!getenv('RAW_ZS_OUTPUT')) {
+                $error .= $response->getErrorMessage();
+            }
+            else {
+                $writers = new \Zend\StdLib\SplPriorityQueue();;
+                foreach ($log->getWriters() as $writer) {
+                    $writer->setFormatter(new \Zend\Log\Formatter\Simple('%message%'));
+                    $writers->insert($writer, 1);
+                }
+                $log->setWriters($writers);
+            }
+            $error .= $response->getHttpResponse()->getBody();
+            $log->err($error);
             throw new ApiException($response);
         }
 
