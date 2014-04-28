@@ -300,12 +300,12 @@ ruleNames: array, a list of rule names that are defined in the system: Function 
                                         )
                                 )
                                 ,
-                                'monitorGetIssuesDetails' => array (
+                                'monitorGetIssueDetails' => array (
                                         'options' => array (
-                                                'route' => 'monitorGetIssuesDetails --issueId= [--limit=]',
+                                                'route' => 'monitorGetIssueDetails --issueId= [--limit=]',
                                                 'defaults' => array (
                                                         'controller' => 'webapi-api-controller',
-                                                        'action' => 'monitorGetIssuesDetails'
+                                                        'action' => 'monitorGetIssueDetails'
                                                 ),
                                         		'group' => 'monitor',
                                         		'info' => array (
