@@ -143,7 +143,7 @@ return array (
                                                         'controller'    => 'webapi-api-controller',
                                                         'action'        => 'applicationDeploy',
                                                         'apiMethod'     => 'post',
-                                                        'defaultServer' => 'TRUE'
+                                                        'defaultServer' => 'FALSE'
                                                 ),
                                                 'files'   => array(
                                                         // Specifies which parameter values should be treated as file names
