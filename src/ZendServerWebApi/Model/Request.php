@@ -120,6 +120,7 @@ class Request extends Http\Request
                 'application/vnd.zend.serverapi+'.$this->outputType.';version=' . $this->apiVersion);
         $headers->addHeaderLine('X-Zend-Signature', 
                 $this->apiKey->getName() . '; ' . $signature);
+        $headers->addHeaderLine('Accept-Encoding: identity');
         if ($this->isPost()) {
             if(count($this->getFiles())) {
                 $headers->addHeaderLine('Content-Type', 'multipart/form-data');
