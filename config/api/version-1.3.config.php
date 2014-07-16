@@ -88,7 +88,7 @@ groupsAttribute: Name for a list of user groups’ membership'),
                                 ),
                                 'apiKeysAddKey' => array (
                                         'options' => array (
-                                                'route' => 'apiKeysAddKey --name= --username=',
+                                                'route' => 'apiKeysAddKey --name= --username= [--hash=]',
                                                 'defaults' => array (
                                                         'controller' => 'webapi-api-controller',
                                                         'action' => 'apiKeysAddKey',
@@ -99,6 +99,7 @@ groupsAttribute: Name for a list of user groups’ membership'),
                                         				'Add a WebAPI Key.',
                                         				array('--name','The name of the key'),
                                         				array('--username','Any username supplied for retrieving ACL information'),
+									array('--hash','The hash for the key'),
                                         		)
                                         )
                                 ),
