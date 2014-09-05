@@ -20,6 +20,12 @@ class ApiManager implements ServiceLocatorAwareInterface
      * @var ServiceManager
      */
     protected $serviceManager;
+    
+    /**
+     * The expected output format
+     * @var string
+     */
+    protected $outputFormat = "xml";
 
     /**
      *
@@ -80,9 +86,11 @@ class ApiManager implements ServiceLocatorAwareInterface
             $apiRequest->setParameters($args[0]);
         }
         
+        $outputFormat = $this->outputFormat; 
         if(isset($args[0]['zsoutput'])) {
-        	$apiRequest->setOutputType($args[0]['zsoutput']);	
+            $outputFormat = $args[0]['zsoutput'];	
         }	
+        $apiRequest->setOutputType($outputFormat);
 
         if ($methodConf == 'post') {
             $apiRequest->setMethod(Request::METHOD_POST);
@@ -150,5 +158,22 @@ class ApiManager implements ServiceLocatorAwareInterface
         $apiConfig = $this->getServiceLocator()->get('config');
         $apiConfig = $apiConfig['console']['router']['routes'];
         return $apiConfig;
+    }
+    
+    public function setOutputFormat($outputFormat)
+    {
+        $allowedFormats = array('xml', 'json');
+        $outputFormat = strtolower($outputFormat);
+        if(!in_array($outputFormat, $allowedFormats)) {
+            throw new \Exception('Invalid output format. Supported formats are:'.
+                            implode(',', $allowedFormats));   
+        }
+        
+        $this->outputFormat = $outputFormat;
+    }
+    
+    public function getOutputFormat()
+    {
+        return $this->outputFormat;
     }
 }

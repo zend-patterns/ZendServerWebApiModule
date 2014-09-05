@@ -53,6 +53,10 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
                         $router['options']['route'] .= ' [--wait] ';
                         $router['options']['info'][] = array('--wait', 'This operation is asynchronous. When the "wait" option is added the client will wait  until the operation really finishes on all servers.');
                     }
+                    if(!isset($router['options']['no-format'])) {
+                        $router['options']['route'] .= ' [--output-format=] ';
+                        $router['options']['info'][] = array('--output-format', 'Output format. Default is "xml", but you can use json or kv(for key-value)');
+                    }
                 }
             }
             $mainConfig = array_merge_recursive($mainConfig, $config);
