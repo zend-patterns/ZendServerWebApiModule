@@ -1437,12 +1437,12 @@ Poll until the server no longer requires a restart at which point the server is 
                                         )
                                 ),
                                 // Page cache
-                                'pagecacheListRules' => array (
+                                'pagecacheRulesList' => array (
                                         'options' => array (
-                                                'route' => 'pagecacheListRules [--applicationsId=] [--freeText=]',
+                                                'route' => 'pagecacheRulesList [--applicationsId=] [--freeText=]',
                                                 'defaults' => array (
                                                         'controller' => 'webapi-api-controller',
-                                                        'action' => 'pagecacheListRules'
+                                                        'action' => 'pagecacheRulesList'
                                                 ),
                                         		'arrays' => array(
                                         				'applicationsId'
