@@ -1203,7 +1203,7 @@ This action only returns a general Boolean response and does not display which t
 
                                 'serverAddToCluster' => array (
                                         'options' => array (
-                                                'route' => 'serverAddToCluster --serverName= --dbHost= --dbUsername= --dbPassword= --nodeIp= --dbName= [--failIfConnected=]',
+                                                'route' => 'serverAddToCluster --serverName= --dbHost= --dbUsername= --dbPassword= --nodeIp= --dbName= [--failIfConnected=] [--wait-db]',
                                                 'defaults' => array (
                                                         'controller' => 'webapi-api-controller',
                                                 		'action'=> 'serverAddToCluster',
@@ -1220,6 +1220,7 @@ This action only returns a general Boolean response and does not display which t
                                         				array('--nodeIp','Server IP.'),
                                         				array('--dbName','Database name.'),
                                         				array('--failIfConnected','Cause the action to completely fail if the server is already connected. Otherwise, a normal 200 status is returned without performing any action. Default: false.'),
+                                        				array('--wait-db','Checks if the DB credentials are correct from the machine where this script is running and waits max 3 minutes. Set this flag only if you are sure that the machine from where this tool is run can connect to the database server.'),
                                         		)
                                         )
                                 ),
