@@ -20,7 +20,7 @@ class ApiManager implements ServiceLocatorAwareInterface
      * @var ServiceManager
      */
     protected $serviceManager;
-    
+
     /**
      * The expected output format
      * @var string
@@ -66,14 +66,21 @@ class ApiManager implements ServiceLocatorAwareInterface
                 $files = array();
                 if(isset($actionOptions['files'])) {
                     foreach($actionOptions['files'] as $fileParam) {
-                        $filePath = $args[0][$fileParam];
-                        $files[$filePath] = array(
-                            'formname' => $fileParam,
-                            'filename' => basename($filePath),
-                            'data'     => null,
-                            'ctype'    => null,
-                        );
-                        unset($args[0][$fileParam]);
+                        if (isset($args[0][$fileParam])) {
+                            $filePath = $args[0][$fileParam];
+
+                            if (!is_file($filePath)) {
+                                throw new \Exception('File not readable or non existent: '.$filePath);
+                            }
+
+                            $files[$filePath] = array(
+                                'formname' => $fileParam,
+                                'filename' => basename($filePath),
+                                'data'     => null,
+                                'ctype'    => null,
+                            );
+                            unset($args[0][$fileParam]);
+                        }
                     }
                     unset($args[0]['files']);
                 }
