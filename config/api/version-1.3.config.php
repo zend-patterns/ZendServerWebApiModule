@@ -61,7 +61,7 @@ groupsAttribute: Name for a list of user groups’ membership'),
                                                 'route' => 'setPassword --password= --newPassword= --confirmNewPassword=',
                                                 'defaults' => array (
                                                         'controller' => 'webapi-api-controller',
-                                                        'action' => 'userSetPassword',
+                                                        'action' => 'setPassword',
                                                         'apiMethod' => 'post'
                                                 ),
                                         		'group' => 'admin',
