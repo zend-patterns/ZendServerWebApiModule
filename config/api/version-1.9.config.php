@@ -4,48 +4,6 @@ return array(
     'console' => array(
         'router' => array(
             'routes' => array(
-                'apmGetUrls' => array(
-                    'options' => array(
-                        'route' => 'apmGetUrls [--limit=] [--offset=] [--applicationId=] [--filter=] [--period=]',
-                        'defaults' => array(
-                            'controller' => 'webapi-api-controller',
-                            'action' => 'apmGetUrls',
-                            'apiMethod' => 'get'
-                        ),
-                        'group' => 'apm',
-                        'info' => array(
-                            'Get a list of URL statistics.',
-                            array('--limit', 'The number of rows to retrieve. Default lists all rules up to an arbitrary limit set by the system.'),
-                            array('--offset', 'A paging offset to begin the list from. Default: 0'),
-                            array('--applicationId', 'Display URLs of a specific application. If not supplied, display URLs from all the applications.'),
-                            array('--filter', 'Predefined filters/order
-1 - “most time consuming” - order by number of samples multiply average time, descending.
-2 - “slowest response time” - order by average time, descending.
-3 - “most visited” - ordered by number of sample,s descending.
-If not supplied, default is 1.'),
-                            array('--period', 'Period in hours (one week is 24*7, etc.). Default is 24.'),
-                        )
-                    )
-                ),
-                
-                'apmGetUrlInfo' => array(
-                    'options' => array(
-                        'route' => 'apmGetUrlInfo --id= [--order=] [--period=]',
-                        'defaults' => array(
-                            'controller' => 'webapi-api-controller',
-                            'action' => 'apmGetUrlInfo',
-                            'apiMethod' => 'get'
-                        ),
-                        'group' => 'apm',
-                        'info' => array(
-                            'Get a single request statistics info with its requests. The requests can be filtered and ordered using \'period\' and \'order\' parameter',
-                            array('--id', 'The URL ID to retrieve the info from.'),
-                            array('--order', 'The order of the requests list. The format is like in \'order\' clause in SQL, e.g. \'from_time desc\' or \'until_time\'.'),
-                            array('--period', 'Number of hours. Limits the requests list to a specific period - \'period\' hours back until now. Default is 24 (i.e. by default bring requests from the last 24 hours).'),
-                        )
-                    )
-                ),
-                
                 'zrayGetAllRequestsInfo' => array(
                     'options' => array(
                         'route' => 'zrayGetAllRequestsInfo [--from_timestamp=] [--limit=] [--offset=]',
