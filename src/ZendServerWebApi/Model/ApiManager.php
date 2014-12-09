@@ -44,6 +44,47 @@ class ApiManager implements ServiceLocatorAwareInterface
     {
         return $this->serviceManager;
     }
+    
+    /**
+     * Returns list of supported API versions
+     * @return array 
+     *         - Zend Server Version 
+     *         - PHP version
+     *         - array List of supported versions. The top are the best match to use.
+     */
+    public function getSupportedVersions() 
+    {
+        $apiRequest = new Request($this->getTargetServer(), 'getSystemInfo', $this->getApiKey());
+        $apiRequest->setMethod(Request::METHOD_GET);
+        $apiRequest->setOutputType('xml');
+        $apiRequest->prepareRequest();
+        
+        $httpResponse = $this->getZendServerClient()->send($apiRequest);
+        $response = ApiResponse::factory($httpResponse);
+        if($response->isError()) {
+            throw new \Exception($response->getErrorMessage(), $response->getHttpResponse()->getStatusCode());
+        }
+        
+        $zendServerVersion = sprintf($response->responseData->systemInfo->zendServerVersion);
+        $phpVersion        = sprintf($response->responseData->systemInfo->phpVersion);
+        $supportedVersions = explode("\n",str_replace('application/vnd.zend.serverapi;version=','',
+                                                      sprintf($response->responseData->systemInfo->supportedApiVersions)
+                                                      ));
+        foreach ($supportedVersions as $key => $value) {
+            $value=trim($value);
+            if(!$value) {
+                unset($supportedVersions[$key]);
+                continue;
+            }
+            
+            $supportedVersions[$key] = $value;
+        }
+        return array(
+            $zendServerVersion,
+            $phpVersion,
+            array_reverse($supportedVersions)
+        );
+    }
 
     /**
      * Magical function to use API method has API Manager method.
@@ -53,7 +94,7 @@ class ApiManager implements ServiceLocatorAwareInterface
      * @return ApiResponse;
      */
     public function __call ($action, $args)
-    {
+    { 
         $methodConf = 'get';
         $apiConfig  = $this->getApiConfig();
         $actionOptions = $apiConfig[$action]['options'];

@@ -32,6 +32,7 @@ class ZendServer
 
     /**
      * @var array
+     * @see http://files.zend.com/help/Zend-Server/zend-server.htm#web_api_reference_guide.htm
      */
     protected $apiVersionAvailability = array(
             '5.1' => '1.0',
@@ -43,7 +44,7 @@ class ZendServer
             '6.3' => '1.7',
             '7.0' => '1.8',
             '8.0' => '1.9',
-    );
+    ); 
 
     /**
      * Api Version / zs version converter

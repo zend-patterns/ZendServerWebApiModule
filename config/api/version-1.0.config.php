@@ -1,6 +1,6 @@
 <?php
 return array (
-        'min-zsversion' => '5.3',
+        'min-zsversion' => '5.1',
         'console' => array (
                 'router' => array (
                         'routes' => array (

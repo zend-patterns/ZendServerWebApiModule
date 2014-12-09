@@ -125,9 +125,24 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
         $serviceManager->setService('zendServerClient', $zendServerClient);
         $defaultApiKey = new ApiKey($targetConfig['zskey'], $targetConfig['zssecret']);
         $serviceManager->setService('defaultApiKey', $defaultApiKey);
+        $apiVersion  = $config['min-zsversion'];
+        $detectApiVersion = false;
+        if(empty($targetConfig['zsversion'])) {
+            $targetConfig['zsversion'] = array_shift($config['min-zsversion']);
+            $detectApiVersion = true;
+        }
+        
         ZendServer::setApiVersionConf($config['min-zsversion']);
         $targetServer = ZendServer::factory($targetConfig);
         $serviceManager->setService('targetZendServer', $targetServer);
+        
+        if($detectApiVersion) {
+            // auto-detect the version
+            $apiManager = $serviceManager->get('zend_server_api');
+            $versions = $apiManager->getSupportedVersions();
+            $apiVersion = $versions[2][0];
+            $targetServer->setApiVersion($apiVersion);
+        }
     }
 
     /**
