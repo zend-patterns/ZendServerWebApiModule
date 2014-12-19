@@ -112,6 +112,7 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
         if (! $match) {
             return;
         }
+        $routeName = $match->getMatchedRouteName();
         $serviceManager = $event->getApplication()->getServiceManager();
         $config = $serviceManager->get('config');
         $targetConfig = $serviceManager->get('targetConfig');
@@ -126,10 +127,10 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
         $defaultApiKey = new ApiKey($targetConfig['zskey'], $targetConfig['zssecret']);
         $serviceManager->setService('defaultApiKey', $defaultApiKey);
         $apiVersion  = $config['min-zsversion'];
-        $detectApiVersion = false;
+        $noTarget = @$config['console']['router']['routes'][$routeName]['options']['no-target'];
+        $detectApiVersion = !$noTarget;
         if(empty($targetConfig['zsversion'])) {
             $targetConfig['zsversion'] = array_shift($config['min-zsversion']);
-            $detectApiVersion = true;
         }
         
         ZendServer::setApiVersionConf($config['min-zsversion']);
