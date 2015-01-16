@@ -861,12 +861,12 @@ AUDIT_GROUP_LICENSE'),
                                 ),
                                 // Monitor
 
-                                'monitorCountIssuesListPredefinedFilter' => array (
+                                'monitorCountIssuesByPredefinedFilter' => array (
                                         'options' => array (
-                                                'route' => 'monitorCountIssuesListPredefinedFilter --filterId= [--filters=]',
+                                                'route' => 'monitorCountIssuesByPredefinedFilter --filterId= [--filters=]',
                                                 'defaults' => array (
                                                         'controller' => 'webapi-api-controller',
-                                                        'action' => 'monitorCountIssuesListPredefinedFilter'
+                                                        'action' => 'monitorCountIssuesByPredefinedFilter'
                                                 ),
                                         		'group' => 'monitor',
                                         		'info' => array (
