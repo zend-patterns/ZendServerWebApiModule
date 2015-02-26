@@ -6,7 +6,7 @@ return array (
                         'routes' => array (
                                 'vhostGetStatus' => array (
                                         'options' => array (
-                                                'route' => 'vhostGetStatus [--vhosts=]',
+                                                'route' => 'vhostGetStatus [--limit=] [--offset=] [--order=] [--direction=] [--filterId=] [--vhosts=]',
                                                 'defaults' => array (
                                                         'controller' => 'webapi-api-controller',
                                                         'action' => 'vhostGetStatus'
@@ -17,6 +17,11 @@ return array (
                                         		'group' => 'virtualhost',
                                         		'info' => array(
                                         			'Get the list of virtual hosts currently used by the web server and information about each virtual host.',
+                                        			array('--limit','The number of rows to retrieve. Default lists all vhost entries up to an arbitrary limit set by the system'),
+                                        			array('--offset','A paging offset to begin the list from. Default: 0'),
+                                        			array('--order','Column identifier for sorting the result set (name, last_updated, port, owner). Default: name'),
+                                        			array('--direction','Sorting direction: ASC or DESC. Default: DESC'),
+                                        			array('--filterId',"The predefined filter's name. This parameter is case-sensitive."),
                                         			array('--vhosts', 'Comma separated list of virtual host IDs.'),
 												)
                                         )
