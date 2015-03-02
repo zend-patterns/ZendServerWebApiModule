@@ -6,23 +6,30 @@ return array (
                         'routes' => array (
                                 'vhostGetStatus' => array (
                                         'options' => array (
-                                                'route' => 'vhostGetStatus [--limit=] [--offset=] [--order=] [--direction=] [--filterId=] [--vhosts=]',
+                                                'route' => 'vhostGetStatus [--vhosts=] [--limit=] [--offset=] [--order=] [--direction=] [--filterId=]',
                                                 'defaults' => array (
                                                         'controller' => 'webapi-api-controller',
                                                         'action' => 'vhostGetStatus'
                                                 ),
                                                 'arrays' => array(
-                                                        'vhosts'
+                                                        'vhosts',
+                                                        'filterId'
                                                 ),
                                         		'group' => 'virtualhost',
                                         		'info' => array(
                                         			'Get the list of virtual hosts currently used by the web server and information about each virtual host.',
+                                        			array('--vhosts', 'Comma separated list of virtual host IDs.'),
                                         			array('--limit','The number of rows to retrieve. Default lists all vhost entries up to an arbitrary limit set by the system'),
                                         			array('--offset','A paging offset to begin the list from. Default: 0'),
                                         			array('--order','Column identifier for sorting the result set (name, last_updated, port, owner). Default: name'),
                                         			array('--direction','Sorting direction: ASC or DESC. Default: DESC'),
-                                        			array('--filterId',"The predefined filter's name. This parameter is case-sensitive."),
-                                        			array('--vhosts', 'Comma separated list of virtual host IDs.'),
+                                        			array('--filterId',"Add filter parameters in an ad-hoc manner. These filters will be added to the predefined filter that was passed.
+This parameter is an array with a predefined set of parameters that accept arrays to hold multiple values:
+ssl: array, a list of ssl support (ssl_enabled, ssl_disabled)
+type: array, a list of vhost type (system_defined, zs_defined)
+deployment: array, a list of deployment status (deployment_enabled, deployment_disabled)
+freeText: string
+                                        			    "),
 												)
                                         )
                                 ),
