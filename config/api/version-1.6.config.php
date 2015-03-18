@@ -6,14 +6,14 @@ return array (
                         'routes' => array (
                                 'vhostGetStatus' => array (
                                         'options' => array (
-                                                'route' => 'vhostGetStatus [--vhosts=] [--limit=] [--offset=] [--order=] [--direction=] [--filterId=]',
+                                                'route' => 'vhostGetStatus [--vhosts=] [--limit=] [--offset=] [--order=] [--direction=] [--filters=]',
                                                 'defaults' => array (
                                                         'controller' => 'webapi-api-controller',
                                                         'action' => 'vhostGetStatus'
                                                 ),
                                                 'arrays' => array(
                                                         'vhosts',
-                                                        'filterId'
+                                                        'filters'
                                                 ),
                                         		'group' => 'virtualhost',
                                         		'info' => array(
@@ -23,7 +23,7 @@ return array (
                                         			array('--offset','A paging offset to begin the list from. Default: 0'),
                                         			array('--order','Column identifier for sorting the result set (name, last_updated, port, owner). Default: name'),
                                         			array('--direction','Sorting direction: ASC or DESC. Default: DESC'),
-                                        			array('--filterId',"Add filter parameters in an ad-hoc manner. These filters will be added to the predefined filter that was passed.
+                                        			array('--filters',"Add filter parameters in an ad-hoc manner. These filters will be added to the predefined filter that was passed.
 This parameter is an array with a predefined set of parameters that accept arrays to hold multiple values:
 ssl: array, a list of ssl support (ssl_enabled, ssl_disabled)
 type: array, a list of vhost type (system_defined, zs_defined)
