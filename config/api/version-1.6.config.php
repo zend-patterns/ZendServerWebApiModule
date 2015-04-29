@@ -252,8 +252,23 @@ True: will create an overriding configuration.'),
                         		
                         				)
                         		),
-                        		
-                        		
+                            
+                                'librarySetDefault' => array (
+                                    'options' => array (
+                                        'route' => 'librarySetDefault --libraryVersionId=',
+                                        'defaults' => array (
+                                            'controller' => 'webapi-api-controller',
+                                            'action' => 'librarySetDefault',
+                                            'apiMethod' => 'post'
+                                        ),
+                                        'group' => 'library',
+                                        'info' => array(
+                                            'Change library version to be the default version for the library.',
+                                            array('--libraryVersionId', 'A library version ID.'),
+                                        )
+                                
+                                    )
+                                ),
                      	)       
                 )
         )
