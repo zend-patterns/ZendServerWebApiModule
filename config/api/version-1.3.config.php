@@ -605,7 +605,8 @@ AUDIT_GROUP_LICENSE'),
                                                 'route' => 'filterSave --type= --name= [--data=] [--id=]',
                                                 'defaults' => array (
                                                         'controller' => 'webapi-api-controller',
-                                                        'action' => 'filterSave'
+                                                        'action' => 'filterSave',
+                                                        'apiMethod' => 'post'
                                                 ),
                                         		'arrays' => array(
                                         				'data'
