@@ -191,6 +191,28 @@ return array(
                     )
                 ),
                 
+                // Z-Ray
+                'zrayCreateSelectiveAccess' => array(
+                    'options' => array(
+                        'route' => 'zrayCreateSelectiveAccess --iprange= --ttl= [--baseUrl=] [--title=] [--token=] [--actions=] [--inject=]',
+                        'defaults' => array(
+                            'controller' => 'webapi-api-controller',
+                            'action' => 'zrayCreateSelectiveAccess',
+                            'apiMethod' => 'post'
+                        ),
+                        'group' => 'zray',
+                        'info' => array(
+                            'Generate a random selective access for use in Z-Ray Selective Access mode.',
+                            array('--iprange', 'IP Range allowed access to Z-Ray with this token. The iprange can be any ip address or CIDR range.'),
+                            array('--ttl', 'Limit this token’s access to expire after the given time in seconds is passed'),
+                            array('--title', 'Title, name or description of the access token. This field is not used for anything but display'),
+                            array('--token', 'Define if the token is required. Default - true.'),
+                            array('--actions', 'Allows server-side actions from Z-Ray. Default - false.'),
+                            array('--inject', 'Display Z-Ray on all pages open in a browser. Default - true.'),
+                        )
+                    )
+                ),
+                
            )
         )
     )
