@@ -31,8 +31,8 @@ username: directory username, broken to CN and DC parts for use in querying the 
 password: matching password for the above username
 baseDn: DN broken down to CN and DC parts for using during user authentication
 bindRequiresDn: 0 for use with Active Directory, 1 for use with other LDAP services
-groupsAttribute: Name for a list of user groupsג€™ membership'),
-                                        				array('--password','Current userג€™s password for authentication'),
+groupsAttribute: Name for a list of user groups’ membership'),
+                                        				array('--password','Current user’s password for authentication'),
                                         				array('--confirmNewPassword','Confirmation of new password'),
                                         				
 												)
@@ -172,14 +172,14 @@ groupsAttribute: Name for a list of user groupsג€™ membership'),
                                         		'info' => array(
                                         				'Bootstrap a server for standalone usage in production or development environment. This action is designed to give an automated process the option to bootstrap a server with particular settings.',
                                         				array('--zsurl','The url of the Zend Server to be bootstrapped. Default is http://localhost:10081.'),
-                                        				array('--production','Bootstrap this server using the factory ג€�productionג€� usage profile. Default value: true. If joining a cluster, a special ג€�clusterג€� value will be stored.'),
+                                        				array('--production','Bootstrap this server using the factory “production” usage profile. Default value: true. If joining a cluster, a special “cluster” value will be stored.'),
                                         				array('--adminPassword','The new administrator password to store for authentication'),
                                         				array('--applicationUrl','The default application URL to use when displaying and handling deployed application URLs in the UI. Default: empty'),
                                         				array('--adminEmail','The default Email to use when sending notifications about events, audit entries and other features'),
                                         				array('--developerPassword','The new developer user password to be stored for authentication. If no password is supplied, the developer user will not be created'),
-                                        				array('--orderNumber','License order number to store in the serverג€™s configuration. This license can be obtained from zend.com'),
-                                        				array('--licenseKey','License key to store in the serverג€™s configuration. This license can be obtained from zend.com'),
-                                        				array('--acceptEula','Must be set to true to accept ZS6ג€™s EULA'),
+                                        				array('--orderNumber','License order number to store in the server’s configuration. This license can be obtained from zend.com'),
+                                        				array('--licenseKey','License key to store in the server’s configuration. This license can be obtained from zend.com'),
+                                        				array('--acceptEula','Must be set to true to accept ZS6’s EULA'),
                                         				array('--simple-output','If provided returns simple output with the web api key and secret.'),
                                         		)
                                         )
@@ -287,7 +287,7 @@ AUDIT_GROUP_LICENSE'),
                         						'group' => 'audit',
                         						'info'  => array(
                         								'Export the audit log to zipped log file.',
-                        								array('--filters','Array of filters: ג€˜fromג€™ and ג€˜toג€™ timestamps, ג€˜auditGroupsג€™ for groups types, ג€˜freeTextג€™ for string search and ג€˜outcomeג€™ for status of result.'),
+                        								array('--filters','Array of filters: ‘from’ and ‘to’ timestamps, ‘auditGroups’ for groups types, ‘freeText’ for string search and ‘outcome’ for status of result.'),
                         						),
                         				)
                         		),
@@ -303,7 +303,7 @@ AUDIT_GROUP_LICENSE'),
                         						'group' => 'cache',
                         						'info'  => array(
                         								'Clear cache data of a specified component.',
-                        								array('--component','One of ג€˜Zend Data Cacheג€™, ג€˜Zend Page Cacheג€™, ג€˜Zend Optimizer+ג€™'),
+                        								array('--component','One of ‘Zend Data Cache’, ‘Zend Page Cache’, ‘Zend Optimizer+’'),
                         						),
                                         )
                                 ),
@@ -331,7 +331,7 @@ AUDIT_GROUP_LICENSE'),
 		                                        		array('--templateName','The template name without an extension .phtml.'),
 		                                        		array('--templateParams','Parameters that will be assigned to your template.'),
 		                                        		array('--headers','Add a raw header line, either in name1=value1&name2=value2 (valid query string format).'),
-		                                        		array('--html','The content type: ג€˜trueג€™ for html, ג€˜falseג€™ for plain text. Default is true.'),
+		                                        		array('--html','The content type: ‘true’ for html, ‘false’ for plain text. Default is true.'),
                                         				array('Example:','emailSend --to=slavey@zend.com --from=admin@test.com --subject="Failed test" --templateName="failed" --templateParams="user=Peter&type=error" --headers="X-Importance=High&Return-To=admin@test.com"')
                                         		),
                                         )
@@ -405,7 +405,7 @@ AUDIT_GROUP_LICENSE'),
                                                 ),
                                         		'group' => 'configuration',
                                         		'info' => array(
-                                        				'Validate and store a list of directives and their corresponding values in the serverג€™s configuration. Directives are validated according to their type and a predefined validation scheme.',
+                                        				'Validate and store a list of directives and their corresponding values in the server’s configuration. Directives are validated according to their type and a predefined validation scheme.',
                                         				array('--directives','HTTP query string representing associative array of directive names and values to be validated'),
                                         				array('Example:','configurationStoreDirectives --directives="date.timezone=Europe/Berlin&allow_url_include=Off"')
                                         		)
@@ -437,7 +437,7 @@ AUDIT_GROUP_LICENSE'),
                                         		'group' => 'configuration',
                                         		'info' => array(
                                         				'Retrieve a list of extensions and associated information. This list can be filtered by extension type (PHP Extension and Zend Extension). This list of extensions contains only meta and operation information about the extension, and does not include directives and internal state.',
-                                        				array('--type','Retrieve only extensions of a specific type (one of ג€�allג€�, ג€�zendג€�, ג€�phpג€�). Default: All'),
+                                        				array('--type','Retrieve only extensions of a specific type (one of “all”, ”zend”, “php”). Default: All'),
                                         				array('--order','Column to sort the result by (name, status). Default: (extension) name'),
                                         				array('--direction','Sorting direction: ASC or DESC. Default: ASC'),
                                         				array('--filter','Apply a certain case-insensitive string filter to the extensions returned'),
@@ -472,7 +472,7 @@ AUDIT_GROUP_LICENSE'),
                                                 ),
                                         		'group' => 'configuration',
                                         		'info' => array(
-                                        				'Retrieve a list of zend components and associated information. Each component holds information both on itג€™s extension and itג€™s daemon (service). If the component does not have a daemon, then daemon status returned is ג€˜Noneג€™.',
+                                        				'Retrieve a list of zend components and associated information. Each component holds information both on it’s extension and it’s daemon (service). If the component does not have a daemon, then daemon status returned is ‘None’.',
                                         				array('--filter','Apply a certain case-insensitive string filter to the components returned.'),
                                         				array('Example:','configurationComponentsList --filter="zend_opti"')
                                         		)
@@ -576,7 +576,7 @@ AUDIT_GROUP_LICENSE'),
 												),
                                         		'group'=> 'deployment',
                                         		'info' => array(
-                                        				"Define application to the server or cluster. This process is asynchronous ג€“ the initial request will wait until the application is defined, and the initial response will show information about the application being defined ג€“ however the staging and activation process will proceed after the response is returned. The user is expected to continue checking the application status using the applicationGetStatus method until the deployment process is complete.",
+                                        				"Define application to the server or cluster. This process is asynchronous – the initial request will wait until the application is defined, and the initial response will show information about the application being defined – however the staging and activation process will proceed after the response is returned. The user is expected to continue checking the application status using the applicationGetStatus method until the deployment process is complete.",
                                         				array('--name','Application name.'),
                                         				array('--baseUrl','Base URL to define the application to. Must be an HTTP URL. use <default-server> if needed.'),
                                         				array('--version','The version of the application.'),
@@ -739,12 +739,12 @@ AUDIT_GROUP_LICENSE'),
                                         		),
                                         )
                                 ),
-                                'jobqueueRulesList' => array (
+                                'jobqueueListRules' => array (
                                         'options' => array (
-                                                'route' => 'jobqueueRulesList [--limit=] [--offset=] [--orderBy=] [--direction=]',
+                                                'route' => 'jobqueueListRules [--limit=] [--offset=] [--orderBy=] [--direction=]',
                                                 'defaults' => array (
                                                         'controller' => 'webapi-api-controller',
-                                                        'action' => 'jobqueueRulesList'
+                                                        'action' => 'jobqueueListRules'
                                                 ),
                                         		'group'=> 'jobqueue',
                                         		'info' => array(
@@ -886,7 +886,7 @@ AUDIT_GROUP_LICENSE'),
                                                 ),
                                         		'group' => 'monitor',
                                         		'info' => array (
-                                        				'Retrieve an eventג€™s backtrace file payload. The file is returned encoded in base64 to conserve the xml structure of the response and its internal information.',
+                                        				'Retrieve an event’s backtrace file payload. The file is returned encoded in base64 to conserve the xml structure of the response and its internal information.',
                                         				array('--backtraceNum','The backtrace step from the events group to be retrieved, used to choose which file to retrieve.'),
                                         				array('--eventsGroupId','Events group identifier, provided in the eventsGroup element.'),
                                         		)
@@ -984,7 +984,7 @@ Also note that this action returns only an XML output - it is not allowed to ret
                                                 ),
                                         		'group' => 'monitor-rules',
                                         		'info' => array (
-                                        				'Receives a list of global rules in XML formats. Refactors the XML to an array and updates the serverג€™s rules accordingly.',
+                                        				'Receives a list of global rules in XML formats. Refactors the XML to an array and updates the server’s rules accordingly.',
                                         				array('--monitorRules','An XML string that describes the rules to be imported. This xml structure is identical to the one use in monitorExportRules action.')
                                         		)
                                         )
@@ -1062,7 +1062,7 @@ freeText: Free text filter')
                                         		'info' => array (
                                         				'Add/modify a monitor rule.',
                                         				array('--rulesId','The ruleId of the rule to be set. -1 for new rule'),
-                                        				array('--ruleProperties','Associative array with the following mandatory rule properties: "rule_type_id", "rule_parent_id", "app_id", "name", "enabled" (1|0), "description", "url" and the following optional property: "creator" (0|1|2) - creator field with value ג€�0ג€� indicates that this is a Global rule, while value ג€�1ג€� indicates that this is a user defined rule and valueג€�2ג€� indicates that this rule originated from an application package. Default value is 1'),
+                                        				array('--ruleProperties','Associative array with the following mandatory rule properties: "rule_type_id", "rule_parent_id", "app_id", "name", "enabled" (1|0), "description", "url" and the following optional property: "creator" (0|1|2) - creator field with value “0” indicates that this is a Global rule, while value “1” indicates that this is a user defined rule and value“2” indicates that this rule originated from an application package. Default value is 1'),
                                         				array('--ruleConditions','Optional Array of conditions, each condition should have the following list of properties: "condition_id", "operation", "attribute", "operand" .'),
                                         				array('--ruleTriggers','List of triggers. Each trigger is an associative array, with the following properties: triggerProperties - Mandatory Array with the following properties: "severity" (integer), "trigger_id" triggerConditions - Optional Array of conditions, each condition should have the following list of properties: "condition_id", "operation", "attribute", "operand" triggerActions - Optional Array of actions, each action should have the following list of properties: "action_id", "action_type" (integer), "action_url", "tracing_duration" (integer)'),
                                         		)
@@ -1096,7 +1096,7 @@ freeText: Free text filter')
                                                 ),
                                         		'group' => 'notification',
                                         		'info' => array (
-                                        				'Retrieve a list of system messages, their details and meta information. The list of messages includes state messages which cannot be modified and instance messages which can be changed. The list is always ordered by level and date. Note that ג€�Restartג€� level is the highest level and will appear first in any list.',
+                                        				'Retrieve a list of system messages, their details and meta information. The list of messages includes state messages which cannot be modified and instance messages which can be changed. The list is always ordered by level and date. Note that “Restart” level is the highest level and will appear first in any list.',
                                         				array('--hash','Hash string that represent the notifications. This hash is generated by the getNotifications API and shows in the response structure. Use this parameter to tell what version of notifications you use, and only if notifications are changed they will be sent.')
                                         		)
                                         )
@@ -1197,7 +1197,7 @@ This action only returns a general Boolean response and does not display which t
                                                 ),
                                         		'group' => 'server',
                                         		'info' => array (
-                                        				'Get the number of servers registered in the cluster. Note that this action ignores the serversג€™ current state and returns only a total number of known servers. In a single-server the response to this action will always be 0.',
+                                        				'Get the number of servers registered in the cluster. Note that this action ignores the servers’ current state and returns only a total number of known servers. In a single-server the response to this action will always be 0.',
                                         		)
                                         )
                                 ),
@@ -1213,7 +1213,7 @@ This action only returns a general Boolean response and does not display which t
                                         		'group' => 'server',
                                                 'async' => true,
                                         		'info' => array (
-                                        				'Join the current server to a cluster. If the cluster database is not set up, the server will attempt to create the database and then perform the join using the provided credentials. If possible, a user ג€�zendג€� will be created and used to perform the connection.',
+                                        				'Join the current server to a cluster. If the cluster database is not set up, the server will attempt to create the database and then perform the join using the provided credentials. If possible, a user “zend” will be created and used to perform the connection.',
                                         				array('--serverName','Server name.'),
                                         				array('--dbHost','Database host address to join the cluster.'),
                                         				array('--dbUsername','Database credentials (username).'),
@@ -1235,7 +1235,7 @@ This action only returns a general Boolean response and does not display which t
                                                 ),
                                         		'group' => 'server',
                                         		'info' => array (
-                                        				'Replace the current server name with a new one. This change is purely cosmetic - the serverג€™s name does not influence any aspect of its accessibility or functionality.',
+                                        				'Replace the current server name with a new one. This change is purely cosmetic - the server’s name does not influence any aspect of its accessibility or functionality.',
                                         				array('--serverName','Server name.'),
                                         				array('--serverId','Server ID.'),
                                         		)
@@ -1251,7 +1251,7 @@ This action only returns a general Boolean response and does not display which t
                                                 ),
                                         		'group' => 'server',
                                         		'info' => array (
-                                        				'Remove a server from the cluster. The removal process may be asynchronous if Session Clustering is used ג€“ if this is the case, the initial operation will return an HTTP 202 response. As long as the server is not fully removed, further calls to remove the same server should be idempotent. On a Zend Server with no valid license, this operation will fail.',
+                                        				'Remove a server from the cluster. The removal process may be asynchronous if Session Clustering is used – if this is the case, the initial operation will return an HTTP 202 response. As long as the server is not fully removed, further calls to remove the same server should be idempotent. On a Zend Server with no valid license, this operation will fail.',
                                         				array('--serverId','Server ID.'),
                                         		)
                                         )
@@ -1319,7 +1319,7 @@ codetracing, datacache, deployment, dserver, jobqueue, jqd, monitor, monitor_nod
                                                 ),
                                         		'group' => 'statistics',
                                         		'info' => array (
-                                        				'Retrieve a series of data according to a counter type identifier. The series retrieved is an aggregate of statistical information provided by Zend Serverג€™s various components during execution.',
+                                        				'Retrieve a series of data according to a counter type identifier. The series retrieved is an aggregate of statistical information provided by Zend Server’s various components during execution.',
                                         				array('--type','One of:
 OPLUS_UTILIZATION
 OPLUS_HITS
@@ -1363,7 +1363,7 @@ AVG_CPU_USAGE
 AVG_REQUEST_OUTPUT_SIZE
 AVG_DATABASE_TIME.'),
                                         				array('--appId','Filter statistics by the specified application id.
-Filtering by a particular application id still retrieves ג€�globalג€� statistic countersג€™ data. Default: all applicationsג€™ data.'),
+Filtering by a particular application id still retrieves “global” statistic counters’ data. Default: all applications’ data.'),
                                         				array('--from','Unix timestamp of the start date timestamp.'),
                                         				array('--to','Unix timestamp of the end date.'),
                                         		)
@@ -1417,7 +1417,7 @@ Note that if this server is a member of a cluster, it will modify its own direct
                                         		'info' => array (
                                         				'Stop debug mode on the target server.
 Note that if this server is a member of a cluster, it will modify its own directive only and will not affect the rest of the cluster. When checking the cluster management UI, a notification may be displayed to show that this particular server deviates from the cluster blueprint of directive values, this is normal.
-Starting and stopping debug mode requires a restart of the userג€™s PHP server and happens in an asynchronous process. Polling should be performed in a few steps:
+Starting and stopping debug mode requires a restart of the user’s PHP server and happens in an asynchronous process. Polling should be performed in a few steps:
 Until the server requires a restart, which signals the directive change operation was successful.
 Call restartPhp action.
 Poll until the server no longer requires a restart at which point the server is fully operational in debug mode.',
