@@ -739,12 +739,12 @@ AUDIT_GROUP_LICENSE'),
                                         		),
                                         )
                                 ),
-                                'jobqueueRulesList' => array (
+                                'jobqueueListRules' => array (
                                         'options' => array (
-                                                'route' => 'jobqueueRulesList [--limit=] [--offset=] [--orderBy=] [--direction=]',
+                                                'route' => 'jobqueueListRules [--limit=] [--offset=] [--orderBy=] [--direction=]',
                                                 'defaults' => array (
                                                         'controller' => 'webapi-api-controller',
-                                                        'action' => 'jobqueueRulesList'
+                                                        'action' => 'jobqueueListRules'
                                                 ),
                                         		'group'=> 'jobqueue',
                                         		'info' => array(
