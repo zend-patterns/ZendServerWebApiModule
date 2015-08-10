@@ -213,6 +213,131 @@ return array(
                     )
                 ),
                 
+                // Z-Ray Plugins
+                'pluginDeploy' => array(
+                    'options' => array(
+                        'route' => 'pluginDeploy --pluginPackage=',
+                        'defaults' => array(
+                            'controller' => 'webapi-api-controller',
+                            'action' => 'pluginDeploy',
+                            'apiMethod' => 'post'
+                        ),
+                        'files' => array (
+                            'pluginPackage'
+                        ),
+                        'group' => 'plugins',
+                        'info' => array(
+                            'Deploys a plugin.',
+                            array('--pluginPackage', 'Deploy package file. Content type for the file must be ‘application/vnd.zend.pluginpackage’.'),
+                        )
+                    )
+                ),
+                'pluginUpdate' => array(
+                    'options' => array(
+                        'route' => 'pluginUpdate --pluginPackage=',
+                        'defaults' => array(
+                            'controller' => 'webapi-api-controller',
+                            'action' => 'pluginUpdate',
+                            'apiMethod' => 'post'
+                        ),
+                        'files' => array (
+                             'pluginPackage'  
+                        ),
+                        'group' => 'plugins',
+                        'info' => array(
+                            'Updates a plugin.',
+                            array('--pluginPackage', 'Deploy package file. Content type for the file must be ‘application/vnd.zend.pluginpackage’.'),
+                        )
+                    )
+                ),
+                'disablePlugins' => array(
+                    'options' => array(
+                        'route' => 'disablePlugins --plugins=',
+                        'defaults' => array(
+                            'controller' => 'webapi-api-controller',
+                            'action' => 'disablePlugins',
+                            'apiMethod' => 'post'
+                        ),
+                        'arrays' => array (
+                            'plugins'
+                        ),
+                        'group' => 'plugins',
+                        'info' => array(
+                            'Disable plugin entries.',
+                            array('--plugins', 'Comma separated list of plugin identifiers.'),
+                        )
+                    )
+                ),
+                'pluginRemove' => array(
+                    'options' => array(
+                        'route' => 'pluginRemove --pluginId=',
+                        'defaults' => array(
+                            'controller' => 'webapi-api-controller',
+                            'action' => 'pluginRemove',
+                            'apiMethod' => 'post'
+                        ),
+                        'group' => 'plugins',
+                        'info' => array(
+                            'Remove a plugin.',
+                            array('--pluginId', 'Plugin identifier.'),
+                        )
+                    )
+                ),
+                
+                'pluginSynchronize' => array(
+                    'options' => array(
+                        'route' => 'pluginSynchronize --pluginId=',
+                        'defaults' => array(
+                            'controller' => 'webapi-api-controller',
+                            'action' => 'pluginSynchronize',
+                            'apiMethod' => 'post'
+                        ),
+                        'group' => 'plugins',
+                        'info' => array(
+                            'Redeploys a plugin.',
+                            array('--pluginId', 'Plugin identifier.'),
+                        )
+                    )
+                ),
+                
+                'enablePlugins' => array(
+                    'options' => array(
+                        'route' => 'enablePlugins --plugins=',
+                        'defaults' => array(
+                            'controller' => 'webapi-api-controller',
+                            'action' => 'enablePlugins',
+                            'apiMethod' => 'post'
+                        ),
+                        'arrays' => array (
+                            'plugins'
+                        ),
+                        'group' => 'plugins',
+                        'info' => array(
+                            'Enable plugin entries.',
+                            array('--plugins', 'Comma separated list of plugin identifiers.'),
+                        )
+                    )
+                ),
+                
+                'pluginGetList' => array(
+                    'options' => array(
+                        'route' => 'pluginGetList [--order=] [--direction=]',
+                        'defaults' => array(
+                            'controller' => 'webapi-api-controller',
+                            'action' => 'pluginGetList',
+                            'apiMethod' => 'get'
+                        ),
+                        'group' => 'plugins',
+                        'info' => array(
+                            'Get a list of plugin entries.',
+                            array('--order', 'Column identifier for sorting the result set (id, name, version, creationTimeTimestamp). Default is id.'),
+                            array('--direction', 'Sorting direction: ASC or DESC. Default is DESC'),
+                        )
+                    )
+                ),
+                
+                
+                
            )
         )
     )
