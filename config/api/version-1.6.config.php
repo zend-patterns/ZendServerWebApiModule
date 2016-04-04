@@ -116,12 +116,13 @@ freeText: string
                         		),
                         		'vhostEdit' => array (
                         				'options' => array (
-                        						'route' => 'vhostEdit --vhostId= --template= [--forceCreate=] [--sslCertificatePath=] [--sslCertificateKeyPath=] '.
+                        						'route' => 'vhostEdit --vhostId= --template= [--forceCreate=] [--sslEnabled=] [--sslCertificatePath=] [--sslCertificateKeyPath=] '.
                         								   '[--sslCertificateChainPath=] [--sslAppName]',
                         						'defaults' => array (
                         								'controller' => 'webapi-api-controller',
                         								'action' => 'vhostEdit',
-                        								'apiMethod' => 'post'
+                        								'apiMethod' => 'post',
+                        								'sslEnabled' => 'false'
                         						),
                         						'group' => 'virtualhost',
                         						'info' => array(
@@ -129,6 +130,7 @@ freeText: string
                         								array('--vhostId', 'virtual host ID.'),
                         								array('--template', 'New vhost template of virtual host settings. Or an absolute path to a local template vhost file.'),
                         								array('--forceCreate', 'Force edit of the virtual host template even if any errors are detected.'),
+                        						       		array('--sslEnabled', 'Indicates if the provided template to be used is SSL template. Default value is FALSE.'),
                         								array('--sslCertificatePath', 'File path to locate the SSL certificate file'),
                         								array('--sslCertificateKeyPath', 'File path to locate the SSL key file.'),
                         								array('--sslCertificateChainPath', 'File path to locate the SSL chain file.'),
