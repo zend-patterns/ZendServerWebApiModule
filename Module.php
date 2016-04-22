@@ -42,6 +42,7 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
             unset($apiConf[$apiVersion]['min-zsversion']);
         }
         ksort($apiConf);
+        $routes = array();
         foreach ($apiConf as $version => $config) {
             if (isset($config['console']['router']['routes'])) {
                 foreach ($config['console']['router']['routes'] as &$router) {
@@ -59,8 +60,16 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
                     }
                 }
             }
-            $mainConfig = array_merge_recursive($mainConfig, $config);
+            $routes = array_merge($routes, $config['console']['router']['routes']);
         }
+        $routesConfig = array (
+            'console'=> array(
+                'router' => array(
+                    'routes' => $routes
+                )
+            )
+        );
+        $mainConfig = array_merge_recursive($mainConfig, $routesConfig);
 
         return $mainConfig;
     }

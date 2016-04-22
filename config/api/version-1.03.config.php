@@ -860,8 +860,8 @@ AUDIT_GROUP_LICENSE'),
                                         		),
                                         )
                                 ),
+                            
                                 // Monitor
-
                                 'monitorCountIssuesByPredefinedFilter' => array (
                                         'options' => array (
                                                 'route' => 'monitorCountIssuesByPredefinedFilter --filterId= [--filters=]',
@@ -870,9 +870,22 @@ AUDIT_GROUP_LICENSE'),
                                                         'action' => 'monitorCountIssuesByPredefinedFilter'
                                                 ),
                                         		'group' => 'monitor',
+                                                'arrays' => array(
+                                                    'filters' 
+                                                ),
                                         		'info' => array (
-                                        				'Get the library version ID that is deployed on the server or the cluster, and information about that version and its library.',
-                                        				array('--libraryVersionId','Library version identifier. Note that a codetracing identifier is provided as part of the LibraryGetStatus xml response.')
+                                        				'Count the number of issues according to a particular filter or customized filters’ list. This action’s filterId and filters parameter behaves the same way as monitorGetIssuesByPredefinedFilter.',
+                                        				array('--filterId',"The predefined filter's name. This parameter is case-sensitive."),
+                                        		        array('--filters',"Add filter parameters in an ad-hoc manner. These filters will be added to the predefined filter that was passed.
+This parameter is an array with a predefined set of parameters that accept strings or arrays to hold multiple values:
+applicationIds: array, a list of application IDs to use for retrieving issue rows
+severities: array, a list of severities (info, normal, severe)
+statuses: array, a list of statuses (open, closed, reopened, ignored)
+eventTypes: array, a list of eventTypes (zend-error, function-error, request-slow-exec, function-slow-exec, request-relative-slow-exec, java-exception, request-large-mem-usage, request-relative-large-mem-usage, request-relative-large-out-size, jq-job-exec-error, jq-job-logical-failure, jq-job-exec-delay, jq-daemon-high-concurrency, tracer-write-file-fail, zsm-node-added-successfully, zsm-node-enabled, zsm-node-disabled, zsm-node-removed-successfully, zsm-node-is-not-responding, zsm-configuration-mismatch, zsm-restart-failed, zdd-deploy-success, zdd-deploy-error, zdd-redeploy-success, zdd-redeploy-error, zdd-remove-success, zdd-remove-error, zdd-update-success, zdd-update-error, zdd-rollback-success, zdd-rollback-error, custom
+from: integer, a unix timestamp that defines the start date & time for filtering. All events retrieved will have occurred after this timestamp
+to: integer, a unix timestamp that defines the last date & time for filtering. All events retrieved will have occurred before this timestamp
+ruleNames: array, a list of rule names that  are defined in the system: Function Error, Database Error, Slow Function Execution, Slow Query Execution, Slow Request Execution, High Memory Usage, Inconsistent Output Size, PHP Error, Uncaught 
+                                        		            "),
                                         		)
                                         )
                                 ),

@@ -298,8 +298,39 @@ to: string, a timestamp to use for retrieving rows
 ruleNames: array, a list of rule names that are defined in the system: Function Error, Database Error, Slow Function Execution, Slow Query Execution, Slow Request Execution, High Memory Usage, Inconsistent Output Size, PHP Error, Uncaught Java Exception, Custom Event, Zend Framework Exception, Job Execution Error, Job Logical Failure, Job Execution Delay, Failed Writing Code Tracing Data and other custom names')
                                         		)
                                         )
-                                )
-                                ,
+                                ),
+                            
+                                'monitorGetIssuesByPredefinedFilter' => array (
+                                    'options' => array (
+                                        'route' => 'monitorGetIssuesByPredefinedFilter --filterId= [--limit=] [--offset=] [--order=] [--direction=] [--filters=]',
+                                        'defaults' => array (
+                                            'controller' => 'webapi-api-controller',
+                                            'action' => 'monitorGetIssuesByPredefinedFilter'
+                                        ),
+                                        'arrays' => array(
+                                            'filters'
+                                        ),
+                                        'group' => 'monitor',
+                                        'info' => array (
+                                            'Get the library version ID that is deployed on the server or the cluster, and information about that version and its library.',
+                                            array('--filterId',"The predefined filter's name. This parameter is case-sensitive."),
+                                            array('--limit','The number of rows to retrieve. Default lists all audit entries up to an arbitrary limit set by the system'),
+                                            array('--offset','A paging offset to begin the list from. Default: 0'),
+                                            array('--order','Column identifier for sorting the result set (audit_id, node_id, time). Default: audit_id'),
+                                            array('--direction','Sorting direction: ASC or DESC. Default: DESC'),
+                                            array('--filters','Add filter parameters in an ad-hoc manner. These filters will be added to the predefined filter that was passed. This parameter is an array with a predefined set of parameters that accept strings or arrays to hold multiple values:
+    applicationIds: array, a list of application IDs to use for retrieving issue rows
+    severities: array, a list of severities (info, normal, severe)
+    statuses: array, a list of statuses (open, closed, reopened, ignored) - Removed in version 1.3.
+    eventTypes:array, a list of eventTypes (zend-error, function-error, request-slow-exec, function-slow-exec, request-relative-slow-exec, java-exception, request-large-mem-usage, request-relative-large-mem-usage, request-relative-large-out-size, jq-job-exec-error, jq-job-logical-failure, jq-job-exec-delay, jq-daemon-high-concurrency, tracer-write-file-fail, zsm-node-added-successfully, zsm-node-enabled, zsm-node-disabled, zsm-node-removed-successfully, zsm-node-is-not-responding, zsm-configuration-mismatch, zsm-restart-failed, zdd-deploy-success, zdd-deploy-error, zdd-redeploy-success, zdd-redeploy-error, zdd-remove-success, zdd-remove-error, zdd-update-success, zdd-update-error, zdd-rollback-success, zdd-rollback-error, custom
+    freeText: string
+    from: string, a timestamp to use for retrieving rows
+    to: string, a timestamp to use for retrieving rows
+    ruleNames: array, a list of rule names that are defined in the system: Function Error, Database Error, Slow Function Execution, Slow Query Execution, Slow Request Execution, High Memory Usage, Inconsistent Output Size, PHP Error, Uncaught Java Exception, Custom Event, Zend Framework Exception, Job Execution Error, Job Logical Failure, Job Execution Delay, Failed Writing Code Tracing Data and other custom names')
+                                        )
+                                    )
+                                ),
+                            
                                 'monitorGetIssueDetails' => array (
                                         'options' => array (
                                                 'route' => 'monitorGetIssueDetails --issueId= [--limit=]',
