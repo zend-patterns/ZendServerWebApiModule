@@ -85,9 +85,9 @@ freeText: string
                         								'This action is similar to vhostAdd, it adds a new vhost which is intended to be secure using SSL. Receives name, port, template and certificate paths and returns a single virtual host element with the same information.',
                         								array('--name', 'Name of virtual host.'),
                         								array('--port', 'Port of virtual host.'),
-                        								array('--sslCertificatePath', 'File path to locate the SSL certificate file.'),
-                        								array('--sslCertificateKeyPath', 'File path to locate the SSL public key file.'),
-                        								array('--sslCertificateChainPath', 'Full file path to the SSL chain file.'),
+                        								array('--sslCertificatePath', 'File path to locate the SSL certificate file. The file should be present on the machine where Zend Server is running.'),
+                        								array('--sslCertificateKeyPath', 'File path to locate the SSL public key file. The file should be present on the machine where Zend Server is running.'),
+                        								array('--sslCertificateChainPath', 'Full file path to the SSL chain file. The file should be present on the machine where Zend Server is running.'),
                         								array('--template', 'Template of the virtual host settings according to the web server configuration options. Or an absolute path to a local template vhost file. A local template vhost file is a file that should be present on the machine where zs-client is running.'),
                         								array('--forceCreation', 'Force the creation of a virtual host, even if it fails syntax validation. Default: FALSE'),
                         								//array('Example:','configurationExport --directivesBlacklist="zend_optimizerplus.blacklist_filename,pgsql.auto_reset_persistent"'),
@@ -131,9 +131,9 @@ freeText: string
                         								array('--template', 'New vhost template of virtual host settings. Or an absolute path to a local template vhost file. A local template vhost file is a file that should be present on the machine where zs-client is running.'),
                         								array('--forceCreate', 'Force edit of the virtual host template even if any errors are detected.'),
                         						       		array('--sslEnabled', 'Indicates if the provided template to be used is SSL template. Default value is FALSE.'),
-                        								array('--sslCertificatePath', 'File path to locate the SSL certificate file'),
-                        								array('--sslCertificateKeyPath', 'File path to locate the SSL key file.'),
-                        								array('--sslCertificateChainPath', 'File path to locate the SSL chain file.'),
+                        								array('--sslCertificatePath', 'File path to locate the SSL certificate file. The file should be present on the machine where Zend Server is running.'),
+                        								array('--sslCertificateKeyPath', 'File path to locate the SSL key file. The file should be present on the machine where Zend Server is running.'),
+                        								array('--sslCertificateChainPath', 'File path to locate the SSL chain file. The file should be present on the machine where Zend Server is running.'),
                         								array('--sslAppName', 'Application name for SSL (IBMI only).'),
                         								//array('Example:','configurationExport --directivesBlacklist="zend_optimizerplus.blacklist_filename,pgsql.auto_reset_persistent"'),
                         						)
@@ -175,7 +175,7 @@ freeText: string
                         		),
                         		'vhostValidateTemplate' => array (
                         				'options' => array (
-                        						'route' => 'vhostValidateTemplate --name= --port= --template= [--sslEnabled=] [--sslCertificatePath=] --sslCertificateKeyPath [--sslChainPath=]',
+                        						'route' => 'vhostValidateTemplate --name= --port= --template= [--sslEnabled=] [--sslCertificatePath=] [--sslCertificateKeyPath=] [--sslChainPath=]',
                         						'defaults' => array (
                         								'controller' => 'webapi-api-controller',
                         								'action' => 'vhostValidateTemplate',
@@ -188,9 +188,9 @@ freeText: string
                         								array('--port', 'Port of virtual host.'),
                         								array('--template', 'Template text to be validated. Or an absolute path to a local template vhost file. A local template vhost file is a file that should be present on the machine where zs-client is running.'),
                         								array('--sslEnabled', 'Indicates if the provided template to be used is SSL template.'),
-                        								array('--sslCertificatePath', 'File path to locate the SSL certificate file.'),
-                        								array('--sslCertificateKeyPath', 'File path to locate the SSL public key file.'),
-                        								array('--sslCertificateChainPath', 'Full file path to the SSL chain file.'),
+                        								array('--sslCertificatePath', 'File path to locate the SSL certificate file. The file should be present on the machine where Zend Server is running.'),
+                        								array('--sslCertificateKeyPath', 'File path to locate the SSL public key file. The file should be present on the machine where Zend Server is running.'),
+                        								array('--sslCertificateChainPath', 'Full file path to the SSL chain file. The file should be present on the machine where Zend Server is running.'),
                         								//array('Example:','configurationExport --directivesBlacklist="zend_optimizerplus.blacklist_filename,pgsql.auto_reset_persistent"'),
                         						)
                         		
