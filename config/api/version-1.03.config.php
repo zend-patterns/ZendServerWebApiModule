@@ -1290,7 +1290,7 @@ This action only returns a general Boolean response and does not display which t
                                 ),
                                 'logsReadLines' => array (
                                         'options' => array (
-                                                'route' => 'logsReadLines --logName= [--serverId=] [--lineToRead=] [--filter=]',
+                                                'route' => 'logsReadLines --logName= [--serverId=] [--linesToRead=] [--filter=]',
                                                 'defaults' => array (
                                                         'controller' => 'webapi-api-controller',
                                                         'action' => 'logsReadLines'
@@ -1301,7 +1301,7 @@ This action only returns a general Boolean response and does not display which t
                                         				array('--logName','One of the following values:
 codetracing, datacache, deployment, dserver, jobqueue, jqd, monitor, monitor_node, monitor_ui, pagecache, php, sc, scd, statistics, utils, zdd, zem, zsd, php.'),
                                         				array('--serverId','If passed, the log contents will be fetched from that cluster member, otherwise performed locally.'),
-                                        				array('--lineToRead','How many lines to read. defaults to a certain system-wide configurable setting. Limited by another such setting.'),
+                                        				array('--linesToRead','How many lines to read. defaults to a certain system-wide configurable setting. Limited by another such setting.'),
                                         				array('--filter','Apply a certain case-insensitive string filter to the log lines.'),
                                         		)
                                         )
