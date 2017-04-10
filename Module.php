@@ -99,14 +99,16 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
     {
         $serviceManager = $event->getApplication()->getServiceManager();
         $this->config = $serviceManager->get('config');
-        $eventManager = $event->getApplication()->getEventManager();
-        $eventManager->attach(MvcEvent::EVENT_DISPATCH,
+        if (!empty($this->config['zsapi']['target'])) {
+            $eventManager = $event->getApplication()->getEventManager();
+            $eventManager->attach(MvcEvent::EVENT_DISPATCH,
                 array(
-                        $this,
-                        'preDispatch'
+                    $this,
+                    'preDispatch'
                 ), 100);
-
-        $serviceManager->setService('targetConfig', new ArrayObject($this->config['zsapi']['target']));
+            
+            $serviceManager->setService('targetConfig', new ArrayObject($this->config['zsapi']['target']));
+        }
     }
 
     /**
