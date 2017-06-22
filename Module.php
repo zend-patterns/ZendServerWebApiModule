@@ -141,7 +141,7 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
         $noTarget = @$config['console']['router']['routes'][$routeName]['options']['no-target'];
         $detectApiVersion = !$noTarget;
         if(empty($targetConfig['zsversion'])) {
-            $targetConfig['zsversion'] = array_shift($config['min-zsversion']);
+        	$targetConfig['zsversion'] = '6.0'; // minimum required version.
         }
         
         ZendServer::setApiVersionConf($config['min-zsversion']);
