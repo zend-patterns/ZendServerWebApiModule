@@ -29,7 +29,13 @@ class ApiController extends AbstractController
         //Manage parameter
         $requestParameters = array();
         foreach ($routeMatch->getParams() as $name => $value) {
-            if (in_array($name, array('action','controller'))) continue;
+            if (in_array($name, array('action','controller',
+                                      'zssecret','zsurl','zskey','zsversion',
+                                      'http', 'output-format'
+            ))) {
+            	continue;
+            }
+            
             $requestParameters[$name] = $value;
         }
         if(method_exists($this, $action.'Action')) {
