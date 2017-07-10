@@ -335,9 +335,41 @@ return array(
                         )
                     )
                 ),
-                
-                
-                
+            		
+            		
+            	// Server Profile
+            	
+            	'getServerProfile' => array(
+            			'options' => array(
+            				'route' => 'getServerProfile',
+            				'defaults' => array(
+            					'controller' => 'webapi-api-controller',
+            					'action' => 'getServerProfile',
+            					'apiMethod' => 'get'
+            				),
+            				'group' => 'server',
+            				'info' => array(
+            					'Gets the server profile: Development or Production .',
+            				)
+            			)
+            	),
+
+            	'setServerProfile' => array(
+            			'options' => array(
+            				'route' => 'setServerProfile [--production=]',
+            				'defaults' => array(
+            					'controller' => 'webapi-api-controller',
+            					'action' => 'setServerProfile',
+            					'apiMethod' => 'post',
+            					'production' => 'true',
+            				),
+            				'group' => 'server',
+            				'info' => array(
+            					'Sets the server profile after the server was bootsraped: Development or Production.',
+            					array('--production', 'Production flag. If "true" - sets production mode, if "false" - development. By default TRUE.'),
+            				)
+            			)
+            	),
            )
         )
     )
