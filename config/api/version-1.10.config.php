@@ -21,7 +21,7 @@ return array(
                 ),
                 'jobqueueCreateQueue' => array(
                     'options' => array(
-                        'route' => 'jobqueueCreateQueue --name= [--status=] [--priority=] [--max_http_jobs=] [--max_wait_time=] [--connection_timeout=] [--http_job_timeout=] [--http_job_retry_count=] [--http_job_retry_timeout=]',
+                        'route' => 'jobqueueCreateQueue --name= [--status=] [--priority=] [--max_http_jobs=] [--max_wait_time=] [--http_connection_timeout=] [--http_job_timeout=] [--http_job_retry_count=] [--http_job_retry_timeout=]',
                         'defaults' => array(
                             'controller' => 'webapi-api-controller',
                             'action' => 'jobqueueCreateQueue',
@@ -35,7 +35,7 @@ return array(
                             array('--priority', 'Value between 0 and 4. (4 is highest priority). Default is 2.'),
                             array('--max_http_jobs', 'Max concurrent jobs in this queue. Default is 5.'),
                             array('--max_wait_time', 'Max waiting time for a job inside a queue. used to avoid starvation. Default is 5.'),
-                            array('--connection_timeout', 'Number of seconds the daemon tries to establish a connection with a back-end server. Default is 30.'),
+                            array('--http_connection_timeout', 'Number of seconds the daemon tries to establish a connection with a back-end server. Default is 30.'),
                             array('--http_job_timeout', 'Number of seconds a URL-based job must be completed. Default is 120.'),
                             array('--http_job_retry_count', 'Number of retries for failed HTTP jobs. Default is 10.'),
                             array('--http_job_retry_timeout', 'The number of seconds between retries for failed HTTP jobs. Default is 1.'),
@@ -44,7 +44,7 @@ return array(
                 ),
                 'jobqueueUpdateQueue' => array(
                     'options' => array(
-                        'route' => 'jobqueueUpdateQueue --id= [--name=] [--status=] [--priority=] [--max_http_jobs=] [--max_wait_time=] [--connection_timeout=] [--http_job_timeout=] [--http_job_retry_count=] [--http_job_retry_timeout=]',
+                        'route' => 'jobqueueUpdateQueue --id= [--name=] [--status=] [--priority=] [--max_http_jobs=] [--max_wait_time=] [--http_connection_timeout=] [--http_job_timeout=] [--http_job_retry_count=] [--http_job_retry_timeout=]',
                         'defaults' => array(
                             'controller' => 'webapi-api-controller',
                             'action' => 'jobqueueUpdateQueue',
@@ -59,7 +59,7 @@ return array(
                             array('--priority', 'Value between 0 and 4. (4 is highest priority). Default is 2.'),
                             array('--max_http_jobs', 'Max concurrent jobs in this queue. Default is 5.'),
                             array('--max_wait_time', 'Max waiting time for a job inside a queue. used to avoid starvation. Default is 5.'),
-                            array('--connection_timeout', 'Number of seconds the daemon tries to establish a connection with a back-end server. Default is 30.'),
+                            array('--http_connection_timeout', 'Number of seconds the daemon tries to establish a connection with a back-end server. Default is 30.'),
                             array('--http_job_timeout', 'Number of seconds a URL-based job must be completed. Default is 120.'),
                             array('--http_job_retry_count', 'Number of retries for failed HTTP jobs. Default is 10.'),
                             array('--http_job_retry_timeout', 'The number of seconds between retries for failed HTTP jobs. Default is 1.'),
