@@ -62,9 +62,9 @@ class ZendServer
 
     /**
      *
-     * @param array $config
+     * @param mixed $config
      */
-    protected function __construct(array $config)
+    protected function __construct($config)
     {
         $this->setUri(new Http($config['zsurl']));
         $this->setVersion($config['zsversion']);
@@ -133,11 +133,11 @@ class ZendServer
     /**
      * Zend Server factory
      *
-     * @param array $config
+     * @param mixed $config
      *
      * @return ZendServer
      */
-    public static function factory(array $config)
+    public static function factory($config)
     {
         $zendServer = new self($config);
         $apiVersion = current(
