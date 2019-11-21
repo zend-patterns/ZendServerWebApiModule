@@ -37,25 +37,27 @@ class ZendServer
      * @var array
      * @see http://files.zend.com/help/Zend-Server/zend-server.htm#web_api_reference_guide.htm
      */
-    protected $apiVersionAvailability = array(
-        '5.1' => '1.0',
-        '5.5' => '1.1',
-        '5.6' => '1.2',
-        '6.0' => '1.4',
-        '6.1' => '1.5',
-        '6.2' => '1.6',
-        '6.3' => '1.7',
-        '7.0' => '1.8',
-        '8.0' => '1.9',
-        '8.5' => '1.10',
-        '9.0' => '1.12',
-        '9.1' => '1.14',
-        '2018.0' => '1.15',
-        '2019.0' => '1.16',
-    );
+    protected static $apiVersionAvailability
+        = array(
+            '5.1'    => '1.0',
+            '5.5'    => '1.1',
+            '5.6'    => '1.2',
+            '6.0'    => '1.4',
+            '6.1'    => '1.5',
+            '6.2'    => '1.6',
+            '6.3'    => '1.7',
+            '7.0'    => '1.8',
+            '8.0'    => '1.9',
+            '8.5'    => '1.10',
+            '9.0'    => '1.12',
+            '9.1'    => '1.14',
+            '2018.0' => '1.15',
+            '2019.0' => '1.16',
+        );
 
     /**
      * Api Version / zs version converter
+     *
      * @var array
      */
     protected static $apiVersionConfig = array();
@@ -70,12 +72,12 @@ class ZendServer
         $this->setVersion($config['zsversion']);
         preg_match('@(^[0-9]*\.[0-9]*)@', $config['zsversion'], $shortVersion);
         $shortVersion = $shortVersion[0];
-        if (!isset($this->apiVersionAvailability[$shortVersion])) {
+        if (!isset(self::$apiVersionAvailability[$shortVersion])) {
             throw new \RuntimeException(
                 "Invalid or unsupported Zend Server version"
             );
         }
-        $this->setApiVersion($this->apiVersionAvailability[$shortVersion]);
+        $this->setApiVersion(self::$apiVersionAvailability[$shortVersion]);
     }
 
     /**
@@ -143,7 +145,11 @@ class ZendServer
         $apiVersion = current(
             array_keys(self::$apiVersionConfig, $zendServer->getVersion())
         );
-        $zendServer->setApiVersion($apiVersion);
+
+        if (in_array($apiVersion, self::$apiVersionAvailability)) {
+            $zendServer->setApiVersion($apiVersion);
+        }
+
         return $zendServer;
     }
 
