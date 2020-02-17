@@ -191,6 +191,23 @@ return array(
             		)
             	),
                 
+                // administration
+                'changePhpVersion' => array(
+                    'options' => array(
+                        'route' => 'changePhpVersion --phpVersion=',
+                        'defaults' => array(
+                            'controller' => 'webapi-api-controller',
+                            'action' => 'changePhpVersion',
+                            'apiMethod' => 'post'
+                        ),
+                        'group' => 'administration',
+                        'info' => array(
+                            'Change php version',
+                            array('--phpVersion', 'The desired version. Has to be one of the supported Zend Server versions.')
+                        )
+                    )
+                ),
+                
             ) // end of routes
         )
     )
