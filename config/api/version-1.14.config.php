@@ -191,7 +191,7 @@ return array(
             		)
             	),
 
-                // administration
+                // admin
                 'changePhpVersion' => array(
                     'options' => array(
                         'route' => 'changePhpVersion --phpVersion=',
@@ -200,7 +200,7 @@ return array(
                             'action' => 'changePhpVersion',
                             'apiMethod' => 'post'
                         ),
-                        'group' => 'administration',
+                        'group' => 'admin',
                         'info' => array(
                             'Change php version',
                             array('--phpVersion', 'The desired version. Has to be one of the supported Zend Server versions.')
