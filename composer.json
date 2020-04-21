@@ -19,7 +19,7 @@
 		"zendframework/zend-text" : "^2.0.0",
 		"zendframework/zend-version" : "^2.0.0",
 		"zendframework/zend-modulemanager" : "^2.0.0",
-		"zendframework/zend-stdlib" : "^3.2.1",
+		"zendframework/zend-stdlib" : "^2.4.0",
 		"php" : ">=5.3.3",
 		"zendframework/zend-view" : "^2.0.0",
 		"zendframework/zend-config" : "^2.0.0",
