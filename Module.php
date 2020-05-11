@@ -37,6 +37,8 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
                 continue;
             $tmp = preg_split('@-@', $confFile);
             $apiVersion = preg_replace('@\.config\.php@', '', $tmp[1]);
+            $parts = explode('.', $apiVersion, 2);
+            $apiVersion = $parts[0]. '.'.intval($parts[1]);
             $apiConf[$apiVersion] = include __DIR__ . '/config/api/' . $confFile;
             $mainConfig['min-zsversion'][$apiVersion] = $apiConf[$apiVersion]['min-zsversion'];
             unset($apiConf[$apiVersion]['min-zsversion']);
@@ -106,7 +108,7 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
                     $this,
                     'preDispatch'
                 ), 100);
-            
+
             $serviceManager->setService('targetConfig', new ArrayObject($this->config['zsapi']['target']));
         }
     }
@@ -143,11 +145,11 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
         if(empty($targetConfig['zsversion'])) {
         	$targetConfig['zsversion'] = '6.0'; // minimum required version.
         }
-        
+
         ZendServer::setApiVersionConf($config['min-zsversion']);
         $targetServer = ZendServer::factory($targetConfig);
         $serviceManager->setService('targetZendServer', $targetServer);
-        
+
         if($detectApiVersion) {
             // auto-detect the version
             $apiManager = $serviceManager->get('zend_server_api');
@@ -181,17 +183,17 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
         		$foundRoutes = array();
         		foreach ($routes as $route) {
         			if(isset($route['options']['group']) && $route['options']['group'] == $parts[1]) {
-        				$foundRoutes[] = $route; 
+        				$foundRoutes[] = $route;
         			}
         		}
         		if(empty($foundRoutes)) {
         			$noCommandFound = true;
-        		}	
+        		}
         		else {
         			$routes = $foundRoutes;
         		}
         	}
-        	
+
         	if($noCommandFound) {
         		// go through the commands and get their groups
         		$groups = array();
@@ -202,7 +204,7 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
         			$group = $route['options']['group'];
         			$groups[$group] = 1;
         		}
-        		
+
         		$usage = array();
         		$usage[] = "The following group of command are available:";
         		foreach($groups as $group=>$tmp) {
@@ -217,11 +219,11 @@ class Module implements ConfigProviderInterface, AutoloaderProviderInterface,
         		$usage[]=array('', 'Will list all commands in the group "'.ucfirst($group).'".');
         		$usage[]='If you want to see all commands in all groups type:';
         		$usage[]=array(' ', $_SERVER['PHP_SELF'].' command:all');
-        		
-        		return $usage; 
+
+        		return $usage;
         	}
         }
-        
+
         foreach ($routes as $route) {
             $command = $route['options']['route'];
             $usage[] = "* $command";
