@@ -4,6 +4,30 @@ return array (
         'console' => array (
                 'router' => array (
                         'routes' => array (
+                        	// Job Queue
+                        	'jobqueueAddJob' => array (
+                        		'options' => array (
+                        			'route' => 'jobqueueAddJob --url= [--vars=] [--options=]',
+                        			'defaults' => array (
+                        				'controller' => 'webapi-api-controller',
+                        				'action' => 'jobqueueAddJob',
+                        				'apiMethod' => 'post'
+                        			),
+                        			'arrays' => array(
+                        				'vars',
+                        				'options'
+                        			),
+                        			'group' => 'jobqueue',
+                        			'info' => array(
+                        				'Create a new job.',
+                        				array('--url', 'A URL for the job.'),
+                        				array('--vars','Variables for the rule, passed to the ZendJobQueue API.'),
+                        				array('--options','Rule options, passed to the ZendJobQueue API.'),
+                        			)
+                        		)
+                        	),
+
+                        	// VHosts
                                 'vhostGetStatus' => array (
                                         'options' => array (
                                                 'route' => 'vhostGetStatus [--vhosts=] [--limit=] [--offset=] [--order=] [--direction=] [--filters=]',

@@ -97,21 +97,6 @@ return array(
                         )
                     )
                 ),
-                'jobqueueSuspendQueue' => array(
-                    'options' => array(
-                        'route' => 'jobqueueSuspendQueue --id=',
-                        'defaults' => array(
-                            'controller' => 'webapi-api-controller',
-                            'action' => 'jobqueueSuspendQueue',
-                            'apiMethod' => 'post'
-                        ),
-                        'group' => 'jobqueue',
-                        'info' => array(
-                            'Reactivate queue. "Unpause” queue\'s jobs.',
-                            array('--id', 'The ID of the queue.'),
-                        )
-                    )
-                ),
                 'jobqueueImportQueues' => array(
                     'options' => array(
                         'route' => 'jobqueueImportQueues --delete_current= --file=',
@@ -160,7 +145,22 @@ return array(
                         )
                     )
                 ),
-                
+            	'jobqueueActivateQueue' => array(
+            		'options' => array(
+            			'route' => 'jobqueueActivateQueue [--id=]',
+            			'defaults' => array(
+            				'controller' => 'webapi-api-controller',
+            					'action' => 'jobqueueActivateQueue',
+            					'apiMethod' => 'post'
+            			),
+            			'group' => 'jobqueue',
+            			'info' => array(
+            				'Reactivates a queue. Un-pauses queue jobs.',
+            				array('--id', 'The ID of the queue.'),
+            			)
+            		)
+            	),
+
                 // IDE integration
                 'debuggerSettings' => array(
                     'options' => array(
