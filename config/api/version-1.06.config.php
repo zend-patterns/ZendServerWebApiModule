@@ -275,10 +275,29 @@ True: will create an overriding configuration.'),
                         								array('--vhost', 'The ID of a single virtual host.'),
                         								//array('Example:','configurationExport --directivesBlacklist="zend_optimizerplus.blacklist_filename,pgsql.auto_reset_persistent"'),
                         						)
-                        		
+
                         				)
                         		),
-                            
+                                // Deployment
+                                'deploymentDownloadFile' => array (
+                                    'options' => array (
+                                        'route' => 'deploymentDownloadFile --url= --name= --version= [--override=]',
+                                        'defaults' => array (
+                                            'controller' => 'webapi-api-controller',
+                                            'action' => 'deploymentDownloadFile',
+                                            'apiMethod' => 'post'
+                                        ),
+                                        'group' => 'deployment',
+                                        'info' => array(
+                                            'Download a deployment package file from a given URL to allow passing it to the deployment mechanism later.',
+                                            array('--url', 'Package URL.'),
+                                            array('--name', 'Package name.'),
+                                            array('--version', 'Package version.'),
+                                            array('--override', 'Determines whether the download file should be overridden in case it is already being processed. Default to false.')
+                                        )
+                                    )
+                                ),
+
                                 'librarySetDefault' => array (
                                     'options' => array (
                                         'route' => 'librarySetDefault --libraryVersionId=',
