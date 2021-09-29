@@ -105,9 +105,9 @@ groupsAttribute: Name for a list of user groups’ membership'),
                                 ),
                                 'apiKeysRemoveKey' => array (
                                         'options' => array (
-                                                'controller' => 'webapi-api-controller',
                                                 'route' => 'apiKeysRemoveKey --ids=',
                                                 'defaults' => array (
+                                                        'controller' => 'webapi-api-controller',
                                                         'action' => 'apiKeysRemoveKey',
                                                         'apiMethod' => 'post'
                                                 ),
